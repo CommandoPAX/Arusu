@@ -9,6 +9,6 @@ class Programme(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def deck(self, ctx):
+    async def programme(self, ctx):
         """Donne le programme officiel d'Arusu pour la présidentielle de 2022"""
         await ctx.send(Programme)
