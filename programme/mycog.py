@@ -12,3 +12,10 @@ class Programme(commands.Cog):
     async def programme(self, ctx):
         """Donne le programme officiel d'Arusu pour la présidentielle de 2022"""
         await ctx.send(Programme)
+
+        
+        
+#Ca envoie plusieurs lignes en un seul message        
+#messagee = message.content.split('\n')
+#output_text = '\n'.join(('test_start' + line + 'test_end') for line in messagee)
+#await channel.send(output_text)
