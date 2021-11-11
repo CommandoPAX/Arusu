@@ -1,5 +1,5 @@
-from .mycog import Deck
+from .mycog import Programme
 
 
 def setup(bot):
-    bot.add_cog(Deck(bot))
+    bot.add_cog(Programme(bot))
