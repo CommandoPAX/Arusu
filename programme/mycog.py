@@ -19,3 +19,4 @@ class Programme(commands.Cog):
 #messagee = message.content.split('\n')
 #output_text = '\n'.join(('test_start' + line + 'test_end') for line in messagee)
 #await channel.send(output_text)
+#https://stackoverflow.com/questions/63939662/python-discord-bot-how-to-send-multiple-lines-in-one-message
