@@ -2,5 +2,5 @@ from .Chaos import Chaos
 
 
 def setup(bot):
-    cog = Rename(bot)
+    cog = Chaos(bot)
     bot.add_cog(cog)
