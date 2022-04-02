@@ -1,4 +1,4 @@
-from .Chaos import Rename
+from .Chaos import Chaos
 
 
 def setup(bot):
