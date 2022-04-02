@@ -2,7 +2,7 @@ from redbot.core import commands, Config
 import discord
 import time
 
-class Rename(commands.Cog):
+class Chaos(commands.Cog):
     """Vous permet de rename tout le monde"""
 
     def __init__(self, bot):
