@@ -6,7 +6,7 @@
     "disabled": false,
     "end_user_data_statement": "This cog does not persistently store data or metadata about users.",
     "hidden": false,
-    "install_msg": "Merci de l'avoir installer, si vous avez besoin d'aide n'hésitez pas à Git gud",
+    "install_msg": "Merci de l'avoir installé, si vous avez besoin d'aide n'hésitez pas à Git gud",
     "name": "Chaos",
     "required_cogs": {},
     "requirements": [],
