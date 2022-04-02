@@ -1,8 +1,9 @@
 from redbot.core import commands, Config
 import discord
 import time
+import asyncio
 
-class Chaos(commands.Cog):
+class Rename(commands.Cog):
     """Vous permet de rename tout le monde"""
 
     def __init__(self, bot):
@@ -66,10 +67,11 @@ class Chaos(commands.Cog):
         """Active le chaos"""
         member = ctx.message.author
         data = await self.config.guild(member.guild).all()
+        time = 120
         if not data["enabled"]:
             return
         await member.add_roles(*[member.guild.get_role(role_id) for role_id in data["roles"]])
         await ctx.send("La gloire du LSMB est avec toi pour environ 2 minutes")
-        time.sleep(120)
+        await asyncio.sleep(time)
         await member.remove_roles(*[member.guild.get_role(role_id) for role_id in data["roles"]])
         await ctx.send("La gloire du LSMB est parti")
