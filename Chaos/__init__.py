@@ -1,6 +1,6 @@
-from .Chaos import Chaos
+from .Chaos import Rename
 
 
 def setup(bot):
-    cog = Chaos(bot)
+    cog = Rename(bot)
     bot.add_cog(cog)
