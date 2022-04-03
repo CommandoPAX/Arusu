@@ -64,15 +64,14 @@ class Rename(commands.Cog):
             await ctx.send(("Liste: {}").format(", ".join(role_mentions)))
 
     @chaos.command()
-    async def activation(self, ctx):
+    async def activate(self, ctx):
         """Active le chaos"""
+        message = ctx.message
+        await message.delete()
         member = ctx.message.author
         data = await self.config.guild(member.guild).all()
-        time = 120
         if not data["enabled"]:
             return
         await member.add_roles(*[member.guild.get_role(role_id) for role_id in data["roles"]])
-        await ctx.send("La gloire du LSMB est avec toi pour environ 2 minutes")
-        await asyncio.sleep(time)
+        await asyncio.sleep(120)
         await member.remove_roles(*[member.guild.get_role(role_id) for role_id in data["roles"]])
-        await ctx.send("La gloire du LSMB est parti")
