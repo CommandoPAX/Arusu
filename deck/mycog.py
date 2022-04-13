@@ -39,4 +39,4 @@ class Deck(commands.Cog):
     @deck.command()
     async def list(self, ctx)
         """Liste les effets du deck des catastrophes"""
-        await ctx.sent(liste)
+        await ctx.send(liste)
