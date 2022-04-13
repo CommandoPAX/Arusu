@@ -4,7 +4,7 @@ import random
 deck = ["La **balance** vous fait face et votre manière de penser s'inverse", "Une **comète** tombe du ciel, annihilant tout sur son passage"
 , "Un **donjon** vous emprisonne subitement", "Le **Général Puzzle** vous sourit, impossible de dire si c'est une bonne chose"
 , "Connaissez votre **destin** pour mieux l'éviter", "Le **feu** éternel embrasera tout", "Qui est le plus **idiot** maintenant ?"
-, "Une pile de **gemme** est toujours mieux qu'une pille de gemme pas", "J'ai plus d'idée donc je vais utiliser mon **joker**", "Vous avez gagné un bon pour un **voyage astral à sens unique**"
+, "Une pile de **gemme** est toujours mieux qu'une pile de gemme pas", "J'ai plus d'idée donc je vais utiliser mon **joker**", "Vous avez gagné un bon pour un **voyage astral à sens unique**"
 , "Vos **soldats** seront toujours avec vous", "Je souhaite que la **lune** explose", "Les pouvoirs de la **ruine** sont capricieux", "La **mort** vous sourit",
  "Oh une **étoile** filante, faites un voeu !", "Le **soleil** vous irradie de ses UV bénéfiques", "Avec le temps, tout retournera à la **terre**"
  , "Pour ces exploits, un **trône** doit bien vous attendre quelque part", "Je sais toujours pas ce qu'est un **vizier**", "Le Saviez-vous ? Le **vide** n'est pas vide"
