@@ -7,7 +7,7 @@
   "hidden": false,
   "install_msg": "Ceci est une version modifié de chatter destiné uniquement à S;G France.",
   "requirements": [
-    "github:bobloy/ChatterBot@fox#egg=ChatterBot>=1.1.0.dev4",
+    "git+github:bobloy/ChatterBot@fox#egg=ChatterBot>=1.1.0.dev4",
     "kaggle",
     "https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.2.0/fr_core_news_sm-3.2.0.tar.gz#egg=fr_core_news_sm",
     "https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-3.2.0/fr_core_news_md-3.2.0.tar.gz#egg=fr_core_news_md"
