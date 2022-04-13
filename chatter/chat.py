@@ -80,7 +80,7 @@ class Chatter(Cog):
         # TODO: Move training_model and similarity_algo to config
         # TODO: Add an option to see current settings
 
-        self.tagger_language = ENG_SM
+        self.tagger_language = FR_SM
         self.similarity_algo = SpacySimilarity
         self.similarity_threshold = 0.90
         self.chatbot = None
