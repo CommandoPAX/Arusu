@@ -36,7 +36,7 @@ class Deck(commands.Cog):
         """Tire une carte du deck des catastrophes"""
         await ctx.send(random.choice(deck))
 
-    @deck.command()
-    async def list(self, ctx):
+    @commands.command()
+    async def decklist(self, ctx):
         """Liste les effets du deck des catastrophes"""
         await ctx.send(liste)
