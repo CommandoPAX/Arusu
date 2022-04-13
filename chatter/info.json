@@ -5,8 +5,9 @@
   "min_bot_version": "3.4.6",
   "description": "Create an offline chatbot that talks like your average member using Machine Learning. See setup instructions at https://github.com/bobloy/Fox-V3/tree/master/chatter",
   "hidden": false,
-  "install_msg": "Thank you for installing Chatter! Please make sure you check the install instructions at https://github.com/bobloy/Fox-V3/blob/master/chatter/README.md\nAfter that, get started ith `[p]load chatter` and `[p]help Chatter`",
+  "install_msg": "Ceci est une version modifié de chatter destiné uniquement à S;G France.",
   "requirements": [
+    "git+git://github.com/bobloy/ChatterBot@fox#egg=ChatterBot>=1.1.0.dev4",
     "kaggle",
     "https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.2.0/fr_core_news_sm-3.2.0.tar.gz#egg=fr_core_news_sm",
     "https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-3.2.0/fr_core_news_md-3.2.0.tar.gz#egg=fr_core_news_md"
