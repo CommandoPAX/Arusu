@@ -19,7 +19,7 @@ deck = ["La **balance** vous fait face et votre manière de penser s'inverse", "
  , "Redevenez l'**hermite** que vous avez toujours voulu être", "Le **pendu** vous promet de grandes richesses si vous prenez sa place", "La **tempérance**, c'est cool"
  , "C'est un peu comme passer un pacte avec le **diable**", "Le **Jugement** de STREAM;GATE France est impartial", "Aucun rapport avec une **épée**"
  , "Encore plus d'**aléatoire**", "Le **pentacle** satanique de la nudité", "Un bon coup de **dague** dans le dos, ca aide à se lever le matin", "Vous sombrez dans l'**oubli**"
- , "Rien n'échappe à votre **vision**", "Le **Chaos** se répend", "Pas encore la **baleine** !", "Votre **agilité** n'a d'égare que la grâce d'une tortue"
+ , "Rien n'échappe à votre **vision**", "Le **Chaos** se répand", "Pas encore la **baleine** !", "Votre **agilité** n'a d'égare que la grâce d'une tortue"
  , "Get **Thanos**'d", "La gloire du **LSMB** est éternelle", "C'est un **trou noir**, bonne chance", "Qui aurait cru que devenir un **écureuil** pourrait être si problématique ?"
  , "La Fontaine de **Jouvence** vous rajeunit", "Là c'est **stop**", "J'adore avoir que de l'ADSL, ca **lag** absolument pas"]
 
