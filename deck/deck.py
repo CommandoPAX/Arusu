@@ -34,11 +34,6 @@ CarteDeck = {"Balance" : "Inverse votre alignement", "Comète" : "Oblitère un e
             "Jouvence" : "Vous rajeunissez de 5d10+10 années pour un âge minimum de 3ans", "Stop" : "Vous ne pouvez plus entreprendre aucune action pendant 1d10 minutes",
             "Lag" : "Vous perdez vos deux prochains tours"}
 
-Rep = ""
-Rep2 = ""
-Rep3 = ""
-
-
 class Deck(commands.Cog):
     """Deck des catastrophes"""
 
@@ -54,16 +49,18 @@ class Deck(commands.Cog):
 
     @commands.command()
     async def deckeffet(self, ctx, Carte2):
-        """Liste les effets du deck des catastrophes"""
+        """Donne l'effet d'une carte du deck. Le nom de la carte doit être entre guillemet."""
         Rep = CarteDeck[Carte2]
         Rep2 = str(Carte2)+ " : " + str(Rep)
         await ctx.send(Rep2)
     
     @commands.command()
     async def decklist(self, ctx):
+        """Liste l'intégralité des cartes du deck ainsi que leur effet."""
+        Rep3 = ""
         for i, j in CarteDeck.items() :
             Rep3 = Rep3 + str(i) + " : " + str(j) + "\n"
-        await ctx.send(Rep)
+        await ctx.send(Rep3)
         
     @commands.command()
     async def decknombre(self, ctx):
