@@ -64,5 +64,6 @@ class Deck(commands.Cog):
         
     @commands.command()
     async def decknombre(self, ctx):
+       """Donne le nombre de carte dans le deck"""
        n = int(len(CarteDeck))
        await ctx.send(n)
