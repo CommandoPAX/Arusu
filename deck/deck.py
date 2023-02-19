@@ -34,6 +34,11 @@ CarteDeck = {"Balance" : "Inverse votre alignement", "Comète" : "Oblitère un e
             "Jouvence" : "Vous rajeunissez de 5d10+10 années pour un âge minimum de 3ans", "Stop" : "Vous ne pouvez plus entreprendre aucune action pendant 1d10 minutes",
             "Lag" : "Vous perdez vos deux prochains tours"}
 
+Rep = ""
+Rep2 = ""
+Rep3 = ""
+
+
 class Deck(commands.Cog):
     """Deck des catastrophes"""
 
@@ -56,9 +61,8 @@ class Deck(commands.Cog):
     
     @commands.command()
     async def decklist(self, ctx):
-        Rep = ""
         for i, j in CarteDeck.items() :
-            Rep = Rep + str(i) + " : " + str(j) + "\n"
+            Rep3 = Rep3 + str(i) + " : " + str(j) + "\n"
         await ctx.send(Rep)
         
     @commands.command()
