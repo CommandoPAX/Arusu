@@ -40,29 +40,30 @@ class Deck(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     @commands.group(name = "deck")
-    async def draw(self, ctx):
+    @deck.command(name = "draw")
+    async def drawmain(self, ctx):
         """Tire une carte du deck des catastrophes"""
         carte = random.choice(tuple(CarteDeck.keys()))
         Rep = "Vous avez tiré la carte : " + str(carte)
         await ctx.send(Rep)
 
-    @deck.command()
-    async def effet(self, ctx, Carte2):
+    @deck.command(name = "effet")
+    async def effetmain(self, ctx, Carte2):
         """Donne l'effet d'une carte du deck. Le nom de la carte doit être entre guillemet."""
         Rep = CarteDeck[Carte2]
         Rep2 = str(Carte2)+ " : " + str(Rep)
         await ctx.send(Rep2)
     
-    @deck.command()
-    async def list(self, ctx):
+    @deck.command(name = "list")
+    async def listmain(self, ctx):
         """Liste l'intégralité des cartes du deck ainsi que leur effet."""
         Rep3 = ""
         for i, j in CarteDeck.items() :
             Rep3 = Rep3 + str(i) + " : " + str(j) + "\n"
         await ctx.send(Rep3)
         
-    @deck.command()
-    async def nombre(self, ctx):
+    @deck.command(name = "nombre")
+    async def nombremain(self, ctx):
        """Donne le nombre de carte dans le deck"""
        n = int(len(CarteDeck))
        await ctx.send(n)
