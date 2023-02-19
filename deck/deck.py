@@ -55,7 +55,7 @@ class Deck(commands.Cog):
     @commands.command()
     async def deckeffet(self, ctx, Carte2):
         """Liste les effets du deck des catastrophes"""
-        Rep = CarteDeck["Carte2"]
+        Rep = CarteDeck[Carte2]
         Rep2 = str(Carte2)+ " : " + str(Rep)
         await ctx.send(Rep2)
     
