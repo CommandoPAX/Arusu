@@ -39,7 +39,7 @@ class Deck(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-    @commands.group(name = "deck", invoque_without_command = True)
+    @commands.group(name = "deck", invoque_without_command = False)
     async def deckmain(self, ctx):
         """Tire une carte du deck des catastrophes"""
         carte = random.choice(tuple(CarteDeck.keys()))
