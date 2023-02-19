@@ -47,23 +47,23 @@ class Deck(commands.Cog):
         Rep = "Vous avez tiré la carte : " + str(carte)
         await ctx.send(Rep)
 
-    @commands.command()
-    async def deckeffet(self, ctx, Carte2):
+    @deck.command()
+    async def effet(self, ctx, Carte2):
         """Donne l'effet d'une carte du deck. Le nom de la carte doit être entre guillemet."""
         Rep = CarteDeck[Carte2]
         Rep2 = str(Carte2)+ " : " + str(Rep)
         await ctx.send(Rep2)
     
-    @commands.command()
-    async def decklist(self, ctx):
+    @deck.command()
+    async def list(self, ctx):
         """Liste l'intégralité des cartes du deck ainsi que leur effet."""
         Rep3 = ""
         for i, j in CarteDeck.items() :
             Rep3 = Rep3 + str(i) + " : " + str(j) + "\n"
         await ctx.send(Rep3)
         
-    @commands.command()
-    async def decknombre(self, ctx):
+    @deck.command()
+    async def nombre(self, ctx):
        """Donne le nombre de carte dans le deck"""
        n = int(len(CarteDeck))
        await ctx.send(n)
