@@ -39,14 +39,13 @@ class Deck(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-       
-    @commands.group(name = "deck")
+    @commands.group(name = "deck", invoque_without_command = True)
     async def deckmain(self, ctx):
-    """Tire une carte du deck des catastrophes"""
+        """Tire une carte du deck des catastrophes"""
         carte = random.choice(tuple(CarteDeck.keys()))
         Rep = "Vous avez tiré la carte : " + str(carte)
         await ctx.send(Rep)
-    
+
     @deckmain.command(name = "effet")
     async def effetmain(self, ctx, Carte2):
         """Donne l'effet d'une carte du deck. Le nom de la carte doit être entre guillemet."""
