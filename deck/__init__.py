@@ -1,4 +1,4 @@
-from .mycog import Deck
+from .deck import Deck
 
 
 def setup(bot):
