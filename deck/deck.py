@@ -40,7 +40,7 @@ class Deck(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     @commands.group(name = "deck", invoque_without_command = False)
-    async def deckmain(self, ctx):
+    async def deckmain(self, ctx): #tire une carte tout le temps, commande à redef
         """Tire une carte du deck des catastrophes"""
         carte = random.choice(tuple(CarteDeck.keys()))
         Rep = "Vous avez tiré la carte : " + str(carte)
@@ -53,7 +53,7 @@ class Deck(commands.Cog):
         Rep2 = str(Carte2)+ " : " + str(Rep)
         await ctx.send(Rep2)
     
-    @deckmain.command(name = "list")
+    @deckmain.command(name = "list") #Ne marche pas, surement à cause de la limite de message de discord
     async def listmain(self, ctx):
         """Liste l'intégralité des cartes du deck ainsi que leur effet."""
         Rep3 = ""
