@@ -41,7 +41,7 @@ class Deck(commands.Cog):
         self.bot = bot
     @commands.group(name = "deck", invoque_without_command = True)
     async def deckmain(self, ctx): #tire une carte tout le temps, commande à redef
-        await ctx.send("Commande de base du deck des catastrophes. Arguments possibles : draw, effet, list, nombre.")
+        pass
     
     @deckmain.command(name = "draw")
     async def drawmain(self, ctx):
