@@ -4,16 +4,18 @@ import re
 from redbot.core.commands import Cog
 
 list = ["Quoi", "quoi"]
-activate = 1
 
 class Feur(commands.Cog):
     """Quoi ? Feur"""
-
+    activate = 1
+    
     def __init__(self, bot):
         self.bot = bot
+        
     @commands.group(name = "feur", invoque_without_command = True)
     async def feurmain(self, ctx) :
         pass
+    
     @feurmain.command(name = "activate")
     async def actimain(self, ctx) :
         if activate == 1 : 
