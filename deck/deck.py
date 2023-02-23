@@ -53,7 +53,7 @@ class Deck(commands.Cog):
     @deckmain.command(name = "effet")
     async def effetmain(self, ctx, Carte2):
         """Donne l'effet d'une carte du deck. Le nom de la carte doit être entre guillemet."""
-        if Carte2 is in CarteDeck.keys() : 
+        if Carte2 in CarteDeck : 
             Rep = CarteDeck[Carte2]
             Rep2 = str(Carte2)+ " : " + str(Rep)
             await ctx.send(Rep2)
