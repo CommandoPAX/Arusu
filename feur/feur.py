@@ -1,4 +1,5 @@
 from redbot.core import commands
+import discord
 import re
 from redbot.core.commands import Cog
 
