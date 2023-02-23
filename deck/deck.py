@@ -68,7 +68,7 @@ class Deck(commands.Cog):
             Rep3 = Rep3 + str(i) + " : " + str(j) + "\n"
             if len(Rep3) >= 3750 :
                 await ctx.send(Rep3)
-                Rep 3 = ""
+                Rep3 = ""
         await ctx.send(Rep3)
         
     @deckmain.command(name = "nombre")
