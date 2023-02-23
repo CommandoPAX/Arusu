@@ -63,6 +63,7 @@ class Deck(commands.Cog):
     @deckmain.command(name = "list") #Ne marche pas, surement à cause de la limite de message de discord
     async def listmain(self, ctx):
         """Liste l'intégralité des cartes du deck ainsi que leur effet."""
+        await ctx.send("Liste des effets du deck : \n") 
         Rep3 = ""
         for i, j in CarteDeck.items() :
             Rep3 = Rep3 + str(i) + " : " + str(j) + "\n"
