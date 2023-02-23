@@ -41,6 +41,10 @@ class Deck(commands.Cog):
         self.bot = bot
     @commands.group(name = "deck", invoque_without_command = True)
     async def deckmain(self, ctx): #tire une carte tout le temps, commande à redef
+        await ctx.send("Commande de base du deck des catastrophes. Arguments possibles : draw, effet, list, nombre.")
+    
+    @deckmain.command(name = "draw")
+    async def drawmain(self, ctx)
         """Tire une carte du deck des catastrophes"""
         carte = random.choice(tuple(CarteDeck.keys()))
         Rep = "Vous avez tiré la carte : " + str(carte)
@@ -49,9 +53,12 @@ class Deck(commands.Cog):
     @deckmain.command(name = "effet")
     async def effetmain(self, ctx, Carte2):
         """Donne l'effet d'une carte du deck. Le nom de la carte doit être entre guillemet."""
-        Rep = CarteDeck[Carte2]
-        Rep2 = str(Carte2)+ " : " + str(Rep)
-        await ctx.send(Rep2)
+        if Carte2 is in CarteDeck.keys() : 
+            Rep = CarteDeck[Carte2]
+            Rep2 = str(Carte2)+ " : " + str(Rep)
+            await ctx.send(Rep2)
+        else :
+            await ctx.send("Le nom de la carte est invalide.")
     
     @deckmain.command(name = "list") #Ne marche pas, surement à cause de la limite de message de discord
     async def listmain(self, ctx):
@@ -59,6 +66,9 @@ class Deck(commands.Cog):
         Rep3 = ""
         for i, j in CarteDeck.items() :
             Rep3 = Rep3 + str(i) + " : " + str(j) + "\n"
+            if len(Rep3) >= 4000 :
+                await ctx.send(Rep3)
+                Rep 3 = ""
         await ctx.send(Rep3)
         
     @deckmain.command(name = "nombre")
