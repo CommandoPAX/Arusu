@@ -3,11 +3,11 @@ import discord
 import re
 from redbot.core.commands import Cog
 
-activate = False
 list = ["Quoi", "quoi"]
 
 class Feur(commands.Cog):
     """Quoi ? Feur"""
+    activate = False
 
     def __init__(self, bot):
         self.bot = bot
