@@ -11,7 +11,7 @@ class Feur(commands.Cog):
     @commands.group(name = "feur", invoque_without_command = True)
     async def feurmain(self, ctx) :
         pass
-    @feur.command(name = "activate")
+    @feurmain.command(name = "activate")
     async def actimain(self, ctx) :
         activate = True
         if activate == True : 
@@ -21,7 +21,7 @@ class Feur(commands.Cog):
             activate = True
             await ctx.send("Feur activé")
      
-    @feur.event
+    @feurmain.event
     async def on_message(message):
         if activate == True :
             for l in list :
