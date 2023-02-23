@@ -16,7 +16,7 @@ class Feur(commands.Cog):
         pass
      
     @Cog.listener()
-    async def on_message(message : discord.Message):
+    async def on_message(message):
         for l in list :
             if re.search(l, message.content) :
                 await ctx.send("Feur")
