@@ -21,8 +21,8 @@ class Feur(commands.Cog):
             activate = True
             await ctx.send("Feur activé")
      
-    @feurmain.event
-    async def on_message(message):
+    @Cog.listener()
+    async def on_message(message : discord.Message):
         if activate == True :
             for l in list :
                 if re.search(l, message.content) :
