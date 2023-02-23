@@ -1,5 +1,6 @@
 from redbot.core import commands
 import re
+from redbot.core.commands import Cog
 
 list = ["Quoi", "quoi"]
 
