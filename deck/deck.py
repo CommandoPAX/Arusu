@@ -66,7 +66,7 @@ class Deck(commands.Cog):
         Rep3 = ""
         for i, j in CarteDeck.items() :
             Rep3 = Rep3 + str(i) + " : " + str(j) + "\n"
-            if len(Rep3) >= 3750 :
+            if len(Rep3) >= 1500 :
                 await ctx.send(Rep3)
                 Rep3 = ""
         await ctx.send(Rep3)
