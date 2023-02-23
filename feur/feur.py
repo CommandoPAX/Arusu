@@ -3,6 +3,7 @@ import discord
 import re
 from redbot.core.commands import Cog
 
+activate = False
 list = ["Quoi", "quoi"]
 
 class Feur(commands.Cog):
@@ -15,7 +16,6 @@ class Feur(commands.Cog):
         pass
     @feurmain.command(name = "activate")
     async def actimain(self, ctx) :
-        activate = True
         if activate == True : 
             activate = False
             await ctx.send("Feur désactivé")
