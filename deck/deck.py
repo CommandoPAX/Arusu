@@ -40,7 +40,7 @@ class Deck(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     @commands.group(name = "deck", invoque_without_command = True)
-    async def deckmain(self, ctx): #tire une carte tout le temps, commande à redef
+    async def deckmain(self, ctx): #Utilise le framework de base pour list les arguments
         pass
     
     @deckmain.command(name = "draw")
@@ -60,7 +60,7 @@ class Deck(commands.Cog):
         else :
             await ctx.send("Le nom de la carte est invalide.")
     
-    @deckmain.command(name = "list") #Ne marche pas, surement à cause de la limite de message de discord
+    @deckmain.command(name = "list") #Maintenant fonctionnel
     async def listmain(self, ctx):
         """Liste l'intégralité des cartes du deck ainsi que leur effet."""
         await ctx.send("Liste des effets du deck : \n") 
