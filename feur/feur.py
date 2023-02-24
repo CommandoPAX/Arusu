@@ -43,7 +43,7 @@ class Feur(commands.Cog):
         
     @commands.Cog.listener()
     async def on_message(ctx, message):
-        for l in liste :
+        for l in list :
             if l in message.content.lower() :
                 Rep = "Feur"
                 await ctx.send(Rep)
