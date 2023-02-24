@@ -12,6 +12,8 @@ from redbot.core.utils.chat_formatting import pagify, humanize_list
 
 list = ["Quoi", "quoi"]
 
+message = discord.Message
+
 class Feur(commands.Cog):
     """Quoi ? Feur"""
     
@@ -46,7 +48,7 @@ class Feur(commands.Cog):
         await ctx.send(("Feur désactivé"))
         
     @commands.Cog.listener()
-    async def on_message(self, ctx, message: discord.Message):
+    async def on_message(self, ctx, message):
         if "quoi" in message.content.lower() :
             await ctx.send("Feur")
         else : 
