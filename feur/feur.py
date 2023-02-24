@@ -9,7 +9,7 @@ list = ["Quoi", "quoi"]
 class Feur(commands.Cog):
     """Quoi ? Feur"""
     
-    def __init__(self, bot: Red):
+    def __init__(self, bot):
         super().__init__()
         self.bot = bot
         self.config = Config.get_conf(self, 4766951341)
