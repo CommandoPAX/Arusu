@@ -7,6 +7,7 @@ from redbot.core.bot import Red
 list = ["Quoi", "quoi"]
 
 message = discord.Message
+client = discord.Client()
 
 class Feur(commands.Cog):
     """Quoi ? Feur"""
@@ -41,8 +42,11 @@ class Feur(commands.Cog):
         await self.config.guild(ctx.guild).enabled.set(False)
         await ctx.send(("Feur désactivé"))
         
-    @commands.Cog.listener()
+    @client.event()
     async def on_message(message):
+        if message.author == client.user:  #Stopping the bot from reading its on message
+            return None
+        
         for l in list :
             if l in message.content.lower() :
                 await message.channel.send("Feur")
