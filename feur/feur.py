@@ -41,12 +41,16 @@ class Feur(commands.Cog):
         await self.config.guild(ctx.guild).enabled.set(False)
         await ctx.send(("Feur désactivé"))
         
+    async def getfeured(ctx):
+        await ctx.send("Feur")
+        Hits = 0
+        
     @commands.Cog.listener()
     async def on_message(ctx, message):
         for l in list :
             if l in message.content.lower() :
-                Rep = "Feur"
-                await ctx.send(Rep)
+                Hits = 1
+                getfeured(ctx)
             else :
                 pass
         
