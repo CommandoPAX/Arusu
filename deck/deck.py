@@ -44,11 +44,12 @@ class Deck(commands.Cog):
         pass
     
     @deckmain.command(name = "draw")
-    async def drawmain(self, ctx):
+    async def drawmain(self, ctx, nb):
         """Tire une carte du deck des catastrophes"""
-        carte = random.choice(tuple(CarteDeck.keys()))
-        Rep = "Vous avez tiré la carte : " + str(carte)
-        await ctx.send(Rep)
+        for i in range (0, int(nb))
+              carte = random.choice(tuple(CarteDeck.keys()))
+              Rep = "Vous avez tiré la carte : " + str(carte) + "\n" + str(CarteDeck[carte])
+              await ctx.send(Rep)
 
     @deckmain.command(name = "effet")
     async def effetmain(self, ctx, Carte2):
