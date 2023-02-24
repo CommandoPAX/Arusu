@@ -51,7 +51,7 @@ class Feur(commands.Cog):
         for l in list :
             if l in message.content.lower() :
                 n = random.randint(1, 100)
-                if n <= 10 : 
+                if n <= 5 : 
                     await message.channel.send("Feur")
             else :
                 pass
