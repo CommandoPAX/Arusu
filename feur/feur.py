@@ -41,6 +41,7 @@ class Feur(commands.Cog):
         await self.config.guild(ctx.guild).enabled.set(False)
         await ctx.send(("Feur désactivé"))
         
+    @commands.command(name = "Getfeurd")
     async def getfeured(ctx):
         await ctx.send("Feur")
         Hits = 0
