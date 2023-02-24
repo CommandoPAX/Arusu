@@ -1,4 +1,4 @@
-from redbot.core import commands
+from redbot.core import commands, Config
 import discord
 import re
 from redbot.core.commands import Cog
