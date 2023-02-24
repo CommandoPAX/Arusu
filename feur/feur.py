@@ -2,13 +2,7 @@ from redbot.core import commands, Config
 import discord
 import re
 from redbot.core.commands import Cog
-from typing import Union, Set, Literal, Optional
-from redbot.core import checks, Config, modlog, commands
 from redbot.core.bot import Red
-from redbot.core.i18n import Translator, cog_i18n, set_contextual_locales_from_guild
-from redbot.core.utils.predicates import MessagePredicate
-from redbot.core.utils import AsyncIter
-from redbot.core.utils.chat_formatting import pagify, humanize_list
 
 list = ["Quoi", "quoi"]
 
@@ -48,7 +42,7 @@ class Feur(commands.Cog):
         await ctx.send(("Feur désactivé"))
         
     @commands.Cog.listener()
-    async def on_message(self, ctx, message):
+    async def on_message(ctx, message):
         if "quoi" in message.content.lower() :
             await ctx.send("Feur")
         else : 
