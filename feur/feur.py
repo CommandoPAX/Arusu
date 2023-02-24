@@ -43,7 +43,7 @@ class Feur(commands.Cog):
         await ctx.send(("Feur désactivé"))
         
     @commands.Cog.listener()
-    async def on_message(message):
+    async def on_message(self, message):
         if message.author == client.user:  #Stopping the bot from reading its on message
             return None
         
