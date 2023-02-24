@@ -1,6 +1,7 @@
 from redbot.core import commands, Config
 import discord
 import re
+import random
 from redbot.core.commands import Cog
 from redbot.core.bot import Red
 
@@ -49,7 +50,8 @@ class Feur(commands.Cog):
         
         for l in list :
             if l in message.content.lower() :
-                await message.channel.send("Feur")
+                n = random.randint(1, 100)
+                if n <= 10 : 
+                    await message.channel.send("Feur")
             else :
                 pass
-        
