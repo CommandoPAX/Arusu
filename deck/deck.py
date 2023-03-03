@@ -1,7 +1,7 @@
 from redbot.core import commands
 import random
 
-CarteDeck = {"Balance" : "Inverse votre alignement", "Comète" : "Oblitère un ennemi aléatoire durant le prochain combat", "Donjon" : "Vous êtes téléportez dans un studio parisien situé 10m enfoui 10m sous votre ancienne position",
+CarteDeck = {"Balance" : "Inverse votre alignement", "Comète" : "Oblitère un ennemi aléatoire durant le prochain combat", "Donjon" : "Vous êtes téléportez dans un studio parisien enfoui 10m sous votre ancienne position",
        "Général Puzzle" : "-1 à vos jets de save pour toujours", "Destin" : "Vous pouvez revenir dans le temps pour annuler un évenement", "Feu" : "Un ennemi puissant vous traque",
        "Idiot" : "-1 a tout vos attributs et vous retirez une carte", "Voyage astral à sans unique" : "Votre âme est envoyer dans le plan astral, aucun retour possible sans aide extérieur. Dans le plan astral, cette carte pointe en permanence vers la direction de votre âme",
             "Soldat" : "Vous gagnez un lance-fusée capable d'invoquer vos alliés peu importe leur position", "Lune" : "Vous pouvez utiliser 1d4 wish",
