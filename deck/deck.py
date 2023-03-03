@@ -49,7 +49,7 @@ class Deck(commands.Cog):
         pass
     
     @deckmain.command(name = "draw")
-    async def drawmain(self, ctx, nb):
+    async def drawmain(self, ctx, nb = 1):
         """Tire une carte du deck des catastrophes"""
         for i in range (0, int(nb)):
               carte = random.choice(tuple(CarteDeck.keys()))
