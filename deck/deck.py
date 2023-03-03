@@ -32,7 +32,8 @@ CarteDeck = {"Balance" : "Inverse votre alignement", "Comète" : "Oblitère un e
             "Vision" : "Vous pouvez dorénavant voir à travers toutes les surfaces et illusions", "Thanos" : "Un de vos alliés et un de vos ennemis meurt de facon permanente. Vous devez choisir qui meurt, vous pouvez vous choisir", "Conquête spatiale" : "Vous téléporte sur une planète aléatoire",
             "Trou noir" : "Invoque un trou noir sur votre position", "Ecureuil" : "Transforme d10 personnes à moins de 20m en écureuils pendant 1d3 heures",
             "Jouvence" : "Vous rajeunissez de 5d10+10 années pour un âge minimum de 3ans", "Stop" : "Vous ne pouvez plus entreprendre aucune action pendant 1d10 minutes",
-            "Lag" : "Vous perdez vos deux prochains tours", "Reconversion professionnelle" : "Tout vos niveaux actuels sont transférés vers une autre classe de votre choix"}
+            "Lag" : "Vous perdez vos deux prochains tours", "Reconversion professionnelle" : "Tout vos niveaux actuels sont transférés vers une autre classe de votre choix",
+            "Cryptophonie quantique" : "vos paroles ne peuvent plus être comprise que par une personne a la fois"}
 
 '''Carte retirée : 
 "Mort" : "Vous mourrez"
