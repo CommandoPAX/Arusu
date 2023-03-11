@@ -5,7 +5,7 @@ import random
 from redbot.core.commands import Cog
 from redbot.core.bot import Red
 
-list = ["Quoi", "quoi"]
+list = ["Quoi", "quoi", "Quoi ?", "quoi ?"]
 
 message = discord.Message
 client = discord.Client()
@@ -49,9 +49,7 @@ class Feur(commands.Cog):
             return None
         
         for l in list :
-            if l in message.content.lower() :
-                n = random.randint(1, 100)
-                if n <= 5 : 
+            if message.content.str.endswith(l) : 
                     await message.channel.send("Feur")
             else :
                 pass
