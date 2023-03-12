@@ -47,9 +47,8 @@ class Feur(commands.Cog):
     async def on_message(self, message):
         if message.author == client.user:  #Stopping the bot from reading its on message
             return None
-        msg = str(message.content())
         for l in list :
-            if msg.endswith(l) == True : 
+            if message.content.endswith(l) == True : 
                     await message.channel.send("Feur")
             else :
                 pass
