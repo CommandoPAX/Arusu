@@ -5,7 +5,7 @@ import random
 from redbot.core.commands import Cog
 from redbot.core.bot import Red
 
-list = ["Quoi", "quoi", "Quoi ?", "quoi ?"]
+list = ["Quoi", "quoi", "Quoi ?", "quoi ?", "QUOI !?", "QUOI ?", "QUOI ?!"]
 
 message = discord.Message
 client = discord.Client()
