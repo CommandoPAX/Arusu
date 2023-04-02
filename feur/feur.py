@@ -52,6 +52,3 @@ class Feur(commands.Cog):
                     await message.channel.send("Feur")
             else :
                 pass
-        n = random()
-        if n <= 0.000001 : 
-            await message.channel.send("Coubeh")
