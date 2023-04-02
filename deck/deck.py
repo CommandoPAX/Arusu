@@ -33,7 +33,7 @@ CarteDeck = {"Balance" : "Inverse votre alignement", "Comète" : "Oblitère un e
             "Trou noir" : "Invoque un trou noir sur votre position", "Ecureuil" : "Transforme d10 personnes à moins de 20m en écureuils pendant 1d3 heures",
             "Jouvence" : "Vous rajeunissez de 5d10+10 années pour un âge minimum de 3ans", "Stop" : "Vous ne pouvez plus entreprendre aucune action pendant 1d10 minutes",
             "Lag" : "Vous perdez vos deux prochains tours", "Reconversion professionnelle" : "Tout vos niveaux actuels sont transférés vers une autre classe de votre choix",
-            "Cryptophonie quantique" : "vos paroles ne peuvent plus être comprise que par une personne a la fois", "Farine" : "Votre corps se transforme en farine, vous devenez étherée mais obtenez une vulnérabilité au feu (x2)"
+            "Cryptophonie quantique" : "vos paroles ne peuvent plus être comprise que par une personne a la fois", "Farine" : "Votre corps se transforme en farine, vous devenez étherée mais obtenez une vulnérabilité au feu (x2)",
             "Quoi ? Feur" : "A chaque fois que quelqu'un finit une phrase par quoi, vous devez répondre feur ou subir 1d6 points de dégâts purs", "Ambidextre involontaire" : "Vos deux mains sont inversés, vous subissez un malus de -4 à votre dextérité"}
 
 '''Carte retirée : 
