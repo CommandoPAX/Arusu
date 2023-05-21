@@ -8,7 +8,6 @@ from redbot.core.bot import Red
 list = ["Quoi", "quoi", "Quoi ?", "quoi ?"]
 
 message = discord.Message
-client = discord.Client()
 
 class Feur(commands.Cog):
     """Quoi ? Feur"""
@@ -34,7 +33,7 @@ class Feur(commands.Cog):
         
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.author == client.user:  #Stopping the bot from reading its on message
+        if message.author == discord.Client().user:  #Stopping the bot from reading its on message
             return None
         for l in list :
             if message.content.endswith(l) == True : 
