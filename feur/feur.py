@@ -14,18 +14,7 @@ class Feur(commands.Cog):
     """Quoi ? Feur"""
     
     def __init__(self, bot: Red):
-        super().__init__()
         self.bot = bot
-        self.config = Config.get_conf(self, 4766951341)
-        default_guild_settings = {
-            "enabled" : False,
-        }
-        default_member_settings = {"filter_count": 0, "next_reset_time": 0}
-        default_channel_settings = {"filter": []}
-        self.config.register_guild(**default_guild_settings)
-        self.config.register_member(**default_member_settings)
-        self.config.register_channel(**default_channel_settings)
-        self.pattern_cache = {}
         
     @commands.group(name = "feur", invoque_without_command = True)
     async def feurmain(self, ctx) :
