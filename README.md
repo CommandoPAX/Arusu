@@ -18,3 +18,4 @@ Si vous avez des requêtes de plugin très mal fait, vous pouvez me les envoyer.
 - Musique
 - Chatbot
 - Playlist
+- Implémentation github pour recup les plugins rapidement
