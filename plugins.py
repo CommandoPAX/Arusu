@@ -1,3 +1,5 @@
+# Ne va surement plus être utile a cause de changement dans le core
+
 import importlib
 from discord.ext import commands
 import discord
