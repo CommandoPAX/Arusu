@@ -7,7 +7,7 @@ from discord.ext import commands
 
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) #Apparament un bug connu sur Windows
 
-TOKEN = "OTAzNjcwODM4NDM4NTU5ODA2.GaLZnB.2iZ-uhX41-PzDRyAMhA7-BsXVM_SJ6WET-LOlY"
+TOKEN = "TOKEN"
 
 bot = commands.Bot(command_prefix="?", intents=discord.Intents.all()) #set le prefix et les intents
 
