@@ -1,3 +1,5 @@
+#Plugin qui permet au bot de répondre feur après un message se terminant par quoi
+
 import discord
 from discord.ext import commands
 import re
@@ -12,7 +14,7 @@ class Feur(commands.Cog):
         self.bot = bot
 
     async def setup(bot) :
-        await bot.add_cog(Feur)
+        await bot.add_cog(Feur(bot))
         
     @commands.group(name = "feur", invoque_without_command = True)
     async def feurmain(self, ctx) :
