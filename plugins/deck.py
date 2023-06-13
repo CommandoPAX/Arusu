@@ -1,3 +1,5 @@
+#Ne pas test, n'a pas encore été mis à jour, ne marchera pas
+
 from discord.ext import commands
 import random
 
