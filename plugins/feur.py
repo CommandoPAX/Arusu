@@ -8,8 +8,11 @@ message = discord.Message
 class Feur(commands.Cog):
     """Quoi ? Feur"""
     
-    def __init__(self, bot: Red):
+    def __init__(self, bot):
         self.bot = bot
+
+    async def setup(bot) :
+        await bot.add_cog(Feur)
         
     @commands.group(name = "feur", invoque_without_command = True)
     async def feurmain(self, ctx) :
