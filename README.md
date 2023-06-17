@@ -6,12 +6,10 @@ Si vous avez des requêtes de plugin très mal fait, vous pouvez me les envoyer.
 - Création de la branche V2 d'Arusu
 
 ## Liste actuel des plugins :
-- Aucun
+- Core
 
 ## T.B.A.
 
-- Core
-- Gestion dynamique des plugins (pouvoir activer / désactiver)
 - Pouvoir donner dynamiquement des rolls aux gens
 - Alias
 - Les anciens plugins d'Arusu
@@ -19,3 +17,4 @@ Si vous avez des requêtes de plugin très mal fait, vous pouvez me les envoyer.
 - Chatbot
 - Playlist
 - Implémentation github pour recup les plugins rapidement
+- Gestion dynamique des plugins (pouvoir activer / désactiver)
