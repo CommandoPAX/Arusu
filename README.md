@@ -7,6 +7,9 @@ Si vous avez des requêtes de plugin très mal fait, vous pouvez me les envoyer.
 
 ## Liste actuel des plugins :
 - Core
+- Deck des catastrophes
+- Utils
+- Feur
 
 ## T.B.A.
 
