@@ -9,13 +9,13 @@ Si vous avez des requêtes de plugin très mal fait, vous pouvez me les envoyer.
 - Core
 - Deck des catastrophes
 - Utils
-- Feur
+- Feur (listener ne marche pas)
+- Roll (a test)
 
 ## T.B.A.
 
 - Pouvoir donner dynamiquement des rolls aux gens
 - Alias
-- Roll
 - Les anciens plugins d'Arusu
 - Musique
 - Chatbot
