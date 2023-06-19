@@ -12,11 +12,7 @@ class Roll(commands.Cog) :
     @commands.command(name="roll", usage = "!roll xdy + z", description = "Roll un nombre aléatoire")
     async def roll(self, ctx: commands.Context, *, roll: str) -> None:
         """
-        `2d20kh` - Roll 2d20, keep highest die (e.g. initiative advantage)
-        `4d4!+2` - Roll 4d4, explode on any 4s, add 2 to result
-        `4d6rdl` - Roll 4d6, reroll all 1s, then drop the lowest die
-        `6d6c>4` - Roll 6d6, count all dice greater than 4 as successes
-        `10d10r<=2kh6` - Roll 10d10, reroll all dice less than or equal to 2, then keep the highest 6 dice
+        roll un ou plusieurs dés
         """
         try:
             dice_roller = pyhedrals.DiceRoller(
