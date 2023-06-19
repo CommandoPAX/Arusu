@@ -5,6 +5,8 @@ from discord.ext import commands
 import re
 import random
 
+list = ["Quoi", "quoi", "Quoi ?", "quoi ?"]
+
 class Feur(commands.Cog):
     """Quoi ? Feur"""
     
@@ -30,18 +32,26 @@ class Feur(commands.Cog):
         await ctx.send(("Feur désactivé"))
         
     @commands.Cog.listener()
-    async def on_message(self, ctx, message, feuractive):
-        if message.author == discord.Client().user:  #Stopping the bot from reading its on message
+    async def on_message(self, message):
+        if message.author == discord.Client().user:  #Stopping the bot from reading its own message
             return 
-        if feuractive != True : 
-            return
         #Check if "quoi" is written
-        if re.search("*[qQ][uU][oO0][iI1]*",message.content) :
+        if re.search(r".*quoi.*",message.content, flags=re.I) :
             #Cases for "quoi" and "pourquoi" and "pour quoi"
-            if re.search("*[pP][oO0][rR]\s?[qQ][uU][oO0][iI1]*",message.content) :
-                await ctx.send("Pour feur")
+            if re.search(r".*pour\s?quoi.*",message.content, flags=re.I) :
+                await message.channel.send("Pour feur")
             else:
-                await ctx.send("Feur")
+                await message.channel.send("Feur")
+
+    @commands.Cog.listener() #J'ai test avec l'ancienne version, ca marche pas du tout
+    async def on_message(self, message):
+        if message.author == discord.Client().user:  #Stopping the bot from reading its on message
+            return None
+        for l in list :
+            if message.content.endswith(l) == True : 
+                    await message.channel.send("Feur")
+            else :
+                pass
 
 async def setup(bot : commands.Bot) :
     await bot.add_cog(Feur(bot))
