@@ -10,7 +10,7 @@ Si vous avez des requêtes de plugin très mal fait, vous pouvez me les envoyer.
 - Deck des catastrophes
 - Utils
 - Feur (listener ne marche pas)
-- Roll (a test)
+- Roll
 
 ## T.B.A.
 
