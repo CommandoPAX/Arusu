@@ -52,12 +52,16 @@ class audio(commands.Cog) :
 
     @commands.command(name='join', description='Tells the bot to join the voice channel', usage = "!join")
     async def join(self, ctx):
-        if not ctx.message.author.voice:
-            await ctx.send("{} is not connected to a voice channel".format(ctx.message.author.name))
-            return
-        else:
-            channel = ctx.message.author.voice.channel
-            await channel.connect()
+        try :
+            if not ctx.message.author.voice:
+                await ctx.send("{} is not connected to a voice channel".format(ctx.message.author.name))
+                return
+            else:
+                channel = ctx.message.author.voice.channel
+                await channel.connect()
+        except Exception as e:
+            await ctx.send("Could not connect to voice channel")
+            print(e)
 
     @commands.command(name='leave', description='To make the bot leave the voice channel', usage = "!leave")
     async def leave(self, ctx):
@@ -77,8 +81,9 @@ class audio(commands.Cog) :
                 filename = await YTDLSource.from_url(url) #j'ai viré un loop = bot.loop
                 voice_channel.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source=filename))
             await ctx.send('**Now playing:** {}'.format(filename))
-        except:
-            await ctx.send("The bot is not connected to a voice channel.")
+        except Exception as e:
+            await ctx.send("Could not play the song")
+            print(e)
 
 
     @commands.command(name='pause', usage = "!pause", description = "Pause the music")
