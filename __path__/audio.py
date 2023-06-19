@@ -51,16 +51,16 @@ class audio(commands.Cog) :
         self.bot = bot
 
     @commands.command(name='join', description='Tells the bot to join the voice channel', usage = "!join")
-    async def join(ctx):
+    async def join(self, ctx):
         if not ctx.message.author.voice:
             await ctx.send("{} is not connected to a voice channel".format(ctx.message.author.name))
             return
         else:
             channel = ctx.message.author.voice.channel
-        await channel.connect()
+            await channel.connect()
 
     @commands.command(name='leave', description='To make the bot leave the voice channel', usage = "!leave")
-    async def leave(ctx):
+    async def leave(self, ctx):
         voice_client = ctx.message.guild.voice_client
         if voice_client.is_connected():
             await voice_client.disconnect()
@@ -68,7 +68,7 @@ class audio(commands.Cog) :
             await ctx.send("The bot is not connected to a voice channel.")
 
     @commands.command(name='play', description='Plays the audio from a youtube video', usage = "!play [url]")
-    async def play(ctx,url):
+    async def play(self, ctx, url):
         try :
             server = ctx.message.guild
             voice_channel = server.voice_client
@@ -82,7 +82,7 @@ class audio(commands.Cog) :
 
 
     @commands.command(name='pause', usage = "!pause", description = "Pause the music")
-    async def pause(ctx):
+    async def pause(self, ctx):
         voice_client = ctx.message.guild.voice_client
         if voice_client.is_playing():
             await voice_client.pause()
@@ -90,7 +90,7 @@ class audio(commands.Cog) :
             await ctx.send("The bot is not playing anything at the moment.")
         
     @commands.command(name='resume', usgae = "!resume", description='Resumes the music')
-    async def resume(ctx):
+    async def resume(self, ctx):
         voice_client = ctx.message.guild.voice_client
         if voice_client.is_paused():
             await voice_client.resume()
@@ -98,7 +98,7 @@ class audio(commands.Cog) :
             await ctx.send("The bot was not playing anything before this. Use play_song command")
 
     @commands.command(name='stop', description='Stops the music', usage = "!stop")
-    async def stop(ctx):
+    async def stop(self, ctx):
         voice_client = ctx.message.guild.voice_client
         if voice_client.is_playing():
             await voice_client.stop()
