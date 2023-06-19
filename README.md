@@ -9,16 +9,17 @@ Si vous avez des requêtes de plugin très mal fait, vous pouvez me les envoyer.
 - Core
 - Deck des catastrophes
 - Utils
-- Feur (listener ne marche pas)
 - Roll
+
+## W.I.P.
+- Audio
+- Feur
 
 ## T.B.A.
 
-- Pouvoir donner dynamiquement des rolls aux gens
+- Autoroler
 - Alias
-- Les anciens plugins d'Arusu
-- Musique
+- Chaos
 - Chatbot
 - Playlist
 - Implémentation github pour recup les plugins rapidement
-- Gestion dynamique des plugins (pouvoir activer / désactiver)
