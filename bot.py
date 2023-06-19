@@ -15,9 +15,10 @@ async def load() :
             if filename.endswith(".py"): #sinon c'est pas des modules
                 try : 
                     await bot.load_extension(f"__path__.{filename[:-3]}") #ajoute le module au bot
-                except :
-                    print("Extension not loaded : ", filename)
-
+                except Exception as e:
+                    print("Extension not loaded : ", filename, "\n")
+                    print(e)
+                
 async def main(): #fonction qui load les modules et démarre le bot
     await load()
     await bot.start(TOKEN) #démarre le bot
