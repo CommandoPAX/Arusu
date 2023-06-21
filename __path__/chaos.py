@@ -1,3 +1,6 @@
+#Plugin s'occupant de la propagation du chaos dans l'univers connu
+#Il possède pas mal de problème, c'est conseillé de le refacto
+
 import discord
 from discord.ext import commands
 import time
@@ -42,10 +45,10 @@ class Chaos(commands.Cog):
     async def add(self, ctx, role : discord.Role):
         """Ajoute un role"""
         async with self.roles as roles:
-            if role.id in roles:
+            if role in roles:
                 await ctx.send("Le role est déjà dans la liste")
                 return
-            roles.append(role.id)
+            roles.append(role)
             await ctx.send(("{} ajouté à la liste").format(role.mention))
 
     @chaos.command()
@@ -53,10 +56,10 @@ class Chaos(commands.Cog):
     async def remove(self, ctx, role: discord.Role):
         """Enleve un role"""
         async with self.roles as roles:
-            if role.id not in roles:
+            if role not in roles:
                 await ctx.send("Le role n'est pas dans la liste")
                 return
-            roles.remove(role.id)
+            roles.remove(role)
             await ctx.send(("{} enlevé de la liste").format(role.mention))
     
     @chaos.command()
