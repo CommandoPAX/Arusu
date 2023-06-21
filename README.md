@@ -9,12 +9,13 @@ Si vous avez des requêtes de plugin très mal fait, vous pouvez me les envoyer.
 - Roll
 - Feur
 - Botstatus
+- Chaos
 
 ## W.I.P.
 - Audio (plusieurs problèmes avec les API)
-- Welcome (N'a pas encore été test)
-- Autoroler (j'ai eu la flemme de le finir)
-- Chaos
+- Welcome (TBT)
+- Autoroler (TBT)
+- ReactionRole
 
 ## T.B.A.
 
