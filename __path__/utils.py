@@ -32,9 +32,13 @@ class utils(commands.Cog) :
         """
         shutdown the bot
         """
-        await ctx.send("Shutting down...")
-        await self.bot.close()
-        print("Bot is offline")
+        try :
+            await ctx.send("Shutting down...")
+            await self.bot.close()
+            print("Bot offline")
+        except Exception as e :
+            await ctx.send("Could not shut down bot")
+            print(e)
 
 
     ###################################################################################################################################
