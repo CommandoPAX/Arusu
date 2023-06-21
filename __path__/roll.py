@@ -9,16 +9,13 @@ class Roll(commands.Cog) :
     def __init__(self, bot) :
         self.bot = bot
 
-    @commands.command(name="roll", usage = "!roll xdy + z", description = "Roll un nombre aléatoire")
+    @commands.command(name="roll", usage = "xdy + z", description = "Roll un nombre aléatoire")
     async def roll(self, ctx: commands.Context, *, roll: str) -> None:
         """
         roll un ou plusieurs dés
         """
         try:
-            dice_roller = pyhedrals.DiceRoller(
-                maxDice=100,
-                maxSides=10000,
-            )
+            dice_roller = pyhedrals.DiceRoller()
             result = dice_roller.parse(roll)
             roll_message = f"\N{GAME DIE} {ctx.message.author.mention} a lancé {roll} et obtenu **{result.result}**"
             await ctx.send(roll_message)
