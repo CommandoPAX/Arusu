@@ -7,15 +7,15 @@ Si vous avez des requêtes de plugin très mal fait, vous pouvez me les envoyer.
 - Deck des catastrophes
 - Utils
 - Roll
+- Feur
 
 ## W.I.P.
-- Audio
-- Feur
+- Audio (plusieurs problèmes avec les API)
+- Welcome (N'a pas encore été test)
+- Autoroler (j'ai eu la flemme de le finir)
 
 ## T.B.A.
 
-- Autoroler
-- Welcome
 - Alias
 - Chaos
 - Chatbot
