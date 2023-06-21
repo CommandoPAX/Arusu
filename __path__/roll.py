@@ -28,6 +28,7 @@ class Roll(commands.Cog) :
             pyhedrals.UnknownCharacterException,
         ) as exception:
             await ctx.send("Roll impossible, il va falloir tirer une carte")
+            print(exception)
 
 async def setup(bot : commands.Bot) :
     await bot.add_cog(Roll(bot))
