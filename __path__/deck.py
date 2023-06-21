@@ -4,8 +4,8 @@ from discord.ext import commands
 import random
 
 CarteDeck = {"Balance" : "Inverse votre alignement", "Comète" : "Oblitère un ennemi aléatoire durant le prochain combat", "Donjon" : "Vous êtes téléportez dans un studio parisien enfoui 10m sous votre ancienne position",
-       "Général Puzzle" : "-1 à vos jets de save pour toujours", "Destin" : "Vous pouvez revenir dans le temps pour annuler un évenement", "Feu" : "Un ennemi puissant vous traque",
-       "Idiot" : "-1 a tout vos attributs et vous retirez une carte", "Voyage astral à sans unique" : "Votre âme est envoyer dans le plan astral, aucun retour possible sans aide extérieur. Dans le plan astral, cette carte pointe en permanence vers la direction de votre âme",
+            "Général Puzzle" : "-1 à vos jets de save pour toujours", "Destin" : "Vous pouvez revenir dans le temps pour annuler un évenement", "Feu" : "Un ennemi puissant vous traque",
+            "Idiot" : "-1 a tout vos attributs et vous retirez une carte", "Voyage astral à sans unique" : "Votre âme est envoyer dans le plan astral, aucun retour possible sans aide extérieur. Dans le plan astral, cette carte pointe en permanence vers la direction de votre âme",
             "Soldat" : "Vous gagnez un lance-fusée capable d'invoquer vos alliés peu importe leur position", "Lune" : "Vous pouvez utiliser 1d4 wish",
             "Ruine" : "Vos 3 prochains jets de save ratent à coup sûr", "Etoile" : "Votre corps se met à émettre de la lumière",
             "Soleil" : "Full HP, et vous gagnez une arme de votre choix", "Terre" : "Tout vos objets perdent leur propriété spéciale",
@@ -51,9 +51,12 @@ class Deck(commands.Cog):
         
     @commands.group(name = "deck", invoque_without_command = True)
     async def deckmain(self, ctx): #Utilise le framework de base pour list les arguments
+        """
+        Commande maitre pour gérer le deck des catastrophes
+        """
         pass
     
-    @deckmain.command(name = "draw")
+    @deckmain.command(name = "draw", usage = "[nombre]", description = "Tire une carte du deck des catastrophes")
     async def drawmain(self, ctx, nb = 1):
         """Tire une carte du deck des catastrophes"""
         for i in range (0, int(nb)):
@@ -61,7 +64,7 @@ class Deck(commands.Cog):
               Rep = "Vous avez tiré la carte : " + str(carte) + "\n" + str(CarteDeck[carte])
               await ctx.send(Rep)
 
-    @deckmain.command(name = "effet")
+    @deckmain.command(name = "effet", usage = '["Carte"]', description = "Donne l'effet d'une carte du deck. Le nom de la carte doit être entre guillemet.")
     async def effetmain(self, ctx, Carte2):
         """Donne l'effet d'une carte du deck. Le nom de la carte doit être entre guillemet."""
         if Carte2 in CarteDeck : 
@@ -71,7 +74,7 @@ class Deck(commands.Cog):
         else :
             await ctx.send("Le nom de la carte est invalide.")
     
-    @deckmain.command(name = "list") #Maintenant fonctionnel
+    @deckmain.command(name = "list", usage = "", description = "Liste l'intégralité des cartes du deck ainsi que leur effet.")
     async def listmain(self, ctx):
         """Liste l'intégralité des cartes du deck ainsi que leur effet."""
         await ctx.send("Liste des effets du deck : \n") 
@@ -83,7 +86,7 @@ class Deck(commands.Cog):
                 Rep3 = ""
         await ctx.send(Rep3)
         
-    @deckmain.command(name = "nombre")
+    @deckmain.command(name = "nombre", usage = "", description = "Donne le nombre de carte dans le deck")
     async def nombremain(self, ctx):
        """Donne le nombre de carte dans le deck"""
        n = int(len(CarteDeck))
