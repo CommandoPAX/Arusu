@@ -13,11 +13,11 @@ Si vous avez des requêtes de plugin très mal fait, vous pouvez me les envoyer.
 - Audio (plusieurs problèmes avec les API)
 - Welcome (N'a pas encore été test)
 - Autoroler (j'ai eu la flemme de le finir)
+- Chaos
 
 ## T.B.A.
 
 - Alias
-- Chaos
 - Chatbot
 - Playlist
 - Implémentation github pour recup les plugins rapidement
