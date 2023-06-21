@@ -44,8 +44,11 @@ class utils(commands.Cog) :
 
     @commands.Cog.listener(name = "on_ready")
     async def ConfirmStart(self) :
-        print(f'Logged in as {self.user} (ID: {self.user.id})')
-        print('------')
+        try :
+            print(f'Logged in as {self.user} (ID: {self.user.id})')
+            print('------')
+        except :
+            print("C'est buggé mais le bot est en ligne")
 
 async def setup(bot : commands.Bot) :
     await bot.add_cog(utils(bot))
