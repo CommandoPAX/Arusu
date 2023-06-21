@@ -40,12 +40,12 @@ class utils(commands.Cog) :
             await ctx.send("Could not shut down bot")
             print(e)
 
-
     ###################################################################################################################################
 
     @commands.Cog.listener(name = "on_ready")
     async def ConfirmStart(self) :
-        print("Bot online")
+        print(f'Logged in as {self.user} (ID: {self.user.id})')
+        print('------')
 
 async def setup(bot : commands.Bot) :
     await bot.add_cog(utils(bot))
