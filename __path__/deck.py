@@ -44,12 +44,14 @@ CarteDeck = {"Balance" : "Inverse votre alignement", "Comète" : "Oblitère un e
 '''
 
 class Deck(commands.Cog):
-    """Deck des catastrophes"""
+    """
+    Deck des catastrophes
+    """
 
     def __init__(self, bot):
         self.bot = bot
         
-    @commands.group(name = "deck", invoque_without_command = True)
+    @commands.group(name = "deck", invoque_without_command = True, aliases = ["dick"])
     async def deckmain(self, ctx): #Utilise le framework de base pour list les arguments
         """
         Commande maitre pour gérer le deck des catastrophes
