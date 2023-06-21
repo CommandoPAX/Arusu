@@ -43,12 +43,12 @@ class Feur(commands.Cog):
         if self.feuractive == False : 
             return
         #Check if "quoi" is written
-        if re.search(r".*quoi.*",message.content, flags=re.I) :
+        if re.search(r"[\s\S]*?\bquoi\b\W*$",message.content, flags=re.I) :
             #Cases for "quoi" and "pourquoi" and "pour quoi"
-            if re.search(r".*pour\s?quoi.*",message.content, flags=re.I) :
-                await message.channel.send("Pour feur")
-            else:
-                await message.channel.send("Feur")
+            await message.channel.send("Feur")
+        if re.search(r"[\s\S]*\bpour ?quoi\b\W*$",message.content, flags=re.I) :
+            await message.channel.send("Pour feur")
+            
 
 async def setup(bot : commands.Bot) :
     await bot.add_cog(Feur(bot))
