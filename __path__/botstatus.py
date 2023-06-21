@@ -1,22 +1,16 @@
-# Plugin permettant de gérer le changement de statut du bot
+# Plugin permettant de changer le statut du bot
 
 import discord
 from discord.ext import commands
+import sys
+import os
 
 class botstatus(commands.Cog) :
 
     def __init__(self, bot) :
         self.bot = bot
 
-    @commands.Group(name="set_status", invoque_without_command = False)
-    @commands.is_owner()
-    async def set_status(self, ctx):
-        """
-        #Main command to change the bot's status
-        """
-        pass
-
-    @set_status.command(name ="streaming", usage = "[text]", description = "Changes the bot's status to 'Streaming [text]'")
+    @commands.command(name ="streaming", usage = "[text]", description = "Changes the bot's status to 'Streaming [text]'")
     @commands.is_owner()
     async def streaming(self, ctx, customtxt) :
         """
@@ -28,7 +22,7 @@ class botstatus(commands.Cog) :
             await ctx.send("Could not change the bot's status")
 
 
-    @set_status.command(name ="playing", usage = "[text]", description = "Changes the bot's status to 'Playing [text]'")
+    @commands.command(name ="playing", usage = "[text]", description = "Changes the bot's status to 'Playing [text]'")
     @commands.is_owner()
     async def playing(self, ctx, customtxt) :
         """
@@ -40,7 +34,7 @@ class botstatus(commands.Cog) :
             await ctx.send("Could not change the bot's status")
 
 
-    @set_status.command(name ="listening", usage = "[text]", description = "Changes the bot's status to 'Listening to [text]'")
+    @commands.command(name ="listening", usage = "[text]", description = "Changes the bot's status to 'Listening to [text]'")
     @commands.is_owner()
     async def listening(self, ctx, customtxt) :
         """
@@ -52,7 +46,7 @@ class botstatus(commands.Cog) :
             await ctx.send("Could not change the bot's status")
 
 
-    @set_status.command(name ="watching", usage = "[text]", description = "Changes the bot's status to 'Watching [text]'")
+    @commands.command(name ="watching", usage = "[text]", description = "Changes the bot's status to 'Watching [text]'")
     @commands.is_owner()
     async def watching(self, ctx, customtxt) :
         """
@@ -63,7 +57,7 @@ class botstatus(commands.Cog) :
         except :
             await ctx.send("Could not change the bot's status")
 
-    @set_status.command(name ="competing", usage = "[text]", description = "Changes the bot's status to 'Competing in [text]'")
+    @commands.command(name ="competing", usage = "[text]", description = "Changes the bot's status to 'Competing in [text]'")
     @commands.is_owner()
     async def competing(self, ctx, customtxt) :
         """
