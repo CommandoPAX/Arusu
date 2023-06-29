@@ -23,6 +23,7 @@ class utils(commands.Cog) :
         """
         Restarts the bot
         """
+        print("------------------------------Restarting Bot------------------------------")
         await ctx.send("Restarting bot...")
         os.execv(sys.executable, ['python'] + sys.argv) #the part that restarts the bot
 
@@ -35,7 +36,7 @@ class utils(commands.Cog) :
         try :
             await ctx.send("Shutting down...")
             await self.bot.close()
-            print("Bot offline")
+            print("------------------------------Shutting Down-------------------------------")
         except Exception as e :
             await ctx.send("Could not shut down bot")
             print(e)
@@ -45,10 +46,12 @@ class utils(commands.Cog) :
     @commands.Cog.listener(name = "on_ready")
     async def ConfirmStart(self) :
         try :
-            print(f'Logged in as {self.user} (ID: {self.user.id})')
-            print('------')
+            print(f'Logged in as {self.bot.user} (ID: {self.bot.user.id})')
+            print('--------------------------------------------------------------------------')
         except :
-            print("C'est buggé mais le bot est en ligne")
+            print(f'Logged in as {self.bot.user} (ID: {self.bot.user.id})')
+            print("Not all plugins are online")
+            print('--------------------------------------------------------------------------')
 
 async def setup(bot : commands.Bot) :
     await bot.add_cog(utils(bot))
