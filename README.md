@@ -16,10 +16,10 @@ Si vous avez des requêtes de plugin très mal fait, vous pouvez me les envoyer.
 - Welcome (TBT)
 - Autoroler (TBT)
 - ReactionRole
+- Chatbot
 
 ## T.B.A.
 
 - Alias (dynamique, une manière non dynamique existe déjà)
-- Chatbot
 - Playlist
 - Implémentation github pour recup les plugins rapidement
