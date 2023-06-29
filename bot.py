@@ -18,6 +18,11 @@ async def load() :
                 except Exception as e:
                     print("Extension not loaded : ", filename, "\n")
                     print(e)
+    try : 
+        await bot.load_extension(f"__path__.chatter.chat")
+    except :
+        print("Chatter n'a pas pu être load")
+        #print(Exception)
     
 class SupremeHelpCommand(commands.HelpCommand):
     def get_command_signature(self, command):
