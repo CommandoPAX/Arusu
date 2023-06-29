@@ -6,14 +6,47 @@ from discord.ext import commands
 
 class ReactionRole(commands.Cog):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, bot, *args, **kwargs):
+        self.bot = bot
         super().__init__(*args, **kwargs)
         self.role_message_id = 0  # ID of the message that can be reacted to to add/remove a role.
-        self.emoji_to_role = {
-            discord.PartialEmoji(name='🔴'): 0,  # ID of the role associated with unicode emoji '🔴'.
-            discord.PartialEmoji(name='🟡'): 0,  # ID of the role associated with unicode emoji '🟡'.
-            discord.PartialEmoji(name='green', id=0): 0,  # ID of the role associated with a partial emoji's ID.
-        }
+        self.emoji_to_role = {}
+
+    @commands.command(name= "add_emoji", usage = " [Emoji ID] [Role ID]", descritption = "Adds an emoji to the list of role reactions")
+    @commands.is_owner()
+    async def addemoji(self, ctx, EmojiID, RoleID) :
+        """
+        Adds an emoji to the list of role reactions
+        """
+        try :
+            self.emoji_to_role[discord.PartialEmoji(id=EmojiID)] = RoleID
+            await ctx.send("L'émoji a été ajouté comme role réactions.")
+        except :
+            await ctx.send("Could not add emoji to list")
+
+    @commands.command(name = "del_emoji", usage = "[Emoji ID]", description = "Removes an emoji from reaction roles")
+    @commands.is_owner()
+    async def rmemoji(self, ctx, EmojiID) :
+        """
+        Removes an emoji from reaction roles
+        """
+        try : 
+            del self.emoji_to_role[discord.PartialEmoji(id=EmojiID)]
+            await ctx.send("Emoji deleted")
+        except :
+            await ctx.send("Emoji not in list")
+
+    @commands.command(name = "set_message", usage = "[Message ID]", description = "Sets the message to be used as the role reaction message")
+    @commands.is_owner()
+    async def setmsg(self, ctx, MSGID) :
+        """
+        Sets the message to be used as the role reaction message
+        """
+        try :
+            self.role_message_id = MSGID
+            await ctx.send("Role message set to ", MSGID)
+        except :
+            await ctx.send("Could not set role message")
 
     ################################################################################################################################### 
 
