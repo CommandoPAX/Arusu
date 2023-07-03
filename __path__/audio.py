@@ -1,6 +1,7 @@
 # Plugin gérant l'audio
 
 import asyncio
+
 import discord
 import youtube_dl
 
@@ -146,14 +147,15 @@ class Music(commands.Cog):
         """
         if ctx.voice_client.is_playing() != True :
             await ctx.send("Bot not connected to a voice channel")
-        if len(self.queue) == 0 :
-            await ctx.send("Nothing in queue")
-        if self.repeat == True : 
-            self.repeat = False
-            await ctx.send("Repeat disabled")
-        if self.repeat == False :
-            self.repeat = True
-            await ctx.send("Repeat enabled")
+        else :
+            if len(self.queue) == 0 :
+                await ctx.send("Nothing in queue")
+            if self.repeat == True : 
+                self.repeat = False
+                await ctx.send("Repeat disabled")
+            if self.repeat == False :
+                self.repeat = True
+                await ctx.send("Repeat enabled")
 
     @commands.command(name = "remove_queue", usage = "url", description = "Removes an URL from the queue")
     async def remove_queue_cmd(self, ctx, url) :
