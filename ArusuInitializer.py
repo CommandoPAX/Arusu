@@ -38,19 +38,3 @@ class ArusuInit:
                             intents=self.__intents)
             bot.help_command = HelpCommand()
         return bot
-
-    '''def __add_cogs(self, bot):
-        cogsStatus = []
-        for root,dirs,files in os.walk("./__path__"): #check le dossier plugins pour chaque fichier
-            for filename in files : 
-                if filename.endswith(".py") and filename != "config.py" : #sinon c'est pas des modules
-                    try : 
-                        cogPath = f'__path__.{filename[:-3]}'
-                        cogsStatus.append(bot.load_extension(cogPath))
-                    except Exception as e:
-                        print("Extension not loaded : ", filename, "\n")
-                        print(e)
-        try : 
-            cogsStatus.append(bot.load_extension(f"__path__.Chatter.chat"))
-        except :
-            print("Problem loading Chatter")'''
