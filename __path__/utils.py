@@ -4,12 +4,26 @@ import discord
 from discord.ext import commands
 import sys
 import os
+from .config import ArusuConfig
 
 class utils(commands.Cog) :
 
     def __init__(self, bot) :
         self.bot = bot
-    
+        self.config = ArusuConfig()
+
+    @commands.command(name = "config_test", usage = "", description = "Tests the config plugin")
+    @commands.is_owner()
+    async def conftest(self, ctx) :
+        """
+        Tests Arusu's config
+        """
+        try :
+            await ctx.send(self.config.DATA[f"{ctx.guild.id}.Base"])
+        except :
+            self.config.DATA[f"{ctx.guild.id}.Base"] = "This is Arusu's config"
+            await ctx.send(self.config.DATA[f"{ctx.guild.id}.Base"])
+
     @commands.command(name = "ping", usage = "", description = "Pings the bot")
     async def ping(self, ctx:commands.Context):
         """
@@ -35,8 +49,8 @@ class utils(commands.Cog) :
         """
         try :
             await ctx.send("Shutting down...")
-            await self.bot.close()
             print("------------------------------Shutting Down-------------------------------")
+            await self.bot.close()
         except Exception as e :
             await ctx.send("Could not shut down bot")
             print(e)
