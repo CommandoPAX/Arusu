@@ -3,15 +3,16 @@
 import asyncio
 
 import discord
-import youtube_dl
+from yt_dlp import YoutubeDL as youtube_dl
 
 #Install the following version
 #pip install --upgrade --force-reinstall "git+https://github.com/ytdl-org/youtube-dl.git"
+#pip install yt_dlp
 
 from discord.ext import commands
 
 # Suppress noise about console usage from errors
-youtube_dl.utils.bug_reports_message = lambda: ''
+#youtube_dl.utils.bug_reports_message = lambda: ''
 
 ytdl_format_options = {
     'format': 'bestaudio/best',
@@ -29,9 +30,12 @@ ytdl_format_options = {
 
 ffmpeg_options = {
     'options': '-vn',
+    "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5"
 }
 
-ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
+#Need to find a way to bypass exception due to unavailable music
+
+ytdl = youtube_dl(ytdl_format_options)
 class YTDLSource(discord.PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):
         super().__init__(source, volume)
@@ -133,7 +137,7 @@ class Music(commands.Cog):
         ctx.voice_client.source.volume = volume / 100
         await ctx.send(f"Changed volume to {volume}%")
 
-    @commands.command(name = "stop", usage = "", description = "Stops and disconnects the bot from voice", aliases = ["disconnect", "leave"])
+    @commands.command(name = "disconnect", usage = "", description = "Stops and disconnects the bot from voice", aliases = ["leave"])
     async def stop(self, ctx):
         """
         Stops and disconnects the bot from voice
@@ -193,6 +197,39 @@ class Music(commands.Cog):
         Plays the next music
         """
         pass
+
+    @commands.command(name = "pause", usage = "", description = "Pauses the audio playing")
+    async def pausecmd(self, ctx) : 
+        """
+        Pauses the audio playing
+        """
+        if ctx.voice_client.is_playing()  and ctx.voice_client.is_paused() != True :
+            await ctx.voice_client.pause()
+            await ctx.send("Audio paused")
+        else :
+            await ctx.send("Not currently playing audio")
+
+    @commands.command(name = "resume", usage = "", description = "Resumes the audio playing")
+    async def resumecmd(self, ctx) : 
+        """
+        Resumes the audio playing
+        """
+        if ctx.voice_client.is_paused() == True :
+            await ctx.voice_client.resume()
+            await ctx.send("Resumed playing audio")
+        else :
+            await ctx.send("Audio is already paused / No audio currently being played.")
+
+    @commands.command(name ="stop", usage = "", description = "Stops playing the audio")
+    async def stopcmd(self, ctx) :
+        """
+        Stops playing the audio
+        """
+        if ctx.voice_client.is_playing() == True or ctx.voice_client.is_paused() == True :
+            await ctx.voice_client.stop()
+            await ctx.send("Audio stopped")
+        else :
+            await ctx.send("Could not stop audio")
 
     @play.before_invoke
     @play_wip.before_invoke
