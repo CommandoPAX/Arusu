@@ -6,7 +6,7 @@ import json
 
 class DeckCatastrophe() :
     def __init__(self) :
-        with open(r"Cogs\DeckCatastrophe.json", 'r') as f:
+        with open(r"Cogs\DeckCatastrophe.json", 'r', encoding='utf-8') as f:
             self.CARDS = json.load(f)
     
     def add_card(self, NAME, Effect) :
