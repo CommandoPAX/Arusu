@@ -3,6 +3,7 @@ Arusu est le bot officiel de STREAM;GATE France géré par votre humble serviteu
 Si vous avez des requêtes de plugin, vous pouvez me les envoyer.
 
 ## Liste actuel des plugins :
+- Audio
 - Core
 - Deck des catastrophes
 - Utils
@@ -12,7 +13,6 @@ Si vous avez des requêtes de plugin, vous pouvez me les envoyer.
 - Chaos
 
 ## W.I.P.
-- Audio (plusieurs problèmes avec les API)
 - Welcome (TBT)
 - Autoroler (TBT)
 - ReactionRole
