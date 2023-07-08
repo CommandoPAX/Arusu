@@ -22,7 +22,7 @@ class utils(commands.Cog) :
         try :
             await ctx.send(self.config.DATA[f"{ctx.guild.id}.Base"])
         except :
-            self.config.DATA[f"{ctx.guild.id}.Base"] = "This is Arusu's config"
+            self.config.update(f"{ctx.guild.id}.Base", "Arusu's config working")
             await ctx.send(self.config.DATA[f"{ctx.guild.id}.Base"])
 
     @commands.command(name = "ping", usage = "", description = "Pings the bot")
@@ -32,7 +32,7 @@ class utils(commands.Cog) :
         """
         await ctx.send("Pong !")
 
-    @commands.command(name = "restart", usage = "", description = "Restarts the bot")
+    @commands.command(name = "restart", usage = "", description = "Restarts the bot", aliases = ["r"])
     @commands.is_owner()
     async def restart(self, ctx) :
         """
