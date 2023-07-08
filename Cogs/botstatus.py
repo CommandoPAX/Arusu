@@ -4,67 +4,94 @@ import discord
 from discord.ext import commands
 import sys
 import os
+from config import ArusuConfig
 
 class botstatus(commands.Cog) :
 
     def __init__(self, bot) :
         self.bot = bot
-
-    @commands.command(name ="playing", usage = "[text]", description = "Changes the bot's status to 'Playing [text]'")
+        self.config = ArusuConfig()
+    
+    @commands.command(name = "status", usage = '["status"] ["activity"] ["additionnal text"]', description = "Updates Arusu's status")
     @commands.is_owner()
-    async def playing(self, ctx, customtxt) :
-        """
-        #Playing status command
-        """
+    async def status_main(self, ctx, status, activity, AdditText = "le code source d'Arusu") :
         try :
-            await ctx.bot.change_presence(status = discord.Status.dnd, activity = discord.Game(name = customtxt))
-        except Exception as e:
-            await ctx.send("Could not change the bot's status")
-            print(e)
+            if status == "dnd" :
+                self.config.update("BOT_STATUS", "dnd")
+                STATUS = discord.Status.dnd
+            if status == "online" :
+                self.config.update("BOT_STATUS", "online")
+                STATUS = discord.Status.online
+            if status == "idle" :
+                self.config.update("BOT_STATUS", "idle")
+                STATUS = discord.Status.idle
+            if status == "offline" :
+                self.config.update("BOT_STATUS", "offline")
+                STATUS = discord.Status.offline
+        except :
+            await ctx.send("Invalid status. Available choices : dnd, online, idle, offline")
 
-
-    @commands.command(name ="listening", usage = "[text]", description = "Changes the bot's status to 'Listening to [text]'")
-    @commands.is_owner()
-    async def listening(self, ctx, customtxt) :
-        """
-        #Listening status command
-        """
         try :
-            await ctx.bot.change_presence(status = discord.Status.dnd, activity = discord.Activity(name = customtxt, type = discord.ActivityType.listening))
-        except Exception as e:
-            await ctx.send("Could not change the bot's status")
-            print(e)
+            if activity == "playing" :
+                self.config.update("BOT_ACTIVITY", "playing")
+                self.config.update("BOT_ACTIVITY_TEXT", AdditText)
+                ACTIVITY = discord.Game(name = AdditText)
+            if activity == "listening" :
+                self.config.update("BOT_ACTIVITY", "listening")
+                self.config.update("BOT_ACTIVITY_TEXT", AdditText)
+                ACTIVITY = discord.Activity(name = AdditText, type = discord.ActivityType.listening)
+            if activity == "watching" :
+                self.config.update("BOT_ACTIVITY", "watching")
+                self.config.update("BOT_ACTIVITY_TEXT", AdditText)
+                ACTIVITY = discord.Activity(name = AdditText, type = discord.ActivityType.watching)
+            if activity == "competing" :
+                self.config.update("BOT_ACTIVITY", "competing")
+                self.config.update("BOT_ACTIVITY_TEXT", AdditText)
+                ACTIVITY = discord.Activity(name = AdditText, type = discord.ActivityType.competing)
+        except : 
+            await ctx.send("Invalid activity. Available choices : playing, listening, watching, competing")
 
-
-    @commands.command(name ="watching", usage = "[text]", description = "Changes the bot's status to 'Watching [text]'")
-    @commands.is_owner()
-    async def watching(self, ctx, customtxt) :
-        """
-        #Watching status command
-        """
         try :
-            await ctx.bot.change_presence(status = discord.Status.dnd, activity = discord.Activity(name = customtxt, type = discord.ActivityType.watching))
-        except Exception as e:
-            await ctx.send("Could not change the bot's status")
-            print(e)
-
-    @commands.command(name ="competing", usage = "[text]", description = "Changes the bot's status to 'Competing in [text]'")
-    @commands.is_owner()
-    async def competing(self, ctx, customtxt) :
-        """
-        #Competing status command
-        """
-        try :
-            await ctx.bot.change_presence(status = discord.Status.dnd, activity = discord.Activity(name = customtxt, type = discord.ActivityType.competing))
-        except Exception as e:
-            await ctx.send("Could not change the bot's status")
-            print(e)
+            await self.bot.change_presence(status = STATUS, activity = ACTIVITY)
+            await ctx.send(f"Bot status changed to : {STATUS}, {ACTIVITY}")
+        except :
+            await ctx.send("Error changing bot's status")
 
     ################################################################################################################################### 
 
     @commands.Cog.listener(name = "on_ready")
     async def basestatus(self) :
-        await self.bot.change_presence(status = discord.Status.dnd, activity = discord.Activity(name = "le code source d'Arusu", type = discord.ActivityType.watching))
+        try :
+            if self.config.DATA["BOT_STATUS"] == "dnd" :
+                STATUS = discord.Status.dnd
+            if self.config.DATA["BOT_STATUS"] == "online" :
+                STATUS = discord.Status.online
+            if self.config.DATA["BOT_STATUS"] == "idle" :
+                STATUS = discord.Status.idle
+            if self.config.DATA["BOT_STATUS"] == "offline" :
+                STATUS = discord.Status.offline
+        except Exception as e:
+            print("Error setting status")
+            print(e)
+
+        try :
+            if self.config.DATA["BOT_ACTIVITY"] == "playing" :
+                ACTIVITY = discord.Game(name = self.config.DATA["BOT_ACTIVITY_TEXT"])
+            if self.config.DATA["BOT_ACTIVITY"] == "listening" :
+                ACTIVITY = discord.Activity(name = self.config.DATA["BOT_ACTIVITY_TEXT"], type = discord.ActivityType.listening)
+            if self.config.DATA["BOT_ACTIVITY"] == "watching" :
+                ACTIVITY = discord.Activity(name = self.config.DATA["BOT_ACTIVITY_TEXT"], type = discord.ActivityType.watching)
+            if self.config.DATA["BOT_ACTIVITY"] == "competing" :
+                ACTIVITY = discord.Activity(name = self.config.DATA["BOT_ACTIVITY_TEXT"], type = discord.ActivityType.competing)
+        except Exception as e: 
+            print("Error setting activity")
+            print(e)
+        
+        try :
+            await self.bot.change_presence(status = STATUS, activity = ACTIVITY)
+        except Exception as e:
+            print("Error finalising bot's status")
+            print(e)
 
 async def setup(bot : commands.Bot) :
     await bot.add_cog(botstatus(bot))
