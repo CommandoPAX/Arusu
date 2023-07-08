@@ -6,7 +6,7 @@ import os
 
 class ArusuConfig() : 
     def __init__(self) :
-        with open(r".\config.json", 'r') as f:
+        with open(r".\config.json", 'r', encoding='utf-8') as f:
             self.DATA = json.load(f)
     
     def update(self, index, value) : 
