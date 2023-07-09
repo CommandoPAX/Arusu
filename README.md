@@ -11,9 +11,9 @@ Si vous avez des requêtes de plugin, vous pouvez me les envoyer.
 - Feur
 - Botstatus
 - Chaos
+- Welcome
 
 ## W.I.P.
-- Welcome (TBT)
 - Autoroler (TBT)
 - ReactionRole
 - Chatbot
