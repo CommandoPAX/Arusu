@@ -10,12 +10,9 @@ Si vous avez des requêtes de plugin, vous pouvez me les envoyer.
 - Roll
 - Feur
 - Botstatus
-- Chaos
 - Welcome
 
 ## W.I.P.
-- Autoroler (TBT)
-- ReactionRole
 - Chatbot
 
 ## T.B.A.
