@@ -107,9 +107,11 @@ class DeckCatastrophe() :
         except :
             return "Could not send card effect"
         
-    def draw(self, nb) :
+    def draw(self, nb : int) :
         self.drawn = []
-        for i in range (0, int(nb)):
+        if nb > 1000 :
+            return
+        for i in range (0, nb):
             carte = random.choice(tuple(self.CARDS.keys()))
             self.drawn.append(carte)
         return self.drawn
@@ -189,12 +191,7 @@ class Deck(commands.Cog):
     async def FeurAnswer(self, message):
         if message.author.id == self.bot.user.id:  #Stopping the bot from reading its own message
             return
-        for nb in re.findall(r"\btire *(\d+) *cartes?\b",message.content, flags=re.I) :
-            """if nb == "une" :
-                nb = 1
-            if nb == "deux" :
-                nb = 2"""
-            await message.channel.send(embed = self.Deck.create_card_embed(self.Deck.draw(int(nb))))
+        await message.channel.send(embed = self.Deck.create_card_embed(self.Deck.draw(int(re.findall(r"\btire *(\d+) *cartes?\b",message.content, flags=re.I)[0]))))
             
 async def setup(bot : commands.Bot) :
     await bot.add_cog(Deck(bot))
