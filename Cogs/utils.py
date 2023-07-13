@@ -5,7 +5,6 @@ from discord.ext import commands
 import sys
 import os
 from config import ArusuConfig
-import re
 
 class utils(commands.Cog) :
 
@@ -32,6 +31,51 @@ class utils(commands.Cog) :
         """
         await ctx.send("Pong !")
 
+    @commands.command(name = "embed_colour", usage = "", description = "Changes the embed default color")
+    @commands.is_owner()
+    async def embed_colour_set(self, ctx, colour = "#1900ff") :
+        self.config.update("BOT_EMBED_COLOUR", colour)
+        try :
+            embed = discord.Embed(title="Default Embed", description=f"Colour changed to {colour}", color=discord.Color.from_str(colour))
+            await ctx.send(embed = embed)
+        except : 
+            await ctx.send("Invalid colour")
+
+    @commands.command(name = "showsettings", usage = "", description = "Shows Arusu's config")
+    @commands.is_owner()
+    async def showset(self, ctx) : 
+        """
+        Show Arusu's config
+        """
+        try :
+            Settings = ""
+            try :
+                for i in self.config.DATA.keys() :
+                    if i != "BOT_TOKEN" :
+                        Settings += f"**{i}** : {self.config.DATA[i]} \n"
+            except Exception as e :
+                print("Error : error in Settings generation")
+                print(e)
+
+            embed = (discord.Embed(title="Settings",
+                                description=Settings,
+                                color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])))
+        except Exception as e :
+            print("Error : error in embed settings generation")
+            print(e)
+        await ctx.send(embed = embed)
+
+    @commands.command(name = "prefix", usage = "[prefix]", description = "Changes Arusu's prefix, requires a restart to take effect")
+    @commands.is_owner()
+    async def prefixset(self, ctx, NEWPREFIX) :
+        try :
+            self.config.update("BOT_PREFIX", str(NEWPREFIX))
+            await ctx.send(f"Prefix changed to {NEWPREFIX}")
+        except Exception as e :
+            await ctx.send("Could not change prefix")
+            print("Error in changing prefix")
+            print(e)
+
     @commands.command(name = "restart", usage = "", description = "Restarts the bot", aliases = ["r"])
     @commands.is_owner()
     async def restart(self, ctx) :
@@ -42,7 +86,7 @@ class utils(commands.Cog) :
         await ctx.send("Restarting bot...")
         os.execv(sys.executable, ['python'] + sys.argv) #the part that restarts the bot
 
-    @commands.command(name = "shutdown", usage = "", description = "Shutdown the bot")
+    @commands.command(name = "shutdown", usage = "", description = "Shutdown the bot", aliases = ["sleep_time"])
     @commands.is_owner()
     async def shutdown(self, ctx) :
         """
