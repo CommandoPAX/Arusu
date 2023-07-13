@@ -1,8 +1,7 @@
 from asyncio import AbstractEventLoop
-from discord import Guild, Status, Game, Message
-from discord.ext.commands.errors import CommandNotFound, MissingRequiredArgument
+from discord import Message
 from discord.ext.commands import Bot, Context
-from __path__.config import ArusuConfig
+from config import ArusuConfig
 
 
 class Arusu(Bot):
