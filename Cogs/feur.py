@@ -1,15 +1,15 @@
 #Plugin qui permet au bot de répondre feur après un message se terminant par quoi
 
-import discord
 from discord.ext import commands
 import re
-import random
+from config import ArusuConfig
 
 class Feur(commands.Cog):
     """Quoi ? Feur"""
     
     def __init__(self, bot):
         self.bot = bot
+        self.config = ArusuConfig()
         self.feuractive = True
         
     @commands.group(name = "feur", invoque_without_command = True)
@@ -43,12 +43,11 @@ class Feur(commands.Cog):
         if self.feuractive == False : 
             return
         #Check if "quoi" is written
-        if re.search(r"[\s\S]*?\bquoi\b\W*$",message.content, flags=re.I) :
+        if re.search(r"\bquoi\b\W*$",message.content, flags=re.I) :
             #Cases for "quoi" and "pourquoi" and "pour quoi"
             await message.channel.send("Feur")
-        if re.search(r"[\s\S]*\bpour ?quoi\b\W*$",message.content, flags=re.I) :
+        if re.search(r"\bpour ?quoi\b\W*$",message.content, flags=re.I) :
             await message.channel.send("Pour feur")
             
-
 async def setup(bot : commands.Bot) :
     await bot.add_cog(Feur(bot))
