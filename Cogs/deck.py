@@ -53,7 +53,6 @@ class DeckCatastrophe() :
             CardTitle = list(self.CARDS.keys()) #Pourquoi c'est pas une liste de base sérieusement
             try :
                 for i, Card in enumerate(CardTitle[start:end], start=start):
-                    print("Liste : ", List)
                     List += f"**{Card}** : {self.CARDS[Card]} \n"
             except Exception as e :
                 print("Error : error in list generation")
@@ -191,6 +190,10 @@ class Deck(commands.Cog):
         if message.author.id == self.bot.user.id:  #Stopping the bot from reading its own message
             return
         for nb in re.findall(r"\btire *(\d+) *cartes?\b",message.content, flags=re.I) :
+            """if nb == "une" :
+                nb = 1
+            if nb == "deux" :
+                nb = 2"""
             await message.channel.send(embed = self.Deck.create_card_embed(self.Deck.draw(int(nb))))
             
 async def setup(bot : commands.Bot) :
