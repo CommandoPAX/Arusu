@@ -27,7 +27,8 @@ Si vous avez des requêtes de plugin, vous pouvez me les envoyer.
 ## Installation
 
 Installer l'Arusu Bot est assez simple, il vous suffit de :
-1. Download l'intégralité du repo
-2. Générer un Token sur le portail developpeur et le mettre dans "config.json"
-3. Installer les requirements (je ferais un .txt plus tard)
-4. Executer le fichier "main.py"
+1. Installer python 3.10.6
+2. Download l'intégralité du repo
+3. Générer un Token sur le portail developpeur et le mettre dans "config.json"
+4. Installer les requirements (je ferais un .txt plus tard)
+5. Executer le fichier "main.py"
