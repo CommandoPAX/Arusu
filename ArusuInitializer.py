@@ -1,12 +1,10 @@
 from random import choices
 import string
 import discord
-import os
-from discord.ext import commands
-from os import listdir
+
+from config import ArusuConfig
+from Core.help import HelpCommand
 from ArusuBot import Arusu
-from __path__.config import ArusuConfig
-from help import HelpCommand
 
 class ArusuInit:
     def __init__(self, willListen: bool) -> None:
@@ -15,7 +13,6 @@ class ArusuInit:
         self.__intents.message_content = True
         self.__intents.members = True
         self.__bot = self.__create_bot(willListen)
-        #self.__add_cogs(self.__bot)
 
     def getBot(self):
         return self.__bot
