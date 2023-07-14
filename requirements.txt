@@ -5,3 +5,4 @@ regex=2023.3.23
 youtube_dl=2021.12.17
 jsonmerge=1.8.0
 jsonschema=4.17.3
+asyncio=3.4.3
