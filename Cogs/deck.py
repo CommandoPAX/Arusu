@@ -74,17 +74,24 @@ class DeckCatastrophe() :
     def add_card(self, NAME, Effect) :
         try :
             self.CARDS[NAME] = Effect
-            with open(r"Cogs\DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
-                    json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
-            
+            if platform.system() == "Windows" :
+                with open(r"Cogs\DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
+                        json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
+            if platform.system() == "Linux" :
+                with open("Cogs/DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
+                        json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
         except :
             print("Could not add card")
 
     def rm_card(self, NAME) :
         try :
             del self.CARDS[NAME]
-            with open(r"Cogs\DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
-                    json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
+            if platform.system() == "Windows" :
+                with open(r"Cogs\DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
+                        json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
+            if platform.system() == "Linux" :
+                with open("Cogs/DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
+                        json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
         except :
             print("Could not remove card")
 
