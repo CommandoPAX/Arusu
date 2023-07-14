@@ -13,7 +13,7 @@ class DeckCatastrophe() :
     def __init__(self) :
         try :
             if platform.system() == "Linux" :
-                with open("Cogs/DeckCatastrophe.json", 'r', encoding='utf-8') as f:
+                with open("./DeckCatastrophe.json", 'r', encoding='utf-8') as f:
                     self.CARDS = json.load(f)
             if platform.system() == "Windows" :
                 with open(r"Cogs\DeckCatastrophe.json", 'r', encoding='utf-8') as f:
