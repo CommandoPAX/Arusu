@@ -7,11 +7,16 @@ import math
 import json
 import re
 from config import ArusuConfig
+import platform
 
 class DeckCatastrophe() :
     def __init__(self) :
-        with open(r"Cogs\DeckCatastrophe.json", 'r', encoding='utf-8') as f:
-            self.CARDS = json.load(f)
+        if platform.system() == "Linux" :
+            with open(r"Cogs/DeckCatastrophe.json", 'r', encoding='utf-8') as f:
+                self.CARDS = json.load(f)
+        if platform.system() == "Windows" :
+            with open(r"Cogs\DeckCatastrophe.json", 'r', encoding='utf-8') as f:
+                self.CARDS = json.load(f)
         self.config = ArusuConfig()
         self.items_per_page = 20
         self.pages = math.ceil(self.count() / self.items_per_page)
