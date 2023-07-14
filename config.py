@@ -15,10 +15,10 @@ class ArusuConfig() :
     def update(self, index, value) : 
         try :
             self.DATA[index] = value
-            if platform.system == "Linux" :
+            if platform.system() == "Linux" :
                 with open("./config.json", 'w', encoding='utf-8') as outf :
                     json.dump(self.DATA, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
-            if platform.system == "Windows" :
+            if platform.system() == "Windows" :
                 with open(r".\config.json", 'w', encoding='utf-8') as outf :
                     json.dump(self.DATA, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
             print(index, "has been updated to", value)
