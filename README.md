@@ -19,7 +19,7 @@ Installer l'Arusu Bot est assez simple, il vous suffit de :
 
 ### Bot status
 
-- status
+- status [statut] [activity] [additionnal text]: change le statut du bot
 
 ### Music
 
@@ -27,14 +27,15 @@ Installer l'Arusu Bot est assez simple, il vous suffit de :
 - leave
 - now
 - pause
-- play
-- queue
-- remove
+- play [search]
+- queue [page]
+- remove [index]
 - resume
 - shuffle
 - skip
 - stop
-- summon
+- summon [channel]
+- volume [volume]
 
 ### Roll
 
