@@ -8,7 +8,7 @@ class HelpCommand(commands.HelpCommand):
         return '%s%s %s' % (self.context.clean_prefix, command.qualified_name, command.signature)
 
     async def send_bot_help(self, mapping):
-        embed = discord.Embed(title="Help", color=discord.Color.blurple())
+        embed = discord.Embed(title="Help", color=discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"]))
         for cog, commands in mapping.items():
             filtered = await self.filter_commands(commands, sort=True)
             if command_signatures := [
@@ -21,7 +21,7 @@ class HelpCommand(commands.HelpCommand):
         await channel.send(embed=embed)
 
     async def send_command_help(self, command):
-        embed = discord.Embed(title=self.get_command_signature(command) , color=discord.Color.blurple())
+        embed = discord.Embed(title=self.get_command_signature(command) , color=discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"]))
         if command.help:
             embed.description = command.help
         if alias := command.aliases:
@@ -31,7 +31,7 @@ class HelpCommand(commands.HelpCommand):
         await channel.send(embed=embed)
 
     async def send_help_embed(self, title, description, commands): # a helper function to add commands to an embed
-        embed = discord.Embed(title=title, description=description or "No help found...")
+        embed = discord.Embed(title=title, description=description or "No help found...", color=discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"]))
 
         if filtered_commands := await self.filter_commands(commands):
             for command in filtered_commands:
