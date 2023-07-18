@@ -1,1 +1,4 @@
 config.json
+Cogs/__pycache__
+Cogs/__pycache__/*
+Core/__pycache__/help.cpython-310.pyc
