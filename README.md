@@ -23,58 +23,58 @@ Installer l'Arusu Bot est assez simple, il vous suffit de :
 
 ### Music
 
-- join
-- leave
-- now
-- pause
-- play [search]
-- queue [page]
-- remove [index]
-- resume
-- shuffle
-- skip
-- stop
-- summon [channel]
-- volume [volume]
+- join : rejoint le salon vocal de l'auteur
+- leave : quitte le salon vocal actuel
+- now : affiche la musique jouée actuellement
+- pause : met la  musique en pause
+- play [search] : joue la musique via un URL ou une recherche
+- queue [page] : affiche la queue
+- remove [index] : enlève une musique de la queue
+- resume : enlève la pause
+- shuffle : met la queue en aléatoire
+- skip : passe à la musique suivante
+- stop : arrête la musique en cours et clear la queue
+- summon [channel] : rejoint le salon vocal spécifié
+- volume [volume] : change le volume
 
 ### Roll
 
-- roll
+- roll [xdy +z] : roll les dés spécifiés avec modificateurs
 
 ### Utils
 
-- config_test
-- embed_colour
-- ping
-- prefix
-- restart
-- showsettings
-- shutdown
+- config_test : renvoie un test pour la config
+- embed_colour [colour] : change la couleur de tout les embeds, prend un code hexadecimal comme argument
+- ping : renvoie pong
+- prefix : change le prefix du bot, requiert un redémarrage
+- restart : redémarre le bot
+- showsettings : renvoie toute la config sauf le token
+- shutdown : éteins le bot
 
 ### Feur
 
-- feur
+- feur : permet d'activer / désactiver le plugin
 
 ### Deck
 
-- deck
-- deck_count
-- deck_effect
-- deck_list
-- deck_set
+- deck [nombre] : tire le nombre spécifié de carte
+- deck_count : renvoie le nombre de cartes dans le deck
+- deck_effect [Nom de la carte] : renvoie l'effet de la carte
+- deck_list : renvoie une liste de toutes les cartes du deck ainsi que leur effet
+- deck_set : permet d'ajouter / supprimer des cartes
 
 ### Welcome
 
-- leave_test
-- leavemsg
-- leaveset
-- welcome_test
-- welcomemsg
-- welcomeset
+- leave_test : renvoie un message de départ
+- leavemsg [message] : set le message de départ. {Member} pour spécifier le membre et {Server} pour le serveur
+- leaveset [ID du salon] : set le salon pour le message de départ
+- welcome_test : renvoie un message de bienvenue
+- welcomemsg [message] : set le message de bienvenue. {Member} pour spécifier le membre et {Server} pour le serveur
+- welcomeset [ID du salon] : set le salon pour le message de bienvenue
 
 ### Core
 
-- help
+- help [Command or Cog (optionnal)] : renvoie l'aide du bot
 
 ## T.B.A.
 
