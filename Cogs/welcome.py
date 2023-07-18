@@ -70,14 +70,14 @@ class welcome(commands.Cog) :
     async def welcometest(self, ctx) :
         member = ctx.message.author
         channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.welcome_channel'])
-        await channel.send((self.config.DATA[f"{member.guild.id}.welcome_message"]).format(Member = member.mention(), serveur = member.guild))
+        await channel.send((self.config.DATA[f"{member.guild.id}.welcome_message"]).format(Member = member.mention(), Server = member.guild))
 
     @commands.command(name="leave_test", usage = "", description = "Tests the leave message using the author as the leaving member")
     @commands.is_owner()
     async def leavetest(self, ctx) :
         member = ctx.message.author
         channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.leave_channel'])
-        await channel.send((self.config.DATA[f"{member.guild.id}.leave_message"]).format(Member = member.mention(), serveur = member.guild))
+        await channel.send((self.config.DATA[f"{member.guild.id}.leave_message"]).format(Member = member.mention(), Server = member.guild))
 
     ###################################################################################################################################
 
@@ -85,7 +85,7 @@ class welcome(commands.Cog) :
     async def welcome(self, member) :
         try : 
             channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.welcome_channel'])
-            await channel.send((self.config.DATA[f"{member.guild.id}.welcome_message"]).format(Member = member.mention, serveur = member.guild))
+            await channel.send((self.config.DATA[f"{member.guild.id}.welcome_message"]).format(Member = member.mention, Server = member.guild))
         except :
             print("Could not send welcome message")
     
@@ -93,7 +93,7 @@ class welcome(commands.Cog) :
     async def leave(self, member) :
         try : 
             channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.leave_channel'])
-            await channel.send((self.config.DATA[f"{member.guild.id}.leave_message"]).format(Member = member.mention, serveur = member.guild))
+            await channel.send((self.config.DATA[f"{member.guild.id}.leave_message"]).format(Member = member.mention, Server = member.guild))
         except :
             print("Could not send leave message")
 
