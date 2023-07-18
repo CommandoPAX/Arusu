@@ -1,13 +1,4 @@
 {
-    "482256698342506506.Base": "Arusu's config working", 
-    "482256698342506506.leave_channel": 721312376225398785, 
-    "482256698342506506.leave_message": "{Member} a quittÃ© {serveur}", 
-    "482256698342506506.welcome_channel": 482256698342506508, 
-    "482256698342506506.welcome_message": "Bienvenue {Member} dans {serveur} !", 
-    "BOT_ACTIVITY": "watching", 
-    "BOT_ACTIVITY_TEXT": "le code source d'Arusu", 
-    "BOT_EMBED_COLOUR": "#1900ff", 
-    "BOT_PREFIX": "?", 
-    "BOT_STATUS": "dnd", 
-    "BOT_TOKEN": "OTAzNjcwODM4NDM4NTU5ODA2.GIbqRa.jGspi9j9EM_ZGBKzqiX2jr--0C7AfH1JLeC2CU"
+    "BOT_PREFIX": "!", 
+    "BOT_TOKEN": "TOKEN"
 }
