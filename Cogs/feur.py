@@ -20,24 +20,20 @@ class Feur(commands.Cog):
     async def enable(self, ctx):
         """Active le cog"""
         try :
-            if self.config.DATA[f"{ctx.guild.id}.FeurEnabled"] == 1:
-                await ctx.send("Feur était déjà activé.")
-            else : 
-                self.config.update(f"{ctx.guild.id}.FeurEnabled", 1)
-                await ctx.send(("Feur activé"))
+            self.config.update(f"{ctx.guild.id}.FeurEnabled", True)
+            await ctx.send("Feur enabled")
         except Exception as e:
+            await ctx.send("Could not activate feur")
             print(e)
     
     @feurmain.command(name = "disable", usage = "", description = "Désactive le plugin")
     async def disable(self, ctx):
         """Désactive le plugin"""
         try :
-            if self.config.DATA[f"{ctx.guild.id}.FeurEnabled"] == 0 :
-                await ctx.send("Feur était déjà desactivé.")
-            else : 
-                self.config.update(f"{ctx.guild.id}.FeurEnabled", 0)
-                await ctx.send(("Feur désactivé"))
+            self.config.update(f"{ctx.guild.id}.FeurEnabled", False)
+            await ctx.send("Feur disabled")
         except Exception as e:
+            await ctx.send("Could not disable feur")
             print(e)
 
     ################################################################################################################################### 
@@ -47,7 +43,7 @@ class Feur(commands.Cog):
         try :
             if message.author.id == self.bot.user.id:  #Stopping the bot from reading its own message
                 return
-            if self.config.DATA[f"{message.guild.id}.FeurEnabled"] != 1 : 
+            if self.config.DATA[f"{message.guild.id}.FeurEnabled"] != True : 
                 return
             #Check if "quoi" is written
             if re.search(r"\bquoi\b\W*$",message.content, flags=re.I) :
