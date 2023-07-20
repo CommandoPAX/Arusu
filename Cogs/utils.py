@@ -109,7 +109,7 @@ class utils(commands.Cog) :
         """
         try :
             await ctx.send("Creating an artifical error...")
-            print(ThisWillReturnAnError) #This error is normal
+            print(ThisWillReturnAnError) #This error is normal 
         except Exception as e :
             LogError(Cogname="Utils", CogFunct="ErrorTest", Error=e)
 
