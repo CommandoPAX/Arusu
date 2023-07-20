@@ -112,7 +112,7 @@ class utils(commands.Cog) :
             #Next line has an error, this is normal and is meant to trigger LogError
             print(ThisWillReturnAnError) # type: ignore
         except Exception as e :
-            LogError(Cogname="Utils", CogFunct="ErrorTest", Error=e)
+            LogError(Error=e)
 
     ###################################################################################################################################
 

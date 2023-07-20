@@ -6,9 +6,9 @@ import time
     
 def LogError(Error : Exception) : #Function that will handle logging all errors
     try :
-        filename = str(datetime.date.today())
+        filename = str(datetime.date.today()) + "_" + str(time.strftime("%H:%M", time.localtime()))
         ErrMsg = str(Error) + '\n\n' # \n not working, the fuck
-        f = open("Logs/" + filename, "a")
+        f = open("Logs/" + filename, "a+")
         f.write(ErrMsg)
         f.close()
     except Exception as e :
