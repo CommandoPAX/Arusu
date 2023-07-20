@@ -6,7 +6,7 @@ import time
     
 def LogError(Error : Exception) : #Function that will handle logging all errors
     try :
-        filename = str(datetime.date.today()) + ".txt"
+        filename = str(datetime.date.today())
         ErrMsg = str(Error) + '\n\n' # \n not working, the fuck
         f = open("Logs/" + filename, "a")
         f.write(ErrMsg)
