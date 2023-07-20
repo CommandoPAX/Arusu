@@ -6,8 +6,7 @@ Si vous avez des requêtes de plugin, vous pouvez me les envoyer.
 
 Installer l'Arusu Bot est assez simple, il vous suffit de :
 1. Installer python 3.10.6
-2. Download l'intégralité du repo
-`git clone https://github.com/CommandoPAX/Arusu`
+2. Download la dernière release d'Arusu (ou vous pouvez clone le repo mais vous aurez la version instable `git clone https://github.com/CommandoPAX/Arusu`)
 3. Installer les requirements
 `pip install -r requirements.txt`
 4. Installer FFMPEG
