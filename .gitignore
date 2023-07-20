@@ -1,8 +1,10 @@
 config.json
 Cogs/__pycache__
 Cogs/__pycache__/*
+Cogs/DeckCatastrophe.json
 Core/__pycache__/help.cpython-310.pyc
 Core/__pycache__/*
 __pycache__/config.cpython-310.pyc
 __pycache__/ArusuInitializer.cpython-310.pyc
 __pycache__/ArusuBot.cpython-310.pyc
+
