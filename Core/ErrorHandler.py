@@ -4,10 +4,10 @@ import time
 
 #Should only work on Linux based system for now
     
-def LogError(Error : Exception) : #Function that will handle logging all errors
+def LogError(CogName : str, CogFunct : str, Error : Exception) : #Function that will handle logging all errors
     try :
-        filename = str(datetime.date.today()) + "_" + str(time.strftime("%H:%M", time.localtime()))
-        ErrMsg = str(Error) + '\n\n' # \n not working, the fuck
+        filename = str(datetime.date.today()) + ".log"
+        ErrMsg = str(datetime.datetime.now()) + " " + f"{CogName} | {CogFunct} : " + str(Error) + '\n' # \n not working, the fuck
         f = open("Logs/" + filename, "a+")
         f.write(ErrMsg)
         f.close()

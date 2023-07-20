@@ -9,6 +9,7 @@ import yt_dlp as youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
 from config import ArusuConfig
+from Core.ErrorHandler import LogError
 
 # Source
 # https://gist.github.com/paradox4280/1d35d6fc96d18918b384a09d2a38a7ea
@@ -195,6 +196,8 @@ class VoiceState:
         self.skip_votes = set()
 
         self.audio_player = bot.loop.create_task(self.audio_player_task())
+        
+        self.CogName = "VoiceState"
 
     def __del__(self):
         self.audio_player.cancel()
@@ -242,8 +245,7 @@ class VoiceState:
 
                 await self.next.wait()
             except Exception as e:
-                print("Error in audio player")
-                print(e)
+                LogError(CogName=self.CogName, CogFunct="audio_player_task", Error=e)
 
     def play_next_song(self, error=None):
         if error:
@@ -270,6 +272,7 @@ class music(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.voice_states = {}
+        self.CogName = "Music"
 
     def get_voice_state(self, ctx: commands.Context):
         state = self.voice_states.get(ctx.guild.id)

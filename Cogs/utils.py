@@ -12,6 +12,7 @@ class utils(commands.Cog) :
     def __init__(self, bot) :
         self.bot = bot
         self.config = ArusuConfig()
+        self.CogName = "utils"
 
     @commands.command(name = "config_test", usage = "", description = "Tests the config plugin")
     @commands.is_owner()
@@ -112,7 +113,7 @@ class utils(commands.Cog) :
             #Next line has an error, this is normal and is meant to trigger LogError
             print(ThisWillReturnAnError) # type: ignore
         except Exception as e :
-            LogError(Error=e)
+            LogError(CogName= self.CogName, CogFunct= "ErrorTest", Error=e)
 
     ###################################################################################################################################
 

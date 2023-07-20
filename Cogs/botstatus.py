@@ -3,12 +3,14 @@
 import discord
 from discord.ext import commands
 from config import ArusuConfig
+from Core.ErrorHandler import LogError
 
 class botstatus(commands.Cog) :
 
     def __init__(self, bot) :
         self.bot = bot
         self.config = ArusuConfig()
+        self.CogName = "botstatus"
     
     @commands.command(name = "status", usage = '["status"] ["activity"] ["additionnal text"]', description = "Updates Arusu's status")
     @commands.is_owner()
@@ -69,8 +71,7 @@ class botstatus(commands.Cog) :
             if self.config.DATA["BOT_STATUS"] == "offline" :
                 STATUS = discord.Status.offline
         except Exception as e:
-            print("Error setting status")
-            print(e)
+            LogError(CogName=self.CogName, CogFunct="bot_status_listener", Error=e)
 
         try :
             if self.config.DATA["BOT_ACTIVITY"] == "playing" :
@@ -82,14 +83,12 @@ class botstatus(commands.Cog) :
             if self.config.DATA["BOT_ACTIVITY"] == "competing" :
                 ACTIVITY = discord.Activity(name = self.config.DATA["BOT_ACTIVITY_TEXT"], type = discord.ActivityType.competing)
         except Exception as e: 
-            print("Error setting activity")
-            print(e)
+            LogError(CogName=self.CogName, CogFunct="bot_activity_listener", Error=e)
         
         try :
             await self.bot.change_presence(status = STATUS, activity = ACTIVITY)
         except Exception as e:
-            print("Error finalising bot's status")
-            print(e)
+            LogError(CogName=self.CogName, CogFunct="bot_status_change_listener", Error=e)
 
 async def setup(bot : commands.Bot) :
     await bot.add_cog(botstatus(bot))

@@ -2,6 +2,7 @@
 
 import json
 import platform
+from Core.ErrorHandler import LogError
 
 class ArusuConfig() : 
     def __init__(self) :
@@ -23,6 +24,5 @@ class ArusuConfig() :
                     json.dump(self.DATA, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
             print(index, "has been updated to", value)
         except Exception as e:
-            print("Value could not be updated") 
-            print(e)
+            LogError(CogName="ArusuConfig", CogFunct="update", Error=e)
                 

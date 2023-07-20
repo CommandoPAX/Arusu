@@ -8,9 +8,11 @@ import json
 import re
 from config import ArusuConfig
 import platform
+from Core.ErrorHandler import LogError
 
 class DeckCatastrophe() :
     def __init__(self) :
+        self.CogName = "DeckCatastrophe"
         try :
             if platform.system() == "Linux" :
                 with open("./Cogs/DeckCatastrophe.json", 'r', encoding='utf-8') as f:
@@ -19,8 +21,7 @@ class DeckCatastrophe() :
                 with open(r"Cogs\DeckCatastrophe.json", 'r', encoding='utf-8') as f:
                     self.CARDS = json.load(f)
         except Exception as e :
-            print("Failed to initialize the deck")
-            print(e)
+            LogError(CogName=self.CogName, CogFunct="Init", Error=e)
         self.config = ArusuConfig()
         self.items_per_page = 20
         self.pages = math.ceil(self.count() / self.items_per_page)
@@ -64,16 +65,14 @@ class DeckCatastrophe() :
                 for i, Card in enumerate(CardTitle[start:end], start=start):
                     List += f"**{Card}** : {self.CARDS[Card]} \n"
             except Exception as e :
-                print("Error : error in list generation")
-                print(e)
+                LogError(CogName=self.CogName, CogFunct="create_embed_list", Error=e)
 
             embed = (discord.Embed(title="Deck des catastrophes",
                                 description=List,
                                 color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])).set_footer(text=f"Page {page}/{self.pages}"))
             return embed
         except Exception as e :
-            print("Error : error in embed list generation")
-            print(e)
+            LogError(CogName=self.CogName, CogFunct="create_embed_list", Error=e)
     
     def add_card(self, NAME, Effect) :
         try :
@@ -84,8 +83,8 @@ class DeckCatastrophe() :
             if platform.system() == "Linux" :
                 with open("Cogs/DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
                         json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
-        except :
-            print("Could not add card")
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="add_card", Error = e)
 
     def rm_card(self, NAME) :
         try :
@@ -96,8 +95,8 @@ class DeckCatastrophe() :
             if platform.system() == "Linux" :
                 with open("Cogs/DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
                         json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
-        except :
-            print("Could not remove card")
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="rm_card", Error = e)
 
     def list(self) : #J'ai pas de solution très élégante pour le moment en considérant la limite de charactère de discord
         try :
@@ -107,8 +106,7 @@ class DeckCatastrophe() :
                 embed_list.append(Emb)
             return embed_list
         except Exception as e :
-            print("Error : could not return embed_list")
-            print(e)
+            LogError(CogName=self.CogName, CogFunct="list", Error = e)
 
     def count(self) :
         return int(len(self.CARDS))
@@ -120,7 +118,8 @@ class DeckCatastrophe() :
                 return CardEffect
             else :
                 return "Invalid card name"
-        except :
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="effect", Error = e)
             return "Could not send card effect"
         
     def draw(self, nb : int) :

@@ -3,6 +3,7 @@
 import os
 import asyncio
 from ArusuInitializer import ArusuInit
+from Core.ErrorHandler import LogError
 
 async def load(bot) :
     for root,dirs,files in os.walk("./Cogs"): #check le dossier plugins pour chaque fichier
@@ -12,7 +13,7 @@ async def load(bot) :
                     await bot.load_extension(f"Cogs.{filename[:-3]}") #ajoute le module au bot
                 except Exception as e:
                     print("Extension not loaded : ", filename, "\n")
-                    print(e)
+                    LogError(CogName="Main", CogFunct="load", Error=e)
 
 async def main() :
     initializer = ArusuInit(willListen=True)
