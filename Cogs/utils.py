@@ -5,6 +5,7 @@ from discord.ext import commands
 import sys
 import os
 from config import ArusuConfig
+from Core.ErrorHandler import LogError
 
 class utils(commands.Cog) :
 
@@ -99,6 +100,18 @@ class utils(commands.Cog) :
         except Exception as e :
             await ctx.send("Could not shut down bot")
             print(e)
+            
+    @commands.command(name = "error_test", usage = "", description = "Creates an artifical error that will be logged")
+    @commands.is_owner()
+    async def ErrorTest(self, ctx) :
+        """
+        Creates an artifical error that will be logged
+        """
+        try :
+            await ctx.send("Creating an artifical error...")
+            print(ThisWillReturnAnError) #This error is normal
+        except Exception as e :
+            LogError(Cogname="Utils", CogFunct="ErrorTest", Error=e)
 
     ###################################################################################################################################
 
