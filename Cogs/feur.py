@@ -18,9 +18,11 @@ class Feur(commands.Cog):
     async def feurmain(self, ctx) :
         pass
     
-    @feurmain.command(name = "enable", usage = "", description = "Active le cog")
+    @feurmain.command(name = "enable", usage = "", description = "Enables the cog")
     async def enable(self, ctx):
-        """Active le cog"""
+        """
+        Enables the cog
+        """
         try :
             self.config.update(f"{ctx.guild.id}.FeurEnabled", True)
             await ctx.send("Feur enabled")
@@ -28,9 +30,11 @@ class Feur(commands.Cog):
             LogError(CogName=self.CogName, CogFunct="enable", Error=e)
             await ctx.send("Could not activate feur")
     
-    @feurmain.command(name = "disable", usage = "", description = "Désactive le plugin")
+    @feurmain.command(name = "disable", usage = "", description = "Disables the cog")
     async def disable(self, ctx):
-        """Désactive le plugin"""
+        """
+        Disables the cog
+        """
         try :
             self.config.update(f"{ctx.guild.id}.FeurEnabled", False)
             await ctx.send("Feur disabled")
@@ -55,6 +59,7 @@ class Feur(commands.Cog):
                 await message.channel.send("Pour feur")
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="listener", Error=e)
+            self.config.update(f"{message.guild.id}.FeurEnabled", False) #Disables the plugin after an error to avoid spamming the logs
             pass
             
 async def setup(bot : commands.Bot) :
