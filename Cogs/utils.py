@@ -45,9 +45,12 @@ class Utils(commands.Cog) :
             await ctx.send("Could not shut down bot")
             print(e)
 
-    @commands.group(name = "utils")
+    @commands.group(name = "utils", description = "Base command")
     @commands.is_owner()
     async def utils(self, ctx) :
+        """
+        Base command for diferent utils
+        """
         pass
 
     @utils.command(name = "config_test", usage = "", description = "Tests the config plugin")

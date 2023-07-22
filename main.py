@@ -6,11 +6,11 @@ from ArusuInitializer import ArusuInit
 from Core.ErrorHandler import LogError
 
 async def load(bot) :
-    for root,dirs,files in os.walk("./Cogs"): #check le dossier plugins pour chaque fichier
+    for root,dirs,files in os.walk("./Cogs"): #This check the directory for files
         for filename in files : 
-            if filename.endswith(".py") and filename !="config.py": #sinon c'est pas des modules
+            if filename.endswith(".py") and filename !="chat.py": #We check for cogs and filter unwanted cogs
                 try : 
-                    await bot.load_extension(f"Cogs.{filename[:-3]}") #ajoute le module au bot
+                    await bot.load_extension(f"Cogs.{filename[:-3]}") #We add the cog to the bot
                 except Exception as e:
                     print("Extension not loaded : ", filename, "\n")
                     LogError(CogName="Main", CogFunct="load", Error=e)
