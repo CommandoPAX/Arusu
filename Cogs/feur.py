@@ -13,9 +13,12 @@ class Feur(commands.Cog):
         self.CogName = "Feur"
         self.config = ArusuConfig()
         
-    @commands.group(name = "feur")
+    @commands.group(name = "feur", description = "Main command to enable or disable the Feur Cog")
     @commands.is_owner()
     async def feurmain(self, ctx) :
+        """
+        Main command to enable or disable the Feur Cog
+        """
         pass
     
     @feurmain.command(name = "enable", usage = "", description = "Enables the cog")

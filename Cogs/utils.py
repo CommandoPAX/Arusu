@@ -7,7 +7,7 @@ import os
 from config import ArusuConfig
 from Core.ErrorHandler import LogError
 
-class utils(commands.Cog) :
+class Utils(commands.Cog) :
 
     def __init__(self, bot) :
         self.bot = bot
@@ -128,4 +128,4 @@ class utils(commands.Cog) :
             print('--------------------------------------------------------------------------')
 
 async def setup(bot : commands.Bot) :
-    await bot.add_cog(utils(bot))
+    await bot.add_cog(Utils(bot))

@@ -5,7 +5,7 @@ from discord.ext import commands
 from config import ArusuConfig
 from Core.ErrorHandler import LogError
 
-class botstatus(commands.Cog) :
+class Botstatus(commands.Cog) :
 
     def __init__(self, bot) :
         self.bot = bot
@@ -91,4 +91,4 @@ class botstatus(commands.Cog) :
             LogError(CogName=self.CogName, CogFunct="bot_status_change_listener", Error=e)
 
 async def setup(bot : commands.Bot) :
-    await bot.add_cog(botstatus(bot))
+    await bot.add_cog(Botstatus(bot))

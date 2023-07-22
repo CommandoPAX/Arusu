@@ -15,9 +15,12 @@ class Combien(commands.Cog):
         self.CogName = "Combien"
         self.config = ArusuConfig()
         
-    @commands.group(name = "combien")
+    @commands.group(name = "combien", description = "Main command to enable or disable the Combien Cog")
     @commands.is_owner()
     async def combienmain(self, ctx) :
+        """
+        Main command to enable or disable the Combien Cog
+        """
         pass
     
     @combienmain.command(name = "enable", usage = "", description = "Enables the cog")

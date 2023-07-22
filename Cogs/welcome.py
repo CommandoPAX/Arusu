@@ -4,7 +4,7 @@ from discord.ext import commands
 from config import ArusuConfig
 from Core.ErrorHandler import LogError
 
-class welcome(commands.Cog) :
+class Welcome(commands.Cog) :
 
     def __init__(self, bot) :
         self.bot = bot
@@ -100,4 +100,4 @@ class welcome(commands.Cog) :
             LogError(CogName=self.CogName, CogFunct="on_member_remove", Error=e)
 
 async def setup(bot : commands.Bot) :
-    await bot.add_cog(welcome(bot))
+    await bot.add_cog(Welcome(bot))
