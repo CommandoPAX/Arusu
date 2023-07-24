@@ -6,6 +6,9 @@ import pyhedrals
 from Core.ErrorHandler import LogError
 
 class Roll(commands.Cog) :
+    """
+    Rolls a dice
+    """
 
     def __init__(self, bot) :
         self.bot = bot

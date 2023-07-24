@@ -8,6 +8,9 @@ from config import ArusuConfig
 from Core.ErrorHandler import LogError
 
 class Utils(commands.Cog) :
+    """
+    Useful commands that don't fit in another cog
+    """
 
     def __init__(self, bot) :
         self.bot = bot

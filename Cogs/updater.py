@@ -7,6 +7,9 @@ from config import ArusuConfig
 from Core.ErrorHandler import LogError
 
 class Updater(commands.Cog) :
+    """
+    Handles updating the bot
+    """
 
     def __init__(self, bot) :
         self.bot = bot

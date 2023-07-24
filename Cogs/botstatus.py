@@ -6,6 +6,9 @@ from config import ArusuConfig
 from Core.ErrorHandler import LogError
 
 class Botstatus(commands.Cog) :
+    """
+    Handles changing the bot status
+    """
 
     def __init__(self, bot) :
         self.bot = bot
@@ -15,6 +18,9 @@ class Botstatus(commands.Cog) :
     @commands.command(name = "status", usage = '["status"] ["activity"] ["additionnal text"]', description = "Updates Arusu's status")
     @commands.is_owner()
     async def status_main(self, ctx, status, activity, AdditText = "le code source d'Arusu") :
+        """
+        Main command to change Arusu's status, handles status, activity and additionnal text
+        """
         try :
             if status == "dnd" :
                 self.config.update("BOT_STATUS", "dnd")

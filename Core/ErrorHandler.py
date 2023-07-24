@@ -1,6 +1,5 @@
 #Handler responsible for logging errors
 import datetime
-import time
 
 #Should only work on Linux based system for now
     
