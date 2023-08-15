@@ -5,7 +5,7 @@ from discord.ext import commands
 import sys
 import os
 from config import ArusuConfig
-from Core.ErrorHandler import LogError
+from Core.ErrorHandler import LogError, ErrorEmbed
 
 class Utils(commands.Cog) :
     """
@@ -120,6 +120,22 @@ class Utils(commands.Cog) :
             print(ThisWillReturnAnError) # type: ignore
         except Exception as e :
             LogError(CogName= self.CogName, CogFunct= "ErrorTest", Error=e)
+            ErrorEmbed(ctx, Error=e, CustomMSG= "Error has been logged")
+            
+    @utils.command(name = "get_log", usage = "[YYYY-MM-DD]", description = "Returns the logs for a given date")
+    async def GetLogs(self, ctx, LOGSDATE : str) : 
+        """
+        Returns the logs for a given date. Date format : YYYY-MM-DD
+        """
+        try : 
+            TBS = ""
+            f = open("Logs/" + LOGSDATE + ".log", "r")
+            for line in f.readlines() :
+                TBS = TBS + line + "\n"
+            await ctx.send(embed = discord.Embed(title= LOGSDATE, description=TBS))
+        except Exception as e :
+            await ctx.send("Could not find or access logs")
+            LogError(CogName=self.CogName, CogFunct="GetLogs", Error = e)
 
     ###################################################################################################################################
 
