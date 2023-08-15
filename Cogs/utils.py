@@ -120,7 +120,7 @@ class Utils(commands.Cog) :
             print(ThisWillReturnAnError) # type: ignore
         except Exception as e :
             LogError(CogName= self.CogName, CogFunct= "ErrorTest", Error=e)
-            ErrorEmbed(ctx, Error=e, CustomMSG= "Error has been logged")
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error has been logged")
             
     @utils.command(name = "get_log", usage = "[YYYY-MM-DD]", description = "Returns the logs for a given date")
     async def GetLogs(self, ctx, LOGSDATE : str) : 
