@@ -3,7 +3,7 @@
 import discord
 from discord.ext import commands
 from config import ArusuConfig
-from Core.ErrorHandler import LogError
+from Core.ErrorHandler import LogError, ErrorEmbed
 
 class Botstatus(commands.Cog) :
     """
@@ -34,8 +34,9 @@ class Botstatus(commands.Cog) :
             if status == "offline" :
                 self.config.update("BOT_STATUS", "offline")
                 STATUS = discord.Status.offline
-        except :
-            await ctx.send("Invalid status. Available choices : dnd, online, idle, offline")
+        except Exception as e:
+            LogError(self.CogName, "status_main", e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Invalid status. Available choices : dnd, online, idle, offline")
 
         try :
             if activity == "playing" :
@@ -55,13 +56,15 @@ class Botstatus(commands.Cog) :
                 self.config.update("BOT_ACTIVITY_TEXT", AdditText)
                 ACTIVITY = discord.Activity(name = AdditText, type = discord.ActivityType.competing)
         except : 
-            await ctx.send("Invalid activity. Available choices : playing, listening, watching, competing")
+            LogError(self.CogName, "status_main", e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Invalid status. Available choices : playing, listening, watching, competing")
 
         try :
             await self.bot.change_presence(status = STATUS, activity = ACTIVITY)
             await ctx.send(f"Bot status changed to : {STATUS}, {ACTIVITY}")
         except :
-            await ctx.send("Error changing bot's status")
+            LogError(self.CogName, "status_main", e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error in chaning the bot status at final step")
 
     ################################################################################################################################### 
 

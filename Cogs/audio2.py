@@ -470,7 +470,7 @@ class Music(commands.Cog):
         ctx.voice_state.songs.remove(index - 1)
         await ctx.message.add_reaction('✅')
 
-    #Command deactivated due to not functionning properyl
+    #Command deactivated due to not functionning properly
     '''@commands.command(name='loop')
     async def _loop(self, ctx: commands.Context):
         """

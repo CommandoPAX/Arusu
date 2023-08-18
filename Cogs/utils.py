@@ -30,9 +30,13 @@ class Utils(commands.Cog) :
         """
         Restarts the bot
         """
-        print("------------------------------Restarting Bot------------------------------")
-        await ctx.send("Restarting bot...")
-        os.execv(sys.executable, ['python'] + sys.argv) #the part that restarts the bot
+        try :
+            print("------------------------------Restarting Bot------------------------------")
+            await ctx.send("Restarting bot...")
+            os.execv(sys.executable, ['python'] + sys.argv) #the part that restarts the bot
+        except Exception as e :
+            LogError(CogName=self.CogName, CogFunct="restart", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not restart bot")
 
     @commands.command(name = "shutdown", usage = "", description = "Shutdown the bot", aliases = ["sleep_time"])
     @commands.is_owner()
@@ -45,8 +49,8 @@ class Utils(commands.Cog) :
             print("------------------------------Shutting Down-------------------------------")
             await self.bot.close()
         except Exception as e :
-            await ctx.send("Could not shut down bot")
-            print(e)
+            LogError(CogName=self.CogName, CogFunct="shutdown", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not shutdown bot, weird")
 
     @commands.group(name = "utils", description = "Base command")
     @commands.is_owner()
@@ -73,8 +77,9 @@ class Utils(commands.Cog) :
         try :
             embed = discord.Embed(title="Default Embed", description=f"Colour changed to {colour}", color=discord.Color.from_str(colour))
             await ctx.send(embed = embed)
-        except : 
-            await ctx.send("Invalid colour")
+        except Exception as e: 
+            LogError(CogName=self.CogName, CogFunct="embed_colour_set", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set new embed color")
 
     @utils.command(name = "showsettings", usage = "", description = "Shows Arusu's config")
     async def showset(self, ctx) : 
@@ -88,16 +93,16 @@ class Utils(commands.Cog) :
                     if i != "BOT_TOKEN" :
                         Settings += f"**{i}** : {self.config.DATA[i]} \n"
             except Exception as e :
-                print("Error : error in Settings generation")
-                print(e)
+                LogError(CogName=self.CogName, CogFunct="showset", Error=e)
+                await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not get settings from config file")
 
             embed = (discord.Embed(title="Settings",
                                 description=Settings,
                                 color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])))
+            await ctx.send(embed = embed)
         except Exception as e :
-            print("Error : error in embed settings generation")
-            print(e)
-        await ctx.send(embed = embed)
+            LogError(CogName=self.CogName, CogFunct="prefixset", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not send Arusu's config")
 
     @utils.command(name = "prefix", usage = "[prefix]", description = "Changes Arusu's prefix, requires a restart to take effect")
     async def prefixset(self, ctx, NEWPREFIX) :
@@ -105,9 +110,8 @@ class Utils(commands.Cog) :
             self.config.update("BOT_PREFIX", str(NEWPREFIX))
             await ctx.send(f"Prefix changed to {NEWPREFIX}")
         except Exception as e :
-            await ctx.send("Could not change prefix")
-            print("Error in changing prefix")
-            print(e)
+            LogError(CogName=self.CogName, CogFunct="prefixset", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not change prefix")
 
     @utils.command(name = "error_test", usage = "", description = "Creates an artifical error that will be logged")
     async def ErrorTest(self, ctx) :
@@ -122,7 +126,7 @@ class Utils(commands.Cog) :
             LogError(CogName= self.CogName, CogFunct= "ErrorTest", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Error has been logged")
             
-    @utils.command(name = "get_log", usage = "[YYYY-MM-DD]", description = "Returns the logs for a given date")
+    @utils.command(name = "get_logs", usage = "[YYYY-MM-DD]", description = "Returns the logs for a given date")
     async def GetLogs(self, ctx, LOGSDATE : str) : 
         """
         Returns the logs for a given date. Date format : YYYY-MM-DD
@@ -134,8 +138,8 @@ class Utils(commands.Cog) :
                 TBS = TBS + line + "\n"
             await ctx.send(embed = discord.Embed(title= LOGSDATE, description=TBS))
         except Exception as e :
-            await ctx.send("Could not find or access logs")
             LogError(CogName=self.CogName, CogFunct="GetLogs", Error = e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not find or access logs")
 
     ###################################################################################################################################
 

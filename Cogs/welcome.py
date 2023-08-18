@@ -2,7 +2,7 @@
 
 from discord.ext import commands
 from config import ArusuConfig
-from Core.ErrorHandler import LogError
+from Core.ErrorHandler import LogError, ErrorEmbed
 
 class Welcome(commands.Cog) :
     """
@@ -32,7 +32,7 @@ class Welcome(commands.Cog) :
             await ctx.send(f"Welcome channel set to {self.config.DATA[f'{ctx.guild.id}.welcome_channel']}")
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="welcomeset", Error=e)
-            await ctx.send("Could not set welcome channel")
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set welcome channel")
 
     @Welmain.command(name = "msg", usage = "[your welcome message]", description = "Sets the welcome message")
     async def welcomemsg(self, ctx, welcomemsg) :
@@ -46,13 +46,17 @@ class Welcome(commands.Cog) :
             await ctx.send((self.config.DATA[f"{ctx.guild.id}.welcome_message"]).format(Member = member.mention, Server = ctx.guild))
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="welcomemsg", Error=e)
-            await ctx.send("Could not set welcome message")
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set welcome message")
 
     @Welmain.command(name = "test", usage = "", description = "Tests the welcome message using the author as the new member")
     async def welcometest(self, ctx) :
-        member = ctx.message.author
-        channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.welcome_channel'])
-        await channel.send((self.config.DATA[f"{member.guild.id}.welcome_message"]).format(Member = member.mention(), Server = member.guild))
+        try :
+            member = ctx.message.author
+            channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.welcome_channel'])
+            await channel.send((self.config.DATA[f"{member.guild.id}.welcome_message"]).format(Member = member.mention(), Server = member.guild))
+        except Exception as e :
+            LogError(CogName=self.CogName, CogFunct= "welcome_test", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error in sending test message")
 
     @commands.group(name = "leave_2", description = "Base command")
     @commands.is_owner()
@@ -72,7 +76,7 @@ class Welcome(commands.Cog) :
             await ctx.send(f"Leave channel set to {self.config.DATA[f'{ctx.guild.id}.leave_channel']}")
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="leaveset", Error=e)
-            await ctx.send("Could not set leave channel")
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set leave channel")
 
     @Leavemain.command(name = "msg", usage = "[message]", description = "Sets the leave message")
     async def leaveemsg(self, ctx, leavemsg) :
@@ -86,13 +90,17 @@ class Welcome(commands.Cog) :
             await ctx.send((self.config.DATA[f"{ctx.guild.id}.leave_message"]).format(Member = member.mention, Server = ctx.guild))
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="leavemsg", Error=e)
-            await ctx.send("Could not set leave message")
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set leave message")
 
     @Leavemain.command(name="test", usage = "", description = "Tests the leave message using the author as the leaving member")
     async def leavetest(self, ctx) :
-        member = ctx.message.author
-        channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.leave_channel'])
-        await channel.send((self.config.DATA[f"{member.guild.id}.leave_message"]).format(Member = member.mention(), Server = member.guild))
+        try :
+            member = ctx.message.author
+            channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.leave_channel'])
+            await channel.send((self.config.DATA[f"{member.guild.id}.leave_message"]).format(Member = member.mention(), Server = member.guild))
+        except Exception as e :
+            LogError(CogName=self.CogName, CogFunct="leavetest", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error in sending test message")
 
     ###################################################################################################################################
 

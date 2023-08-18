@@ -3,7 +3,8 @@
 import discord
 from discord.ext import commands
 import pyhedrals
-from Core.ErrorHandler import LogError
+from Core.ErrorHandler import LogError, ErrorEmbed
+from Cogs.deck import Deck
 
 class Roll(commands.Cog) :
     """
@@ -27,7 +28,8 @@ class Roll(commands.Cog) :
 
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="roll", Error=e)
-            await ctx.send("Roll impossible, il va falloir tirer une carte")
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error in rolling the dice, please draw a card from the deck")
+            await Deck.drawmain(self, ctx, nb=1)
 
 async def setup(bot : commands.Bot) :
     await bot.add_cog(Roll(bot))

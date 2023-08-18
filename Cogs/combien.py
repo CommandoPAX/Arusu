@@ -5,7 +5,7 @@ import re
 import random
 import pycountry
 from config import ArusuConfig
-from Core.ErrorHandler import LogError
+from Core.ErrorHandler import LogError, ErrorEmbed
 
 class Combien(commands.Cog):
     """Combien ? 75 centimes"""
@@ -33,7 +33,7 @@ class Combien(commands.Cog):
             await ctx.send("Combien enabled")
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="enable", Error=e)
-            await ctx.send("Could not activate combien")
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error enabling the cog")
     
     @combienmain.command(name = "disable", usage = "", description = "Disables the cog")
     async def disable(self, ctx):
@@ -45,7 +45,7 @@ class Combien(commands.Cog):
             await ctx.send("Combien disabled")
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="disable", Error=e)
-            await ctx.send("Could not disable combien")
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error disabling the cog")
 
     ################################################################################################################################### 
     

@@ -3,7 +3,7 @@
 from discord.ext import commands
 import re
 from config import ArusuConfig
-from Core.ErrorHandler import LogError
+from Core.ErrorHandler import LogError, ErrorEmbed
 
 class Feur(commands.Cog):
     """Quoi ? Feur"""
@@ -31,7 +31,7 @@ class Feur(commands.Cog):
             await ctx.send("Feur enabled")
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="enable", Error=e)
-            await ctx.send("Could not activate feur")
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error enabling the cog")
     
     @feurmain.command(name = "disable", usage = "", description = "Disables the cog")
     async def disable(self, ctx):
@@ -43,7 +43,7 @@ class Feur(commands.Cog):
             await ctx.send("Feur disabled")
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="disable", Error=e)
-            await ctx.send("Could not disable feur")
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error disabling the cog")
 
     ################################################################################################################################### 
     

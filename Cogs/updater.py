@@ -4,7 +4,7 @@ from discord.ext import commands
 import os
 import sys
 from config import ArusuConfig
-from Core.ErrorHandler import LogError
+from Core.ErrorHandler import LogError, ErrorEmbed
 
 class Updater(commands.Cog) :
     """
@@ -29,7 +29,7 @@ class Updater(commands.Cog) :
             os.execv(sys.executable, ['python'] + sys.argv) #the part that restarts the bot
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="cog_update", Error=e)
-            await ctx.send("Could not update cogs")
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error updating the bot")
 
 async def setup(bot : commands.Bot) :
     await bot.add_cog(Updater(bot))

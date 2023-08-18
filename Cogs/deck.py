@@ -8,7 +8,7 @@ import json
 import re
 from config import ArusuConfig
 import platform
-from Core.ErrorHandler import LogError
+from Core.ErrorHandler import LogError, ErrorEmbed
 
 class DeckCatastrophe() :
     def __init__(self) :
@@ -186,8 +186,8 @@ class Deck(commands.Cog):
         try :
             self.Deck.add_card(NAME= CardName, Effect=CardEffect)
             await ctx.send(f"`{CardName} : {CardEffect}` has been added to the Deck.")
-        except :
-            await ctx.send("Could not add card to deck")
+        except Exception as e:
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error while adding card to deck")
 
     @deckmain.command(name ="remove", usage = '["Card Name]', description = "Removes a card from the deck")
     async def rm_cmd(self, ctx, CardName) :
@@ -197,8 +197,8 @@ class Deck(commands.Cog):
         try :
             self.Deck.rm_card(NAME=CardName)
             await ctx.send(f"`{CardName}` has been removed from the deck.")
-        except :
-            await ctx.send(f"Could not remove `{CardName}` from the deck.")
+        except Exception as e:
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error while removing card from deck")
 
     ################################################################################################################################### 
     
