@@ -9,7 +9,7 @@ import yt_dlp as youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
 from config import ArusuConfig
-from Core.ErrorHandler import LogError
+from Core.ErrorHandler import LogError, ErrorEmbed
 
 # Source
 # https://gist.github.com/paradox4280/1d35d6fc96d18918b384a09d2a38a7ea
@@ -185,6 +185,7 @@ class VoiceState:
     def __init__(self, bot: commands.Bot, ctx: commands.Context):
         self.bot = bot
         self._ctx = ctx
+        self.CogName = "VoiceState"
 
         self.current = None
         self.voice = None
@@ -235,24 +236,31 @@ class VoiceState:
                     try:
                         async with timeout(604800):  # 3 minutes
                             self.current = await self.songs.get()
-                    except asyncio.TimeoutError:
+                    except asyncio.TimeoutError as e :
+                        LogError(self.CogName, "audio_player_task", e)
                         self.bot.loop.create_task(self.stop())
                         return
-
-                self.current.source.volume = self._volume
-                self.voice.play(self.current.source, after=self.play_next_song)
-                await self.current.source.channel.send(embed=self.current.create_embed())
+                try :
+                    self.current.source.volume = self._volume
+                    self.voice.play(self.current.source, after=self.play_next_song)
+                    await self.current.source.channel.send(embed=self.current.create_embed())
+                except Exception as e :
+                    LogError(self.CogName, "audio_player_task", e)
 
                 await self.next.wait()
             except Exception as e:
                 LogError(CogName=self.CogName, CogFunct="audio_player_task", Error=e)
 
-    def play_next_song(self, error=None):
-        if error:
-            raise VoiceError(str(error))
+    async def play_next_song(self, error=None):
+        try :
+            if error:
+                raise VoiceError(str(error))
 
-        self.next.set()
-
+            self.next.set() #Error is on this line, I get '_MissingSentinel' object has no attribute 'read'
+        except Exception as e :
+            LogError(self.CogName, "play_next_song", e)
+            await self.stop()
+        
     def skip(self):
         self.skip_votes.clear()
 
@@ -265,6 +273,18 @@ class VoiceState:
         if self.voice:
             await self.voice.disconnect()
             self.voice = None
+            
+    async def loopset(self, ctx) :
+        try :
+            if self._loop == True :
+                self._loop = False
+            elif self._loop == False :
+                self._loop = True
+            else :
+                await ctx.send(f"Loop is set to : {self._loop} but it bugged")
+        except Exception as e :
+            LogError(self.CogName, "loopset", e )
+            await ErrorEmbed(ctx, Error=e, CustomMSG="Error setting the loop")
 
 ###################################################################################################################################
 
@@ -471,7 +491,7 @@ class Music(commands.Cog):
         await ctx.message.add_reaction('✅')
 
     #Command deactivated due to not functionning properly
-    '''@commands.command(name='loop')
+    @commands.command(name='loop')
     async def _loop(self, ctx: commands.Context):
         """
         Loops the currently playing song.
@@ -484,7 +504,7 @@ class Music(commands.Cog):
         # Inverse boolean value to loop and unloop.
         ctx.voice_state.loop = not ctx.voice_state.loop
         await ctx.message.add_reaction('✅')
-        await ctx.send(f"Loop set to {ctx.voice_state.loop}")'''
+        await ctx.send(f"Loop set to {ctx.voice_state.loop}")
 
     @commands.command(name='play', aliases=['p'], description = "Plays a song.")
     async def _play(self, ctx: commands.Context, *, search: str):
@@ -502,7 +522,8 @@ class Music(commands.Cog):
             try:
                 source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop)
             except YTDLError as e:
-                await ctx.send('An error occurred while processing this request: {}'.format(str(e)))
+                LogError(self.CogName, "_play", e)
+                await ErrorEmbed(ctx, e, "Error playing Audio")
             else:
                 song = Song(source)
 

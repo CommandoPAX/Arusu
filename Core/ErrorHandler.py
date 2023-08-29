@@ -18,6 +18,6 @@ def LogError(CogName : str, CogFunct : str, Error : Exception) : #Function that 
         print(e)
         print('--------------------------------------------------------------------------')
         
-async def ErrorEmbed(ctx, Error : Exception, CustomMSG = "") :
+async def ErrorEmbed(ctx : commands.Context, Error : Exception, CustomMSG = "") :
     EMSG = discord.Embed(title="Error", description= CustomMSG + "\n *" + str(Error) + "*", color = discord.Color.red())
     await ctx.send(embed = EMSG)
