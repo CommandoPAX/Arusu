@@ -84,3 +84,11 @@ class HelpCommand(commands.HelpCommand):
             await self.send_help_embed(f'{title} Category', cog.description, cog.get_commands())
         except Exception as e:
             LogError(CogName="HelpCommand", CogFunct="send_cog_help", Error=e)
+    
+    ################################################################################################################################### 
+    #Gets called when a command is not found
+    
+    async def send_error_message(self, error):
+        embed = discord.Embed(title="Error", description=error, color=discord.Color.red())
+        channel = self.get_destination()
+        await channel.send(embed=embed)

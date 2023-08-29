@@ -33,7 +33,10 @@ class Utils(commands.Cog) :
         try :
             print("------------------------------Restarting Bot------------------------------")
             await ctx.send("Restarting bot...")
-            os.execv(sys.executable, ['python'] + sys.argv) #the part that restarts the bot
+            os.execv(sys.executable, ['python'] + sys.argv) #Restarts the shell using the same argument as before
+            #After the first restart, the bot is unable to restart again, this is a known bug which I don't know how to fix, the exact error message is :
+            #[Errno 2] No such file or directory
+            #Your guesses are as good as mine
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="restart", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not restart bot")
@@ -152,6 +155,16 @@ class Utils(commands.Cog) :
             print(f'Logged in as {self.bot.user} (ID: {self.bot.user.id})')
             print("Not all plugins are online")
             print('--------------------------------------------------------------------------')
+            
+    @commands.Cog.listener(name="on_command_error")
+    async def ErrorHandlerV2(self, ctx : commands.Context, ERROR : Exception) : #Handles missing commands error message
+        try :
+            if isinstance(ERROR, commands.CommandNotFound) :
+                await ErrorEmbed(ctx, ERROR)
+            else : 
+                pass
+        except :
+            LogError(self.CogName, "ErrorHandlerV2", ERROR)
 
 async def setup(bot : commands.Bot) :
     await bot.add_cog(Utils(bot))
