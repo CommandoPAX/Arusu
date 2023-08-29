@@ -1,4 +1,4 @@
-# Plugin contenant des utilitaires généraux
+# Plugin gérant les mises à jour du bot
 
 from discord.ext import commands
 import os
