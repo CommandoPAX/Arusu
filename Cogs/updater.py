@@ -26,7 +26,7 @@ class Updater(commands.Cog) :
             os.system("git pull")
             print("------------------------------Restarting Bot------------------------------")
             await ctx.send("Restarting bot")
-            os.execv(sys.executable, ['python'] + sys.argv) #the part that restarts the bot
+            os.execv(sys.executable, ['python3'] + sys.argv) #the part that restarts the bot
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="cog_update", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Error updating the bot")
