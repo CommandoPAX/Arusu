@@ -33,14 +33,15 @@ class Utils(commands.Cog) :
         try :
             print("------------------------------Restarting Bot------------------------------")
             await ctx.send("Restarting bot...")
-            os.execv(sys.executable, ['python'] + sys.argv) #Restarts the shell using the same argument as before
+            print(os.get_exec_path(env=None))
+            os.execv(sys.executable, ['python3'] + sys.argv) #Restarts the shell using the same argument as before
             #After the first restart, the bot is unable to restart again, this is a known bug which I don't know how to fix, the exact error message is :
             #[Errno 2] No such file or directory
             #Your guesses are as good as mine
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="restart", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not restart bot")
-
+        
     @commands.command(name = "shutdown", usage = "", description = "Shutdown the bot", aliases = ["sleep_time"])
     @commands.is_owner()
     async def shutdown(self, ctx) :
