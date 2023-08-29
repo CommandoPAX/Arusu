@@ -80,3 +80,9 @@ Installer l'Arusu Bot est assez simple, il vous suffit de :
 - Alias (dynamique, une manière non dynamique existe déjà)
 - Playlist
 - Chatbot
+
+## Problèmes connus
+
+- `[Errno 2] No such file or directory` en tentant un second restart sans "shutdown" l'instance
+- `'_MissingSentinel' object has no attribute 'read` lors de l'utilisation de la fonction loop
+- Update le bot reset le deck des catastrophes
