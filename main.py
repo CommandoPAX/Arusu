@@ -7,8 +7,9 @@ from Core.ErrorHandler import LogError
 
 async def load(bot) :
     for root,dirs,files in os.walk("./Cogs"): #This check the directory for files
+        files.sort()
         for filename in files : 
-            if filename.endswith(".py") and filename !="chat.py": #We check for cogs and filter unwanted cogs
+            if filename.endswith(".py") : #and filename !="chat.py" #We check for cogs and filter unwanted cogs
                 try : 
                     await bot.load_extension(f"Cogs.{filename[:-3]}") #We add the cog to the bot
                 except Exception as e:
