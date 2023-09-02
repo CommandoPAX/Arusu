@@ -11,6 +11,4 @@ __pycache__/*
 Logs/*.log
 Logs/*.txt
 Cogs/DeckCatastrophe.json
-WIP_COGS/*
-WIP_COGS
 ChatterData/*.sqlite3

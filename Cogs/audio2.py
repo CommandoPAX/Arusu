@@ -7,7 +7,7 @@ import random
 import discord
 import yt_dlp as youtube_dl 
 from async_timeout import timeout
-from discord.ext import commands
+from discord.ext import tasks, commands
 from config import ArusuConfig
 from Core.ErrorHandler import LogError, ErrorEmbed
 
@@ -242,7 +242,7 @@ class VoiceState:
                         return
                 try :
                     self.current.source.volume = self._volume
-                    self.voice.play(self.current.source, after=self.play_next_song)
+                    self.voice.play(self.current.source, after= self.play_next_song)
                     await self.current.source.channel.send(embed=self.current.create_embed())
                 except Exception as e :
                     LogError(self.CogName, "audio_player_task", e)
@@ -251,7 +251,7 @@ class VoiceState:
             except Exception as e:
                 LogError(CogName=self.CogName, CogFunct="audio_player_task", Error=e)
 
-    async def play_next_song(self, error=None):
+    def play_next_song(self, error=None):
         try :
             if error:
                 raise VoiceError(str(error))
@@ -259,7 +259,6 @@ class VoiceState:
             self.next.set() #Error is on this line, I get '_MissingSentinel' object has no attribute 'read'
         except Exception as e :
             LogError(self.CogName, "play_next_song", e)
-            await self.stop()
         
     def skip(self):
         self.skip_votes.clear()
@@ -273,18 +272,6 @@ class VoiceState:
         if self.voice:
             await self.voice.disconnect()
             self.voice = None
-            
-    async def loopset(self, ctx) :
-        try :
-            if self._loop == True :
-                self._loop = False
-            elif self._loop == False :
-                self._loop = True
-            else :
-                await ctx.send(f"Loop is set to : {self._loop} but it bugged")
-        except Exception as e :
-            LogError(self.CogName, "loopset", e )
-            await ErrorEmbed(ctx, Error=e, CustomMSG="Error setting the loop")
 
 ###################################################################################################################################
 

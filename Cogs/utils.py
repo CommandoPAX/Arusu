@@ -31,8 +31,10 @@ class Utils(commands.Cog) :
         Restarts the bot
         """
         try :
+            await ctx.send(embed = discord.Embed(title = "Restarting bot...", 
+                                                 description="Maybe next time", 
+                                                 color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])))
             print("------------------------------Restarting Bot------------------------------")
-            await ctx.send("Restarting bot...")
             os.execv(sys.executable, ['python3'] + sys.argv) #Restarts the shell using the same argument as before
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="restart", Error=e)
@@ -45,7 +47,9 @@ class Utils(commands.Cog) :
         shutdown the bot
         """
         try :
-            await ctx.send("Shutting down...")
+            await ctx.send(embed = discord.Embed(title = "Shutting down...", 
+                                                 description="Goodbye world", 
+                                                 color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])))
             print("------------------------------Shutting Down-------------------------------")
             await self.bot.close()
         except Exception as e :

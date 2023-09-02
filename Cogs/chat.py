@@ -1,6 +1,7 @@
 import asyncio
 import os
 import pathlib
+import spacy
 from collections import defaultdict
 from datetime import datetime, timedelta
 from functools import partial
@@ -16,34 +17,40 @@ from chatterbot.comparisons import JaccardSimilarity, LevenshteinDistance, Spacy
 from chatterbot.response_selection import get_random_response
 from chatterbot.trainers import ListTrainer
 
+#You will need to install these models manually
+
 class FR_TRF:
     ISO_639_1 = "fr_dep_news_trf"
     ISO_639 = "fra"
     ENGLISH_NAME = "French"
+    #python3 -m spacy download fr_dep_news_trf
 
 
 class FR_LG:
-    ISO_639_1 = "fr_core_news_lg"
+    ISO_639_1 = "fr_core_news_lg" #500 MB
     ISO_639 = "fra"
     ENGLISH_NAME = "French"
+    #python3 -m spacy download fr_core_news_lg 
 
 
 class FR_MD:
     ISO_639_1 = "fr_core_news_md"
     ISO_639 = "fra"
     ENGLISH_NAME = "French"
-
+    #python3 -m spacy download fr_core_news_md
 
 class FR_SM:
     ISO_639_1 = "fr_core_news_sm"
     ISO_639 = "fra"
     ENGLISH_NAME = "French"
+    #python3 -m spacy download fr_core_news_sm
+    
 
 class Chatter(commands.Cog):
     """
     This cog trains a chatbot that will talk like members of your Guild
     """
-    models = [FR_SM, FR_MD, FR_LG, FR_TRF]
+    models = [FR_MD, FR_LG, FR_TRF]
     algos = [SpacySimilarity, JaccardSimilarity, LevenshteinDistance]
 
     def __init__(self, bot):
