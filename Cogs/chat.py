@@ -145,9 +145,8 @@ class Chatter(commands.Cog):
                         user = message.author
                         out[i].append(message.clean_content)
 
-            except discord.Forbidden:
-                pass
-            except discord.HTTPException:
+            except Exception as e :
+                LogError("chat", "get_conversation", e)
                 pass
 
         return out
