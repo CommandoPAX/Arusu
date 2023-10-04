@@ -54,8 +54,6 @@ class CopyPasta(commands.Cog):
     @commands.Cog.listener(name = "on_message")
     async def PastaAnswer(self, message):
         try :
-            if message.author.id == self.bot.user.id:  #Stopping the bot from reading its own message
-                return
             if self.config.DATA[f"{message.guild.id}.PastaEnabled"] != True : 
                 return
             n = random.randint(1,100)
