@@ -144,7 +144,22 @@ class Utils(commands.Cog) :
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="GetLogs", Error = e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not find or access logs")
-
+            
+    @utils.command(name = "list_logs", usage = "", description = "Returns a list of all logs")
+    async def ListLogs(self, ctx) :
+        """
+        Returns a list of all available logs
+        """
+        try :
+            TBS = ""
+            for root, dirs, files in os.walk("./Logs") :
+                for filename in files :
+                    TBS = TBS + filename + "\n"
+            await ctx.send(embed=discord.Embed(title="Available logs", description=TBS))
+        except Exception as e:
+            LogError(self.CogName, "ListLogs", e)
+            await ErrorEmbed(ctx, e, "Could not list logs")
+        
     ###################################################################################################################################
 
     @commands.Cog.listener(name = "on_ready")
