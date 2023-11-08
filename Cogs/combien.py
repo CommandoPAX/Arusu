@@ -16,7 +16,7 @@ class Combien(commands.Cog):
         self.config = ArusuConfig()
         
     @commands.group(name = "combien", description = "Main command to enable or disable the Combien Cog")
-    @commands.is_owner()
+    @commands.has_permissions(manage_channels = True, manage_messages = True)
     async def combienmain(self, ctx) :
         """
         Main command to enable or disable the Combien Cog

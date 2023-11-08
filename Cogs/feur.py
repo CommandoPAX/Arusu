@@ -14,7 +14,7 @@ class Feur(commands.Cog):
         self.config = ArusuConfig()
         
     @commands.group(name = "feur", description = "Main command to enable or disable the Feur Cog")
-    @commands.is_owner()
+    @commands.has_permissions(manage_channels = True, manage_messages = True)
     async def feurmain(self, ctx) :
         """
         Main command to enable or disable the Feur Cog

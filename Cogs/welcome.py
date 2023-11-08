@@ -15,7 +15,7 @@ class Welcome(commands.Cog) :
         self.config = ArusuConfig()
     
     @commands.group(name = "welcome", description = "Base command")
-    @commands.is_owner()
+    @commands.has_permissions(manage_channels = True, manage_messages = True)
     async def Welmain(self, ctx) :
         """
         Base command for setting the welcome message
@@ -59,7 +59,7 @@ class Welcome(commands.Cog) :
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Error in sending test message")
 
     @commands.group(name = "leave_2", description = "Base command")
-    @commands.is_owner()
+    @commands.has_permissions(manage_channels = True, manage_messages = True)
     async def Leavemain(self, ctx) :
         """
         Base command for setting the leave message

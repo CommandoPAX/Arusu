@@ -16,7 +16,7 @@ class CopyPasta(commands.Cog):
                         "Oui mais non", "UwU", ":3", "Tu veux tirer une carte ?"]
         
     @commands.group(name = "pasta", description = "Main command to enable or disable the CopyPasta Cog")
-    @commands.is_owner()
+    @commands.has_permissions(manage_channels = True, manage_messages = True)
     async def pastamain(self, ctx) :
         """
         Main command to enable or disable the Feur Cog

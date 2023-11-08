@@ -171,7 +171,7 @@ class Deck(commands.Cog):
        await ctx.send(self.Deck.count())
 
     @commands.group(name = "deck_set", invoque_without_command = True, aliases = ["dick_set"])
-    @commands.is_owner()
+    @commands.has_permissions(administrator = True)
     async def deckmain(self, ctx): #Utilise le framework de base pour list les arguments
         """
         Commande maitre pour gérer le deck des catastrophes
@@ -203,7 +203,7 @@ class Deck(commands.Cog):
     ################################################################################################################################### 
     
     @commands.Cog.listener(name = "on_message")
-    async def FeurAnswer(self, message):
+    async def DeckSend(self, message):
         if message.author.id == self.bot.user.id:  #Stopping the bot from reading its own message
             return
         await message.channel.send(embed = self.Deck.create_card_embed(self.Deck.draw(int(re.findall(r"\btire *(\d+) *cartes?\b",message.content, flags=re.I)[0]))))
