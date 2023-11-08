@@ -17,6 +17,7 @@ class Updater(commands.Cog) :
         self.config = ArusuConfig()
 
     @commands.command(name = "cog_update", usage = "", description = "Updates the bot, will restart the bot")
+    @commands.is_owner()
     async def Updater(self, ctx) :
         """
         Updates the bot, will restart the bot
