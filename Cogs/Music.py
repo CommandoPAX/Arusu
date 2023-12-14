@@ -1234,6 +1234,7 @@ class Music(commands.Cog):
         view.message = message
 
     @commands.command(description=loc["descriptions"]["musicreload"])
+    @commands.is_owner()
     async def musicreload(self, ctx):
         # Disconnect the bot and delete voice state from internal memory in case something goes wrong
         try:
@@ -1251,7 +1252,7 @@ class Music(commands.Cog):
         del self.voice_states[ctx.guild.id]
         await respond(ctx, loc["messages"]["reloaded"], color=discord.Color.green())
     
-    @commands.command(aliases=['lq'], description=loc["descriptions"]["loopqueue"])
+    @commands.command(description=loc["descriptions"]["loopqueue"])
     async def loopqueue(self, ctx):
         if not (await checkUserAndBotChannel(ctx)):
             return
