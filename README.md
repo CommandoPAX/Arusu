@@ -18,70 +18,54 @@ Installer l'Arusu Bot est assez simple, il vous suffit de :
 
 ### Bot status
 
-- status [statut] [activity] [additionnal text]: change le statut du bot
+Permet de changer le statut du bot sur discord.
 
-### Music
+### Combien 
 
-- join : rejoint le salon vocal de l'auteur
-- leave : quitte le salon vocal actuel
-- now : affiche la musique jouée actuellement
-- pause : met la  musique en pause
-- play [search] : joue la musique via un URL ou une recherche
-- queue [page] : affiche la queue
-- remove [index] : enlève une musique de la queue
-- resume : enlève la pause
-- shuffle : met la queue en aléatoire
-- skip : passe à la musique suivante
-- stop : arrête la musique en cours et clear la queue
-- summon [channel] : rejoint le salon vocal spécifié
-- volume [volume] : change le volume
+Répond une valeur monétaire après une phrase se finissant par "combien ?"
 
-### Roll
+### Copypasta
 
-- roll [xdy +z] : roll les dés spécifiés avec modificateurs
-
-### Utils
-
-- config_test : renvoie un test pour la config
-- embed_colour [colour] : change la couleur de tout les embeds, prend un code hexadecimal comme argument
-- ping : renvoie pong
-- prefix : change le prefix du bot, requiert un redémarrage
-- restart : redémarre le bot
-- showsettings : renvoie toute la config sauf le token
-- shutdown : éteins le bot
-
-### Feur
-
-- feur : permet d'activer / désactiver le plugin
+Permet au bot d'envoyer de manière aléatoire des copypasta
 
 ### Deck
 
-- deck [nombre] : tire le nombre spécifié de carte
-- deck_count : renvoie le nombre de cartes dans le deck
-- deck_effect [Nom de la carte] : renvoie l'effet de la carte
-- deck_list : renvoie une liste de toutes les cartes du deck ainsi que leur effet
-- deck_set : permet d'ajouter / supprimer des cartes
+Gère les decks de cartes, ainsi que la capacité de tirer une carte d'un deck.
+
+### Feur
+
+Répond "feur" après un message se terminant par "quoi"
+
+### Modération 
+
+Permet aux modérateurs de bannir et/ou kick des membres du serveurs
+
+### Music
+
+Gère le fait de jouer de l'audio dans un salon vocal.
+
+### Roll
+
+Gère les rolls de dés avec modificateurs
+
+### Updater
+
+Permet d'update les cogs sans avoir à l'arreter
+
+### Utils
+
+Des utilitaires généraux
 
 ### Welcome
 
-- leave_test : renvoie un message de départ
-- leavemsg [message] : set le message de départ. {Member} pour spécifier le membre et {Server} pour le serveur
-- leaveset [ID du salon] : set le salon pour le message de départ
-- welcome_test : renvoie un message de bienvenue
-- welcomemsg [message] : set le message de bienvenue. {Member} pour spécifier le membre et {Server} pour le serveur
-- welcomeset [ID du salon] : set le salon pour le message de bienvenue
-
-### Core
-
-- help [Command or Cog (optionnal)] : renvoie l'aide du bot
+Gère les messages de bienvenues ainsi que les notifications de départ d'un membre.
 
 ## T.B.A.
 
 - Alias (dynamique, une manière non dynamique existe déjà)
-- Playlist
 - Chatbot
+- Ajout dynamique de copypasta
 
 ## Problèmes connus
 
-- `'_MissingSentinel' object has no attribute 'read` lors de l'utilisation de la fonction loop
 - Update le bot reset le deck des catastrophes
