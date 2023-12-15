@@ -979,6 +979,8 @@ class Music(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.voice_states = {}
+        self.CogName = "Music"
+        self.config = ArusuConfig()
 
     # Get the voice state from dictionary, create if it does not exist
     def get_voice_state(self, ctx):
@@ -1024,19 +1026,26 @@ class Music(commands.Cog):
     
     @commands.command(description=loc["descriptions"]["join"])
     async def join(self, ctx):
-        await _join(ctx, from_cmd=True, author=ctx.author)
+        try :
+            await _join(ctx, from_cmd=True, author=ctx.author)
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="join", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not join voice channel")
     
     @commands.command(aliases=['disconnect', 'dc'], description=loc["descriptions"]["leave"])
     async def leave(self, ctx):
         # Clears the queue and leave the channel
         if not (await checkUserAndBotChannel(ctx)):
             return
-        await ctx.message.add_reaction("👋")
-        await ctx.voice_state.stop(leave=True)
-        # Leaves the channel and delete the data from memory
-        del self.voice_states[ctx.guild.id]
+        try :
+            await ctx.message.add_reaction("👋")
+            await ctx.voice_state.stop(leave=True)
+            # Leaves the channel and delete the data from memory
+            del self.voice_states[ctx.guild.id]
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="leave", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not leave voice channel")
         
-        #await respond(ctx, loc["messages"]["left"])
 
     @commands.command(description=loc["descriptions"]["volume"])
     @commands.is_owner()
@@ -1045,7 +1054,8 @@ class Music(commands.Cog):
         try:
             if volume is not None:
                 volume = int(volume)
-        except:
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="volume", Error=e)
             return await respond(ctx, loc["messages"]["volume_invalid"])
         # Sets the volume of the player
         if not (await checkUserAndBotChannel(ctx)):
@@ -1064,124 +1074,160 @@ class Music(commands.Cog):
     @commands.command(description=loc["descriptions"]["now"])
     async def now(self, ctx):
         # Display currently playing song
-        if ctx.voice_state.current is None:
-            return await respond(ctx, loc["messages"]["no_playing"])
-        await respond(ctx, embed=ctx.voice_state.current.create_embed("now"))
+        try :
+            if ctx.voice_state.current is None:
+                return await respond(ctx, loc["messages"]["no_playing"])
+            await respond(ctx, embed=ctx.voice_state.current.create_embed("now"))
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="now", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not display current songs")
 
     @commands.command(description=loc["descriptions"]["pause"])
     async def pause(self, ctx):
         # Pauses the player
-        if not (await checkUserAndBotChannel(ctx)):
-            return
-        # If the bot is playing, pause it
-        if ctx.voice_state.is_playing and ctx.voice_state.voice.is_playing():
-            ctx.voice_state.voice.pause()
-            # Sets the pause time
-            ctx.voice_state.current.pause_time = time.time()
-            ctx.voice_state.current.paused = True
-            await ctx.message.add_reaction('⏸')
-        else:
-            await respond(ctx, loc["messages"]["no_playing"])
-        if ctx.voice_state.message:
-            await ctx.voice_state.update()
+        try :
+            if not (await checkUserAndBotChannel(ctx)):
+                return
+            # If the bot is playing, pause it
+            if ctx.voice_state.is_playing and ctx.voice_state.voice.is_playing():
+                ctx.voice_state.voice.pause()
+                # Sets the pause time
+                ctx.voice_state.current.pause_time = time.time()
+                ctx.voice_state.current.paused = True
+                await ctx.message.add_reaction('⏸')
+            else:
+                await respond(ctx, loc["messages"]["no_playing"])
+            if ctx.voice_state.message:
+                await ctx.voice_state.update()
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="pause", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not pause audio")
 
     @commands.command(description=loc["descriptions"]["resume"])
     async def resume(self, ctx):
         # Resumes the bot
-        if not (await checkUserAndBotChannel(ctx)):
-            return
-        # If the bot is paused, resume it
-        if ctx.voice_state.is_playing and ctx.voice_state.voice.is_paused():
-            ctx.voice_state.voice.resume()
-            # Updates internal data for handling song progress that was paused
-            ctx.voice_state.current.pause_duration += time.time() - ctx.voice_state.current.pause_time
-            ctx.voice_state.current.pause_time = 0
-            ctx.voice_state.current.paused = False
-            await ctx.message.add_reaction('▶')
-        else:
-            await respond(ctx, loc["messages"]["no_paused"])
-        if ctx.voice_state.message:
-            await ctx.voice_state.update()
+        try :
+            if not (await checkUserAndBotChannel(ctx)):
+                return
+            # If the bot is paused, resume it
+            if ctx.voice_state.is_playing and ctx.voice_state.voice.is_paused():
+                ctx.voice_state.voice.resume()
+                # Updates internal data for handling song progress that was paused
+                ctx.voice_state.current.pause_duration += time.time() - ctx.voice_state.current.pause_time
+                ctx.voice_state.current.pause_time = 0
+                ctx.voice_state.current.paused = False
+                await ctx.message.add_reaction('▶')
+            else:
+                await respond(ctx, loc["messages"]["no_paused"])
+            if ctx.voice_state.message:
+                await ctx.voice_state.update()
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="resume", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not resume audio")
     
     @commands.command(description=loc["descriptions"]["stop"])
     async def stop(self, ctx):
         # Stops the bot and clears the queue
-        if not (await checkUserAndBotChannel(ctx)):
-            return
-        ctx.voice_state.songs.clear()
-        if ctx.voice_state.is_playing:
-            await ctx.voice_state.stop()
-            ctx.voice_state.stopped = True
-            await ctx.message.add_reaction('⏹')
+        try :
+            if not (await checkUserAndBotChannel(ctx)):
+                return
+            ctx.voice_state.songs.clear()
+            if ctx.voice_state.is_playing:
+                await ctx.voice_state.stop()
+                ctx.voice_state.stopped = True
+                await ctx.message.add_reaction('⏹')
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="stop", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not stop playing music")
     
     @commands.command(description=loc["descriptions"]["skip"])
     async def skip(self, ctx):
-        # Skips the current song
-        if not (await checkUserAndBotChannel(ctx)):
-            return
-        if not ctx.voice_state.is_playing:
-            return await respond(ctx, loc["messages"]["no_playing"])
-        ctx.voice_state.skip()
-        await ctx.message.add_reaction('⏭')
+        try :
+            # Skips the current song
+            if not (await checkUserAndBotChannel(ctx)):
+                return
+            if not ctx.voice_state.is_playing:
+                return await respond(ctx, loc["messages"]["no_playing"])
+            ctx.voice_state.skip()
+            await ctx.message.add_reaction('⏭')
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="skip", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not skip song")
         
     @commands.command(description=loc["descriptions"]["queue"])
     async def queue(self, ctx, *, page=None):
-        # Shows the queue, add page number to view different pages
-        if not (await checkUserAndBotChannel(ctx)):
-            return
-        try:
-            page = int(page)
-        except:
-            page = 1
-        if len(ctx.voice_state.songs) == 0 and ctx.voice_state.current is None:
-            return await respond(ctx, loc["messages"]["empty_queue"])
-        
-        # Invoking queue while the bot is retrieving another song will cause error, wait for 1 second
-        while ctx.voice_state.current is None or isinstance(ctx.voice_state.current, dict):
-            await asyncio.sleep(1)
-        return await respond(ctx, embed=queue_embed(
-            ctx.voice_state.songs,
-            page,
-            loc["queue_embed"]["title"],
-            loc["queue_embed"]["body"].format(ctx.voice_state.current.source.title, ctx.voice_state.current.source.url, parse_duration(ctx.voice_state.current.source.duration_int - int(time.time() - ctx.voice_state.current.starttime - ctx.voice_state.current.pause_duration))),
-            "url"
-        ))
+        try :
+            # Shows the queue, add page number to view different pages
+            if not (await checkUserAndBotChannel(ctx)):
+                return
+            try:
+                page = int(page)
+            except:
+                page = 1
+            if len(ctx.voice_state.songs) == 0 and ctx.voice_state.current is None:
+                return await respond(ctx, loc["messages"]["empty_queue"])
+            
+            # Invoking queue while the bot is retrieving another song will cause error, wait for 1 second
+            while ctx.voice_state.current is None or isinstance(ctx.voice_state.current, dict):
+                await asyncio.sleep(1)
+            return await respond(ctx, embed=queue_embed(
+                ctx.voice_state.songs,
+                page,
+                loc["queue_embed"]["title"],
+                loc["queue_embed"]["body"].format(ctx.voice_state.current.source.title, ctx.voice_state.current.source.url, parse_duration(ctx.voice_state.current.source.duration_int - int(time.time() - ctx.voice_state.current.starttime - ctx.voice_state.current.pause_duration))),
+                "url"
+            ))
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="queue", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not display the queue")
        
     @commands.command(description=loc["descriptions"]["shuffle"])
     async def shuffle(self, ctx):
-        # Shuffles the queue
-        if not (await checkUserAndBotChannel(ctx)):
-            return
-        ctx.voice_state.songs.shuffle()
-        await ctx.message.add_reaction('🔀')
+        try :
+            # Shuffles the queue
+            if not (await checkUserAndBotChannel(ctx)):
+                return
+            ctx.voice_state.songs.shuffle()
+            await ctx.message.add_reaction('🔀')
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="shuffle", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not shuffle songs")
 
     @commands.command(description=loc["descriptions"]["remove"])
     async def remove(self, ctx, index=None):
-        if not (await checkUserAndBotChannel(ctx)):
-            return
-        # Try to parse the index of the song that is going to be removed
-        try:
-            index = int(index)
-        except:
-            return await respond(ctx, loc["messages"]["invalid_song_number"])
-        # If the user invoking this command is not in the same channel, return error
-        if len(ctx.voice_state.songs) == 0:
-            return await respond(ctx, loc["messages"]["empty_queue"])
-        name = ctx.voice_state.songs[index - 1]
-        ctx.voice_state.songs.remove(index - 1)
+        try :
+            if not (await checkUserAndBotChannel(ctx)):
+                return
+            # Try to parse the index of the song that is going to be removed
+            try:
+                index = int(index)
+            except:
+                return await respond(ctx, loc["messages"]["invalid_song_number"])
+            # If the user invoking this command is not in the same channel, return error
+            if len(ctx.voice_state.songs) == 0:
+                return await respond(ctx, loc["messages"]["empty_queue"])
+            name = ctx.voice_state.songs[index - 1]
+            ctx.voice_state.songs.remove(index - 1)
 
-        await ctx.message.add_reaction('🗑️')
+            await ctx.message.add_reaction('🗑️')
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="remove", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not remove song from queue")
 
     @commands.command(description=loc["descriptions"]["loop"])
     async def loop(self, ctx):
-        # Toggle the looping of the current song
-        if not (await checkUserAndBotChannel(ctx)):
-            return
-        # Inverse boolean value to loop and unloop.
-        ctx.voice_state.loop = not ctx.voice_state.loop
-        await ctx.message.add_reaction('🔂' if ctx.voice_state.loop else '▶️')
-        if ctx.voice_state.message:
-            await ctx.voice_state.update()
+        try :
+            # Toggle the looping of the current song
+            if not (await checkUserAndBotChannel(ctx)):
+                return
+            # Inverse boolean value to loop and unloop.
+            ctx.voice_state.loop = not ctx.voice_state.loop
+            await ctx.message.add_reaction('🔂' if ctx.voice_state.loop else '▶️')
+            if ctx.voice_state.message:
+                await ctx.voice_state.update()
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="loop", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not loop")
 
     @commands.command(aliases=["p"], description=loc["descriptions"]["play"])
     async def play(self, ctx, *, search=None):
@@ -1192,11 +1238,14 @@ class Music(commands.Cog):
         This command automatically searches from various sites if no URL is provided.
         A list of these sites can be found here: https://rg3.github.io/youtube-dl/supportedsites.html
         """
-
-        if search == None:
-            return await respond(ctx, loc["messages"]["provide_url"])
-        
-        await _play(ctx, search, self.bot.loop)
+        try : 
+            if search == None:
+                return await respond(ctx, loc["messages"]["provide_url"])
+            
+            await _play(ctx, search, self.bot.loop)
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="play", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not play audio")
             
     @commands.command(description=loc["descriptions"]["search"])
     async def search(self, ctx, *, keyword=None):
@@ -1254,21 +1303,25 @@ class Music(commands.Cog):
     
     @commands.command(description=loc["descriptions"]["loopqueue"])
     async def loopqueue(self, ctx):
-        if not (await checkUserAndBotChannel(ctx)):
-            return
-        # Inverse the boolean
-        ctx.voice_state.loopqueue = not ctx.voice_state.loopqueue
-        # The current song will also loop if loop queue enabled
-        try:
-            if ctx.voice_state.loopqueue:
-                await ctx.voice_state.songs.put({"url": ctx.voice_state.current.source.url, "title": ctx.voice_state.current.source.title, "user": ctx.voice_state.current.source.requester, "duration": ctx.voice_state.current.source.duration_int})
-        except:
-            pass
+        try :
+            if not (await checkUserAndBotChannel(ctx)):
+                return
+            # Inverse the boolean
+            ctx.voice_state.loopqueue = not ctx.voice_state.loopqueue
+            # The current song will also loop if loop queue enabled
+            try:
+                if ctx.voice_state.loopqueue:
+                    await ctx.voice_state.songs.put({"url": ctx.voice_state.current.source.url, "title": ctx.voice_state.current.source.title, "user": ctx.voice_state.current.source.requester, "duration": ctx.voice_state.current.source.duration_int})
+            except:
+                pass
+            
+            await ctx.message.add_reaction('🔁' if ctx.voice_state.loopqueue else '▶️')
+            if ctx.voice_state.message:
+                await ctx.voice_state.update()
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="loopqueue", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not loop queue")
         
-        await ctx.message.add_reaction('🔁' if ctx.voice_state.loopqueue else '▶️')
-        if ctx.voice_state.message:
-            await ctx.voice_state.update()
-    
     @commands.command(description=loc["descriptions"]["playfile"])
     @commands.is_owner()
     async def playfile(self, ctx, *, title=None):
