@@ -1,7 +1,7 @@
 from asyncio import AbstractEventLoop
 from discord import Message
 from discord.ext.commands import Bot, Context
-from config import ArusuConfig
+from Core.config import ArusuConfig
 
 
 class Arusu(Bot):

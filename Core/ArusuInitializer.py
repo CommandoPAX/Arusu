@@ -2,7 +2,7 @@ from random import choices
 import string
 import discord
 
-from config import ArusuConfig
+from Core.config import ArusuConfig
 from Core.help import HelpCommand
 from Core.ArusuBot import Arusu
 

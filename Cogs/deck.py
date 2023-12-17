@@ -7,6 +7,7 @@ import math
 import json
 import re
 import os
+import subprocess
 from Core.config import ArusuConfig
 from Core.ErrorHandler import LogError, ErrorEmbed
 
@@ -14,8 +15,9 @@ class DeckCatastrophe() :
     def __init__(self) :
         self.CogName = "DeckCatastrophe"
         self.config = ArusuConfig()
+            
         try :
-            if self.config.DATA["Default_Deck"] is not "default" : 
+            if self.config.DATA["Default_Deck"] != "default" : 
                 with open(f"./Data/Custom/Deck/{self.config.DATA['Default_Deck']}.json", 'r', encoding='utf-8') as f :
                     self.CARDS = json.load(f)
             else : 
@@ -23,7 +25,7 @@ class DeckCatastrophe() :
                     self.CARDS = json.load(f)
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="Init", Error=e)
-            self.config.update(index='Default_deck', value="default")
+            self.config.update(index='Default_Deck', value="default")
         
         self.items_per_page = 20
         self.pages = math.ceil(self.count() / self.items_per_page)
@@ -78,10 +80,15 @@ class DeckCatastrophe() :
             
     def create_deck(self, Deck_Name) :
         try :
-            New_Deck = {}
+            New_Deck = {"Example Card" : "Example Effect"}
+            try :
+                subprocess.run([f"touch ./Data/Custom/Deck/{Deck_Name}.json"], check = True)
+            except Exception as e:
+                subprocess.run(["cd ./Data/Custom","mkdir Deck", "cd ../../"], check = True) #No such directory error
+                subprocess.run([f"touch ./Data/Custom/Deck/{Deck_Name}.json"], check = True)
             with open(f"./Data/Custom/Deck/{Deck_Name}.json", 'w', encoding='utf-8') as outf :
                     json.dump(New_Deck, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
-                    self.config.update(index='Default_deck', value=f"{Deck_Name}") 
+                    self.config.update(index='Default_Deck', value=f"{Deck_Name}") 
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="create_deck", Error = e)
     
@@ -105,7 +112,7 @@ class DeckCatastrophe() :
             
     def change_main_deck(self, Deck_Name) : 
         try : 
-            if Deck_Name is not "default" : 
+            if Deck_Name != "default" : 
                 with open(f"./Data/Custom/Deck/{Deck_Name}.json", 'r', encoding='utf-8') as f :
                     self.CARDS = json.load(f)
             else : 
@@ -117,26 +124,26 @@ class DeckCatastrophe() :
     def add_card(self, NAME, Effect) :
         try :
             self.CARDS[NAME] = Effect
-            if self.config.DATA["Default_Deck"] is not "default" : 
+            if self.config.DATA["Default_Deck"] != "default" : 
                 with open(f"./Data/Custom/Deck/{self.config.DATA['Default_Deck']}.json", 'w', encoding='utf-8') as outf :
                     json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)   
             else : 
                 with open("./Data/Custom/Deck/CustomDeckCatastrophe.json", 'w', encoding='utf-8') as outf:
                     json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
-                    self.config.update(index='Default_deck', value="CustomDeckCatastrophe")      
+                    self.config.update(index='Default_Deck', value="CustomDeckCatastrophe")      
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="add_card", Error = e)
 
     def rm_card(self, NAME) :
         try :
             del self.CARDS[NAME]
-            if self.config.DATA["Default_Deck"] is not "default" : 
+            if self.config.DATA["Default_Deck"] != "default" : 
                 with open(f"./Data/Custom/Deck/{self.config.DATA['Default_Deck']}.json", 'w', encoding='utf-8') as outf :
                     json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)   
             else : 
                 with open("./Data/Custom/Deck/CustomDeckCatastrophe.json", 'w', encoding='utf-8') as outf:
                     json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
-                    self.config.update(index='Default_deck', value="CustomDeckCatastrophe")    
+                    self.config.update(index='Default_Deck', value="CustomDeckCatastrophe")    
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="rm_card", Error = e)
 
@@ -249,7 +256,7 @@ class Deck(commands.Cog):
         """
         try :
             self.Deck.create_deck(Deck_Name)
-            await ctx.send(f"{Deck_Name}` has been created.")
+            await ctx.send(f"{Deck_Name} has been created.")
         except Exception as e:
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Error while creating deck")
     
