@@ -6,7 +6,7 @@ import random
 import math
 import json
 import re
-from config import ArusuConfig
+from Core.config import ArusuConfig
 import platform
 from Core.ErrorHandler import LogError, ErrorEmbed
 

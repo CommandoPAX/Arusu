@@ -2,7 +2,7 @@
 
 import discord
 from discord.ext import commands
-from config import ArusuConfig
+from Core.config import ArusuConfig
 from Core.ErrorHandler import LogError, ErrorEmbed
 
 class Botstatus(commands.Cog) :

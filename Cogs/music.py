@@ -16,7 +16,7 @@ import shutil
 import re
 import json
 
-from config import ArusuConfig
+from Core.config import ArusuConfig
 from Core.ErrorHandler import LogError, ErrorEmbed
 
 language = "en"

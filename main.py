@@ -2,9 +2,9 @@
 
 import os
 import asyncio
-from ArusuInitializer import ArusuInit
+from Core.ArusuInitializer import ArusuInit
 from Core.ErrorHandler import LogError
-from config import ArusuConfig
+from Core.config import ArusuConfig
 
 async def load(bot) :
     config = ArusuConfig()

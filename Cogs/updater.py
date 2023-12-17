@@ -3,7 +3,7 @@
 from discord.ext import commands
 import os
 import sys
-from config import ArusuConfig
+from Core.config import ArusuConfig
 from Core.ErrorHandler import LogError, ErrorEmbed
 
 class Updater(commands.Cog) :

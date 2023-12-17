@@ -4,7 +4,7 @@ import discord
 
 from config import ArusuConfig
 from Core.help import HelpCommand
-from ArusuBot import Arusu
+from Core.ArusuBot import Arusu
 
 class ArusuInit:
     def __init__(self, willListen: bool) -> None:

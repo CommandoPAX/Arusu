@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 import sys
 import os
-from config import ArusuConfig
+from Core.config import ArusuConfig
 from Core.ErrorHandler import LogError, ErrorEmbed
 
 class Utils(commands.Cog) :

@@ -1,7 +1,7 @@
 #Plugin qui permet au bot d'envoyer une copypasta aléatoirement après un message
 
 from discord.ext import commands
-from config import ArusuConfig
+from Core.config import ArusuConfig
 from Core.ErrorHandler import LogError, ErrorEmbed
 import random
 
