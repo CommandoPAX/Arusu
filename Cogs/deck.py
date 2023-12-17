@@ -6,23 +6,25 @@ import random
 import math
 import json
 import re
+import os
 from Core.config import ArusuConfig
-import platform
 from Core.ErrorHandler import LogError, ErrorEmbed
 
 class DeckCatastrophe() :
     def __init__(self) :
         self.CogName = "DeckCatastrophe"
+        self.config = ArusuConfig()
         try :
-            if platform.system() == "Linux" :
-                with open("./Cogs/DeckCatastrophe.json", 'r', encoding='utf-8') as f:
+            if self.config.DATA["Default_Deck"] is not "default" : 
+                with open(f"./Data/Custom/Deck/{self.config.DATA['Default_Deck']}.json", 'r', encoding='utf-8') as f :
                     self.CARDS = json.load(f)
-            if platform.system() == "Windows" :
-                with open(r"Cogs\DeckCatastrophe.json", 'r', encoding='utf-8') as f:
+            else : 
+                with open("./Data/Default/Deck/DeckCatastrophe.json", 'r', encoding='utf-8') as f:
                     self.CARDS = json.load(f)
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="Init", Error=e)
-        self.config = ArusuConfig()
+            self.config.update(index='Default_deck', value="default")
+        
         self.items_per_page = 20
         self.pages = math.ceil(self.count() / self.items_per_page)
     
@@ -73,28 +75,68 @@ class DeckCatastrophe() :
             return embed
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="create_embed_list", Error=e)
+            
+    def create_deck(self, Deck_Name) :
+        try :
+            New_Deck = {}
+            with open(f"./Data/Custom/Deck/{Deck_Name}.json", 'w', encoding='utf-8') as outf :
+                    json.dump(New_Deck, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
+                    self.config.update(index='Default_deck', value=f"{Deck_Name}") 
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="create_deck", Error = e)
+    
+    def list_decks(self) : 
+        try :
+            list = ""
+            for root,dirs,files in os.walk("./Data/Custom/Deck"):
+                files.sort()
+                for filename in files :
+                    list += f"{filename} \n"
+            embed = discord.Embed(title="List of available decks", description=list, color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"]))
+            return embed
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="list_decks", Error = e)
+    
+    def remove_deck(self, Deck_Name) : 
+        try : 
+            os.remove(f"./Data/Custom/Deck/{Deck_Name}.json")
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="remove_deck", Error = e)
+            
+    def change_main_deck(self, Deck_Name) : 
+        try : 
+            if Deck_Name is not "default" : 
+                with open(f"./Data/Custom/Deck/{Deck_Name}.json", 'r', encoding='utf-8') as f :
+                    self.CARDS = json.load(f)
+            else : 
+                with open("./Data/Default/Deck/DeckCatastrophe.json", 'r', encoding='utf-8') as f:
+                    self.CARDS = json.load(f)
+        except Exception as e :
+            LogError(self.CogName, "change_main_deck", e)
     
     def add_card(self, NAME, Effect) :
         try :
             self.CARDS[NAME] = Effect
-            if platform.system() == "Windows" :
-                with open(r"Cogs\DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
-                        json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
-            if platform.system() == "Linux" :
-                with open("Cogs/DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
-                        json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
+            if self.config.DATA["Default_Deck"] is not "default" : 
+                with open(f"./Data/Custom/Deck/{self.config.DATA['Default_Deck']}.json", 'w', encoding='utf-8') as outf :
+                    json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)   
+            else : 
+                with open("./Data/Custom/Deck/CustomDeckCatastrophe.json", 'w', encoding='utf-8') as outf:
+                    json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
+                    self.config.update(index='Default_deck', value="CustomDeckCatastrophe")      
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="add_card", Error = e)
 
     def rm_card(self, NAME) :
         try :
             del self.CARDS[NAME]
-            if platform.system() == "Windows" :
-                with open(r"Cogs\DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
-                        json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
-            if platform.system() == "Linux" :
-                with open("Cogs/DeckCatastrophe.json", 'w', encoding='utf-8') as outf :
-                        json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
+            if self.config.DATA["Default_Deck"] is not "default" : 
+                with open(f"./Data/Custom/Deck/{self.config.DATA['Default_Deck']}.json", 'w', encoding='utf-8') as outf :
+                    json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)   
+            else : 
+                with open("./Data/Custom/Deck/CustomDeckCatastrophe.json", 'w', encoding='utf-8') as outf:
+                    json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
+                    self.config.update(index='Default_deck', value="CustomDeckCatastrophe")    
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="rm_card", Error = e)
 
@@ -178,8 +220,8 @@ class Deck(commands.Cog):
         """
         pass    
 
-    @deckmain.command(name = "add", usage = '["Card Name"] ["Card Effect]', description = "Adds a card to the deck")
-    async def add_cmd(self, ctx, CardName, CardEffect) :
+    @deckmain.command(name = "add_card", usage = '["Card Name"] ["Card Effect"]', description = "Adds a card to the deck")
+    async def add_card(self, ctx, CardName, CardEffect) :
         """
         Adds a card to the deck
         """
@@ -189,8 +231,8 @@ class Deck(commands.Cog):
         except Exception as e:
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Error while adding card to deck")
 
-    @deckmain.command(name ="remove", usage = '["Card Name]', description = "Removes a card from the deck")
-    async def rm_cmd(self, ctx, CardName) :
+    @deckmain.command(name ="rm_card", usage = '["Card Name]', description = "Removes a card from the deck")
+    async def rm_card(self, ctx, CardName) :
         """
         Removes a card from the deck
         """
@@ -199,7 +241,50 @@ class Deck(commands.Cog):
             await ctx.send(f"`{CardName}` has been removed from the deck.")
         except Exception as e:
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Error while removing card from deck")
-
+            
+    @deckmain.command(name = "add_deck", usage = '["Deck_Name"]', description = "Creates a new deck")
+    async def add_deck(self, ctx, Deck_Name) :
+        """
+        Creates a new deck
+        """
+        try :
+            self.Deck.create_deck(Deck_Name)
+            await ctx.send(f"{Deck_Name}` has been created.")
+        except Exception as e:
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error while creating deck")
+    
+    @deckmain.command(name = "rm_deck", usage = '["Deck_Name"]', description = "Removes a deck")
+    async def rm_deck(self, ctx, Deck_Name) :
+        """
+        Removes a deck
+        """
+        try :
+            self.Deck.remove_deck(Deck_Name)
+            await ctx.send(f"{Deck_Name}` has been erased.")
+        except Exception as e:
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error while erasing deck")
+            
+    @deckmain.command(name = "list_decks", usage = '', description = "Lists all decks")
+    async def list_decks(self, ctx) :
+        """
+        Lists all decks
+        """
+        try :
+            await ctx.send(embed = self.Deck.list_decks())
+        except Exception as e:
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error listing decks")
+            
+    @deckmain.command(name = "change_deck", usage = '["Deck_Name"]', description = "Changes the main deck. 'default' to return to the default one")
+    async def rm_deck(self, ctx, Deck_Name) :
+        """
+        Changes the main deck. 'default' to return to the default one
+        """
+        try :
+            self.Deck.change_main_deck(Deck_Name)
+            await ctx.send(f"{Deck_Name}` is now the main deck.")
+        except Exception as e:
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error while chaning the main deck")
+    
     ################################################################################################################################### 
     
     @commands.Cog.listener(name = "on_message")
