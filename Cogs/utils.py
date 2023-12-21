@@ -7,6 +7,8 @@ import os
 from Core.config import ArusuConfig
 from Core.error_handler import LogError, ErrorEmbed
 
+from Core.file_manager import file_manager
+
 class Utils(commands.Cog) :
     """
     Useful commands that don't fit in another cog
@@ -15,7 +17,7 @@ class Utils(commands.Cog) :
     def __init__(self, bot) :
         self.bot = bot
         self.config = ArusuConfig()
-        self.CogName = "utils"
+        self.CogName = "Utils"
         
     @commands.command(name = "ping", usage = "", description = "Pings the bot")
     async def ping(self, ctx:commands.Context):
@@ -159,6 +161,16 @@ class Utils(commands.Cog) :
         except Exception as e:
             LogError(self.CogName, "ListLogs", e)
             await ErrorEmbed(ctx, e, "Could not list logs")
+            
+    @utils.command(name = "cmd_test", usage = "", description = "Used to test a specific core script")
+    async def conftest(self, ctx) :
+        """
+        Used to test a specific core script"
+        """
+        try :
+            await ctx.send(file_manager.test(self, Cog_Name=self.CogName, File_Name="test"))
+        except Exception as e:
+            await ErrorEmbed(ctx, e, "Error in new script")
         
     ###################################################################################################################################
 

@@ -11,7 +11,7 @@ class Welcome(commands.Cog) :
 
     def __init__(self, bot) :
         self.bot = bot
-        self.CogName = "welcome"
+        self.CogName = "Welcome"
         self.config = ArusuConfig()
     
     @commands.group(name = "welcome", description = "Base command")

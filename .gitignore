@@ -10,5 +10,4 @@ __pycache__/ArusuBot.cpython-310.pyc
 __pycache__/*
 Logs/*.log
 Logs/*.txt
-Cogs/DeckCatastrophe.json
-ChatterData/*.sqlite3
+Data/Custom/*

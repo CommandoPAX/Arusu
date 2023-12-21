@@ -10,15 +10,16 @@ import os
 import subprocess
 from Core.config import ArusuConfig
 from Core.error_handler import LogError, ErrorEmbed
+from Core.file_manager import file_manager
 
 class DeckCatastrophe() :
     def __init__(self) :
-        self.CogName = "DeckCatastrophe"
+        self.CogName = "Deck"
         self.config = ArusuConfig()
             
         try :
             if self.config.DATA["Default_Deck"] != "default" : 
-                with open(f"./Data/Custom/Deck/{self.config.DATA['Default_Deck']}.json", 'r', encoding='utf-8') as f :
+                with open(f"./Data/Custom/{self.CogName}/{self.config.DATA['Default_Deck']}.json", 'r', encoding='utf-8') as f :
                     self.CARDS = json.load(f)
             else : 
                 with open("./Data/Default/Deck/DeckCatastrophe.json", 'r', encoding='utf-8') as f:
@@ -31,7 +32,7 @@ class DeckCatastrophe() :
         self.pages = math.ceil(self.count() / self.items_per_page)
     
     # Embed for card effect / Card Drawn
-    def create_card_embed(self, CardsList):  
+    def create_card_embed(self, CardsList : list):  
         List = ""
         if len(CardsList) >= 1 and len(CardsList) <= 30 :
             for CardName in CardsList :
@@ -78,76 +79,66 @@ class DeckCatastrophe() :
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="create_embed_list", Error=e)
             
-    def create_deck(self, Deck_Name) :
+    def create_deck(self, Deck_Name : str) :
         try :
-            New_Deck = {"Example Card" : "Example Effect"}
-            try :
-                subprocess.run([f"touch ./Data/Custom/Deck/{Deck_Name}.json"], check = True)
-            except Exception as e:
-                subprocess.run(["cd ./Data/Custom","mkdir Deck", "cd ../../"], check = True) #No such directory error
-                subprocess.run([f"touch ./Data/Custom/Deck/{Deck_Name}.json"], check = True)
-            with open(f"./Data/Custom/Deck/{Deck_Name}.json", 'w', encoding='utf-8') as outf :
-                    json.dump(New_Deck, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
-                    self.config.update(index='Default_Deck', value=f"{Deck_Name}") 
+            file_manager.mk_custom(Cog_Name=self.CogName, File_Name=Deck_Name)
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="create_deck", Error = e)
     
     def list_decks(self) : 
         try :
-            list = ""
-            for root,dirs,files in os.walk("./Data/Custom/Deck"):
-                files.sort()
-                for filename in files :
-                    list += f"{filename} \n"
+            list = file_manager.list_custom(Cog_Name=self.CogName)
             embed = discord.Embed(title="List of available decks", description=list, color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"]))
             return embed
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="list_decks", Error = e)
     
-    def remove_deck(self, Deck_Name) : 
+    def remove_deck(self, Deck_Name : str) : 
         try : 
-            os.remove(f"./Data/Custom/Deck/{Deck_Name}.json")
+            file_manager.rm_custom(Cog_Name=self.CogName, File_Name=Deck_Name)
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="remove_deck", Error = e)
             
-    def change_main_deck(self, Deck_Name) : 
+    def change_main_deck(self, Deck_Name : str) : 
         try : 
             if Deck_Name != "default" : 
-                with open(f"./Data/Custom/Deck/{Deck_Name}.json", 'r', encoding='utf-8') as f :
-                    self.CARDS = json.load(f)
+                self.CARDS = file_manager.load_custom(Cog_Name = self.CogName, File_Name = Deck_Name)
+                self.config.update("Default_Deck", f"{Deck_Name}")
             else : 
                 with open("./Data/Default/Deck/DeckCatastrophe.json", 'r', encoding='utf-8') as f:
                     self.CARDS = json.load(f)
+                self.config.update("Default_Deck", "default")
         except Exception as e :
             LogError(self.CogName, "change_main_deck", e)
     
-    def add_card(self, NAME, Effect) :
+    def add_card(self, NAME : str, Effect : str) :
         try :
             self.CARDS[NAME] = Effect
             if self.config.DATA["Default_Deck"] != "default" : 
-                with open(f"./Data/Custom/Deck/{self.config.DATA['Default_Deck']}.json", 'w', encoding='utf-8') as outf :
-                    json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)   
+                file_manager.update_custom(Cog_Name = self.CogName, File_Name = self.config.DATA["Default_Deck"], New_Data = self.CARDS)
             else : 
-                with open("./Data/Custom/Deck/CustomDeckCatastrophe.json", 'w', encoding='utf-8') as outf:
+                os.system(f"mkdir ./Data/Custom/{self.CogName}")
+                os.system(f"touch ./Data/Custom/{self.CogName}/CustomDeckCatastrophe.json")
+                with open(f"./Data/Custom/{self.CogName}/CustomDeckCatastrophe.json", 'w', encoding='utf-8') as outf:
                     json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
                     self.config.update(index='Default_Deck', value="CustomDeckCatastrophe")      
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="add_card", Error = e)
 
-    def rm_card(self, NAME) :
+    def rm_card(self, NAME : str) :
         try :
             del self.CARDS[NAME]
             if self.config.DATA["Default_Deck"] != "default" : 
-                with open(f"./Data/Custom/Deck/{self.config.DATA['Default_Deck']}.json", 'w', encoding='utf-8') as outf :
+                with open(f"./Data/Custom/{self.CogName}/{self.config.DATA['Default_Deck']}.json", 'w', encoding='utf-8') as outf :
                     json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)   
             else : 
-                with open("./Data/Custom/Deck/CustomDeckCatastrophe.json", 'w', encoding='utf-8') as outf:
+                with open(f"./Data/Custom/{self.CogName}/CustomDeckCatastrophe.json", 'w', encoding='utf-8') as outf:
                     json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)
                     self.config.update(index='Default_Deck', value="CustomDeckCatastrophe")    
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="rm_card", Error = e)
 
-    def list(self) : #J'ai pas de solution très élégante pour le moment en considérant la limite de charactère de discord
+    def list(self) :
         try :
             embed_list = []
             for i in range(self.pages) :

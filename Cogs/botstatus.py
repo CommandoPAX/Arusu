@@ -13,7 +13,7 @@ class Botstatus(commands.Cog) :
     def __init__(self, bot) :
         self.bot = bot
         self.config = ArusuConfig()
-        self.CogName = "botstatus"
+        self.CogName = "Botstatus"
     
     @commands.command(name = "status", usage = '["status"] ["activity"] ["additionnal text"]', description = "Updates Arusu's status")
     @commands.is_owner()
