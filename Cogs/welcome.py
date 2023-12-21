@@ -2,7 +2,7 @@
 
 from discord.ext import commands
 from Core.config import ArusuConfig
-from Core.ErrorHandler import LogError, ErrorEmbed
+from Core.error_handler import LogError, ErrorEmbed
 
 class Welcome(commands.Cog) :
     """

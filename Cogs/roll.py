@@ -3,7 +3,7 @@
 import discord
 from discord.ext import commands
 import pyhedrals
-from Core.ErrorHandler import LogError, ErrorEmbed
+from Core.error_handler import LogError, ErrorEmbed
 from Cogs.deck import Deck
 
 class Roll(commands.Cog) :

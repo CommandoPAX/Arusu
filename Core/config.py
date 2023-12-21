@@ -2,7 +2,7 @@
 
 import json
 import platform
-from Core.ErrorHandler import LogError
+from Core.error_handler import LogError
 
 class ArusuConfig() : 
     def __init__(self) :

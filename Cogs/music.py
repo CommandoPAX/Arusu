@@ -17,7 +17,7 @@ import re
 import json
 
 from Core.config import ArusuConfig
-from Core.ErrorHandler import LogError, ErrorEmbed
+from Core.error_handler import LogError, ErrorEmbed
 
 language = "en"
 useEmbed = False #Only used for interaction buttons

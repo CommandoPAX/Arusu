@@ -5,7 +5,7 @@ import re
 import random
 import pycountry
 from Core.config import ArusuConfig
-from Core.ErrorHandler import LogError, ErrorEmbed
+from Core.error_handler import LogError, ErrorEmbed
 
 class Combien(commands.Cog):
     """Combien ? 75 centimes"""

@@ -2,8 +2,8 @@
 
 import os
 import asyncio
-from Core.ArusuInitializer import ArusuInit
-from Core.ErrorHandler import LogError
+from Core.initializer import ArusuInit
+from Core.error_handler import LogError
 from Core.config import ArusuConfig
 
 async def load(bot) :

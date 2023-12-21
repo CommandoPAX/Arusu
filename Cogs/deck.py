@@ -9,7 +9,7 @@ import re
 import os
 import subprocess
 from Core.config import ArusuConfig
-from Core.ErrorHandler import LogError, ErrorEmbed
+from Core.error_handler import LogError, ErrorEmbed
 
 class DeckCatastrophe() :
     def __init__(self) :

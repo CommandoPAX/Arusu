@@ -3,7 +3,7 @@
 from discord.ext import commands
 import discord
 from Core.config import ArusuConfig
-from Core.ErrorHandler import LogError
+from Core.error_handler import LogError
 
 class HelpCommand(commands.HelpCommand):
     
