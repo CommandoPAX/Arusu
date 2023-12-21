@@ -17,15 +17,6 @@ async def load(bot) :
                 except Exception as e:
                     print("Extension not loaded : ", filename, "\n")
                     LogError(CogName="Main", CogFunct="load", Error=e)
-            if "AI_ENABLED" in config.DATA.keys() : #Used to enable / disable the chat cog
-                if config.DATA["AI_ENABLED"] == True :
-                    try :
-                        await bot.load_extension(f"Cogs.chat")
-                    except Exception as e:
-                        print("Extension not loaded : ", filename, "\n")
-                        LogError(CogName="Main", CogFunct="load", Error=e)
-            elif "AI_ENABLED" not in config.DATA.keys() :
-                config.update("AI_ENABLED", False)
 
 async def main() :
     initializer = ArusuInit(willListen=True)
