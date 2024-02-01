@@ -7,7 +7,6 @@ import math
 import json
 import re
 import os
-import subprocess
 from Core.config import ArusuConfig
 from Core.error_handler import LogError, ErrorEmbed
 from Core.file_manager import file_manager
