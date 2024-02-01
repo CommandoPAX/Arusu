@@ -12,7 +12,7 @@ class CopyPasta(commands.Cog):
         self.bot = bot
         self.CogName = "CopyPasta"
         self.config = ArusuConfig()
-        self.answers = ["""Au fait, tu as déjà joué Final Fantasy XIV, le MMORPG critiquement acclamé avec un essai gratuit sans limite de temps te permettant d'aller jusqu'au niveau 60, et qui inclut la première expansion, Heavensward, qui a gagné de multiples awards ?""", 
+        self.answers = ["""Au fait, tu as déjà joué Final Fantasy XIV, le MMORPG critiquement acclamé avec un essai gratuit sans limite de temps te permettant d'aller jusqu'au niveau 70, et qui inclut les deux premières expansions, Heavensward et Stormblood, qui ont gagné de multiples awards ?""", 
                         "Oui mais non", "UwU", ":3", "Tu veux tirer une carte ?"]
         
     @commands.group(name = "pasta", description = "Main command to enable or disable the CopyPasta Cog")
