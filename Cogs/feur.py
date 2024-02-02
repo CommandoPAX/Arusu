@@ -1,4 +1,4 @@
-#Plugin qui permet au bot de répondre feur après un message se terminant par quoi
+# Answers "Feur" if a message ends with "Quoi"
 
 from discord.ext import commands
 import re
@@ -57,9 +57,9 @@ class Feur(commands.Cog):
             #Check if "quoi" is written
             if re.search(r"\bquoi\b\W*$",message.content, flags=re.I) :
                 #Cases for "quoi" and "pourquoi" and "pour quoi"
-                await message.channel.send("Feur")
+                await message.reply("Feur")
             if re.search(r"\bpour ?quoi\b\W*$",message.content, flags=re.I) :
-                await message.channel.send("Pour feur")
+                await message.reply("Pour feur")
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="listener", Error=e)
             self.config.update(f"{message.guild.id}.FeurEnabled", False) #Disables the plugin after an error to avoid spamming the logs
