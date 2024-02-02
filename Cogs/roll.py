@@ -1,6 +1,5 @@
-# Plugin permettant le roll de dés grâce à pyhedrals
+# Handles generating random dice values 
 
-import discord
 from discord.ext import commands
 import pyhedrals
 from Core.error_handler import LogError, ErrorEmbed
@@ -24,7 +23,7 @@ class Roll(commands.Cog) :
             dice_roller = pyhedrals.DiceRoller()
             result = dice_roller.parse(roll)
             roll_message = f"\N{GAME DIE} {ctx.message.author.mention} a lancé {roll} et obtenu **{result.result}**"
-            await ctx.send(roll_message)
+            await ctx.reply(roll_message)
 
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="roll", Error=e)

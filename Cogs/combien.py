@@ -1,4 +1,4 @@
-#Plugin qui permet au bot de répondre une valeur en centimes après qu'une phrase s'est fini par combien
+# Replies a random monetary value after a sentence ending with "Combien"
 
 from discord.ext import commands
 import re
@@ -65,7 +65,7 @@ class Combien(commands.Cog):
                 else :
                     isMil = ""
                 random.randint(0,len(pycountry.countries)-1)
-                await message.channel.send(str(argent)+isMil+" centimes "+list(pycountry.currencies)[random.randint(0,len(pycountry.currencies)-1)].alpha_3)
+                await message.reply(str(argent)+isMil+" centimes "+list(pycountry.currencies)[random.randint(0,len(pycountry.currencies)-1)].alpha_3)
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="listener", Error=e)
             self.config.update(f"{message.guild.id}.CombienEnabled", False) #Disables the plugin after an error to avoid spamming the logs

@@ -1,4 +1,5 @@
-# Plugin gérant les mises à jour du bot
+# Handles updating the bot
+# This is a core cog, do not touch
 
 from discord.ext import commands
 import os

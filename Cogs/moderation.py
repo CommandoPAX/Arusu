@@ -1,5 +1,5 @@
-#Plugin qui permet de réaliser plusieurs actions de modérations
-#Avec la contribution de @W1sh
+# Handles moderation for the guilds, such as kicking and banning users
+# Done with the support of @W1sh
 
 import discord
 from discord.ext import commands

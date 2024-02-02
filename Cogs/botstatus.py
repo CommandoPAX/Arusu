@@ -1,4 +1,4 @@
-# Plugin permettant de changer le statut du bot
+# Handles changing the bot's status and auto setting it
 
 import discord
 from discord.ext import commands

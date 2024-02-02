@@ -1,3 +1,5 @@
+# Handles playing music and other audio from local and internet files
+
 import asyncio
 import functools
 import itertools

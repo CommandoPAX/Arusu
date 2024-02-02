@@ -1,4 +1,4 @@
-# Plugin contenant des utilitaires généraux
+# Contains many useful functions not important enough to receive their own cogs
 
 import discord
 from discord.ext import commands

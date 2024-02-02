@@ -1,4 +1,4 @@
-# Plugin gérant les messages de bienvenue automatique
+# Handles welcome and departure messages
 
 from discord.ext import commands
 from Core.config import ArusuConfig

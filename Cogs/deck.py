@@ -1,4 +1,4 @@
-#Gère le deck des catastrophes
+# Handles drawing cards from different decks
 
 import discord
 from discord.ext import commands
