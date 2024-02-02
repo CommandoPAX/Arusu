@@ -19,6 +19,10 @@ async def load(bot) :
                     LogError(CogName="Main", CogFunct="load", Error=e)
 
 async def main() :
+    try : 
+        os.system("mkdir ./Data/Custom")
+    except : 
+        pass
     initializer = ArusuInit(willListen=True)
     Arusu_Bot = initializer.getBot()
     await load(Arusu_Bot)
