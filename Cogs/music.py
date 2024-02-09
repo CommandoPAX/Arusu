@@ -1426,13 +1426,5 @@ class Music(commands.Cog):
         else:
             await respond(ctx, loc["messages"]["no_playing"])
 
-    '''@commands.command(description=loc["descriptions"]["musicversion"])
-    async def musicversion(self, ctx):
-        await respond(ctx, embed=discord.Embed(title=loc["cog_name"]).
-        add_field(name=loc["author"], value="<@127312771888054272>").
-        add_field(name=loc["cog_github"], value=loc["cog_github_link"])
-        .add_field(name=loc["cog_language"], value=language)
-        .set_thumbnail(url="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"))'''
-
 async def setup(bot):
     await bot.add_cog(Music(bot))
