@@ -38,5 +38,30 @@ class Playlist(commands.Cog):
         self.CogName = "Playlist"
         self.config = ArusuConfig()
         
+    @commands.command(name = "playlist_init", usage = "", description = "Creates the required files for the cog to work")
+    @commands.has_permissions(manage_guild = True)
+    async def playlist_init(self, ctx) :
+        """ 
+        Creates the required files and directories for the cog to work
+        """
+        await ctx.reply("Initializing cog")
+        os.system(f"mkdir ./Data/Custom/{self.CogName}")
+        await ctx.reply("Cog ready for usage")
+    
+    @commands.command(name = "add", usage = "[youtube link]", description ="Adds a youtube link to a playlist")
+    async def playlist_append(self, ctx, link) : 
+        try :
+            if ctx.author.id not in self.config["Playlist_ID"] :
+                file_manager.mk_custom(self.CogName, ctx.author.id)
+            playlist_ = file_manager.load_custom(self.CogName, ctx.author.id)
+            if "music_list" not in playlist_.keys() : 
+                playlist_["music_list"] = []
+            playlist_["music_list"].append(link)
+            file_manager.update_custom(self.CogName, ctx.author.id, playlist_)
+            await ctx.reply(f"{link} has been added to the playlist")
+        except Exception as e :
+            LogError(CogName=self.CogName, CogFunct="guild_get_icon", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error sending the guild icon")
+        
 async def setup(bot):
     await bot.add_cog(Playlist(bot))

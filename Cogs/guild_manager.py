@@ -17,7 +17,7 @@ class Guild_Manager(commands.Cog):
         self.CogName = "Guild_Manager"
         self.config = ArusuConfig()
         
-    @commands.command(name = "init", usage = "", description = "Creates the required files for the cog to work")
+    @commands.command(name = "guild_init", usage = "", description = "Creates the required files for the cog to work")
     @commands.has_permissions(manage_guild = True)
     async def guild_init(self, ctx) :
         """ 
