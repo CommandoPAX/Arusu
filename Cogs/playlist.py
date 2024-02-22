@@ -79,7 +79,7 @@ class Playlist(commands.Cog):
         os.system(f"mkdir ./Data/Custom/{self.CogName}")
         await ctx.reply("Cog ready for usage")
     
-    @commands.command(name = "add", usage = "[youtube link]", description ="Adds a youtube link to a playlist")
+    @commands.command(name = "p_add", usage = "[youtube link]", description ="Adds a youtube link to a playlist")
     async def playlist_append(self, ctx, link) : 
         """ 
         Adds a youtube link to a playlist
@@ -97,7 +97,7 @@ class Playlist(commands.Cog):
             LogError(CogName=self.CogName, CogFunct="playlist_append", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Error adding a music to the playlist")
             
-    @commands.command(name = "remove", usage = "[youtube link]", description ="Removes a youtube link to a playlist")
+    @commands.command(name = "p_remove", usage = "[youtube link]", description ="Removes a youtube link to a playlist")
     async def playlist_remove(self, ctx, link) : 
         """ 
         Removes a youtube link to a playlist
@@ -117,7 +117,7 @@ class Playlist(commands.Cog):
             LogError(CogName=self.CogName, CogFunct="playlist_remove", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Error removing the music from the playlist")
             
-    @commands.command(name = "list", usgae = "", description = "Lists all music from a playlist")
+    @commands.command(name = "p_list", usgae = "", description = "Lists all music from a playlist")
     async def playlist_list(self, ctx) : 
         """ 
         Not currently functionnal
