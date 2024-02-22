@@ -40,7 +40,12 @@ class AI(commands.Cog):
         """ 
         Changes the character 
         """
-        pass 
+        try :
+            self.config.update("CAI_CHAR", char_id)
+            await ctx.send(f"Character has been changed, please restart the bot.")
+        except Exception as e :
+            LogError(CogName=self.CogName, CogFunct="character_update", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not change character ID")
     
     @commands.command(name = "channel", usage = "[channel ID]", description = "Sets the channel in which the character will interact freely")
     @commands.has_permissions(manage_guild = True)
@@ -52,7 +57,7 @@ class AI(commands.Cog):
             self.config.update(f"{ctx.guild.id}.AIChannel", self.bot.get_channel(channel_id).id)
             await ctx.send(f"Welcome channel set to {self.config.DATA[f'{ctx.guild.id}.AIChannel']}")
         except Exception as e :
-            LogError(CogName=self.CogName, CogFunct="set_main_chhanel", Error=e)
+            LogError(CogName=self.CogName, CogFunct="set_main_channel", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set main AI channel")
 
     @commands.command(name = "activate", usage = "", description = "Toggles the bot's AI on the guild")
@@ -83,7 +88,10 @@ class AI(commands.Cog):
                 return
             if message.channel != self.config.DATA[f"{message.guild.id}.AIChannel"] : 
                 if random.randint(1,200) != 1 :
-                    return 
+                    if self.bot.user.id in message.content : 
+                        pass 
+                    else : 
+                        return
                 else : pass 
             
             data = await self.client.chat.send_message(
