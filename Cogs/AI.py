@@ -1,66 +1,102 @@
 # Handles the API connexions and chatting with users
 
-import characterai
-import os
-import discord 
-import asyncio
+from characterai import PyCAI
+import random 
 from discord.ext import commands
 from Core.config import ArusuConfig
 from Core.error_handler import LogError, ErrorEmbed
 
-class Guild_Manager(commands.Cog):
-    """A really bad idea in its final form"""
+class AI(commands.Cog):
+    """
+    Arusu's AI, powered by CharacterAI.
+    A version independent of outside API will be implemented someday.
+    """
     
     def __init__(self, bot):
         self.bot = bot
-        self.CogName = "Guild_Manager"
+        self.CogName = "AI"
         self.config = ArusuConfig()
+        try : 
+            self.client = PyCAI(self.config.DATA["CAI_TOKEN"]) #Secret value generated with an account
+            self.char = self.config.DATA["CAI_CHAR"] #Can be found in the URL
+            
+            # Getting chat info
+            self.chat = self.client.chat.get_chat(self.char)
+
+            self.participants = self.chat['participants']
+
+            # In the list of "participants",
+            # a character can be at zero or in the first place
+            if not self.participants[0]['is_human']:
+                self.tgt = self.participants[0]['user']['username']
+            else:
+                self.tgt = self.participants[1]['user']['username']
+        except Exception as e : 
+            LogError(self.CogName, "__init__", e)
         
-    @commands.command(name = "guild_init", usage = "", description = "Creates the required files for the cog to work")
+    @commands.command(name = "character", usage = "[character ID]", description = "Changes the character")
     @commands.has_permissions(manage_guild = True)
-    async def guild_init(self, ctx) :
+    async def character_update(self, ctx, char_id : str) :
         """ 
-        Creates the required files and directories for the cog to work
+        Changes the character 
         """
-        await ctx.reply("Initializing cog")
-        os.system(f"mkdir ./Data/Custom/{self.CogName}")
-        await ctx.reply("Cog ready for usage")
-        
-    """Example code from the docs :
-import asyncio
-from characterai import PyAsyncCAI
+        pass 
+    
+    @commands.command(name = "channel", usage = "[channel ID]", description = "Sets the channel in which the character will interact freely")
+    @commands.has_permissions(manage_guild = True)
+    async def set_main_channel(self, ctx, channel_id : int) :
+        """ 
+        Sets the channel in which the character will interact freely
+        """
+        try :
+            self.config.update(f"{ctx.guild.id}.AIChannel", self.bot.get_channel(channel_id).id)
+            await ctx.send(f"Welcome channel set to {self.config.DATA[f'{ctx.guild.id}.AIChannel']}")
+        except Exception as e :
+            LogError(CogName=self.CogName, CogFunct="set_main_chhanel", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set main AI channel")
 
-async def main():
-    client = PyAsyncCAI('TOKEN') #Secret value generated with an account
+    @commands.command(name = "activate", usage = "", description = "Toggles the bot's AI on the guild")
+    @commands.has_permissions(manage_guild = True)
+    async def activate_AI(self, ctx) :
+        """ 
+        Activate or deactivate the bot's AI on the guild
+        """
+        try :
+            if self.config.DATA[f"{ctx.guild.id}.CAIEnabled"] == False : 
+                self.config.update(f"{ctx.guild.id}.CAIEnabled", True)
+                await ctx.send("AI has been enabled on this server")
+            elif self.config.DATA[f"{ctx.guild.id}.CAIEnabled"] == True : 
+                self.config.update(f"{ctx.guild.id}.CAIEnabled", False)
+                await ctx.send("AI has been disabled on this server")
+        except Exception as e:
+            LogError(CogName=self.CogName, CogFunct="enable", Error=e)
+            await ErrorEmbed(ctx, Error=e, CustomMSG= "Error enabling the cog")
 
-    char = input('Enter CHAR: ') #Can be found in the URL
+    ################################################################################################################################### 
 
-    # Getting chat info
-    chat = await client.chat.get_chat(char)
+    @commands.Cog.listener(name = "on_message")
+    async def AIAnswer(self, message):
+        try :
+            if message.author.id == self.bot.user.id:  #Stopping the bot from reading its own message
+                return
+            if self.config.DATA[f"{message.guild.id}.CAIEnabled"] != True : 
+                return
+            if message.channel != self.config.DATA[f"{message.guild.id}.AIChannel"] : 
+                if random.randint(1,200) != 1 :
+                    return 
+                else : pass 
+            
+            data = await self.client.chat.send_message(
+                self.chat['external_id'], self.tgt, message.content)
 
-    participants = chat['participants']
-
-    # In the list of "participants",
-    # a character can be at zero or in the first place
-    if not participants[0]['is_human']:
-        tgt = participants[0]['user']['username']
-    else:
-        tgt = participants[1]['user']['username']
-
-    while True:
-        message = input('You: ')
-
-        data = await client.chat.send_message(
-            chat['external_id'], tgt, message
-        )
-
-        name = data['src_char']['participant']['name']
-        text = data['replies'][0]['text']
-
-        print(f"{name}: {text}")
-
-asyncio.run(main())
-    """
+            text = data['replies'][0]['text']
+            await message.reply(text)
+            
+        except Exception as e :
+            LogError(CogName=self.CogName, CogFunct="listener", Error=e)
+            await ErrorEmbed(message.channel, e, "Arusu bugged out, sad")
+            self.config.update(f"{message.guild.id}.CAIEnabled", False) #Disables the plugin after an error to avoid spamming the logs
+            pass
 
 async def setup(bot : commands.Bot) :
-    await bot.add_cog(Guild_Manager(bot))
+    await bot.add_cog(AI(bot))
