@@ -62,8 +62,7 @@ Gère les messages de bienvenues ainsi que les notifications de départ d'un mem
 
 ## T.B.A.
 
-- Alias (dynamique, une manière non dynamique existe déjà)
-- Chatbot
+- Playlist (W.I.P.)
 - Ajout dynamique de copypasta
 
 ## Problèmes connus
