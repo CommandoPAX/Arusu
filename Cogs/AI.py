@@ -113,8 +113,6 @@ class AI(commands.Cog):
             
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="listener", Error=e)
-            await ErrorEmbed(message.channel, e, "Arusu bugged out, sad")
-            self.config.update(f"{message.guild.id}.CAIEnabled", False) #Disables the plugin after an error to avoid spamming the logs
             pass
 
 async def setup(bot : commands.Bot) :
