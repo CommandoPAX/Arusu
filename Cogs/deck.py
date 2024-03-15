@@ -17,8 +17,8 @@ class DeckCatastrophe() :
         self.config = ArusuConfig()
             
         try :
-            if self.config.DATA["Default_Deck"] != "default" : 
-                with open(f"./Data/Custom/{self.CogName}/{self.config.DATA['Default_Deck']}.json", 'r', encoding='utf-8') as f :
+            if self.config["Default_Deck"] != "default" : 
+                with open(f"./Data/Custom/{self.CogName}/{self.config['Default_Deck']}.json", 'r', encoding='utf-8') as f :
                     self.CARDS = json.load(f)
             else : 
                 with open("./Data/Default/Deck/DeckCatastrophe.json", 'r', encoding='utf-8') as f:
@@ -39,7 +39,7 @@ class DeckCatastrophe() :
 
             embed = (discord.Embed(title="Deck des catastrophes",
                                 description=List,
-                                color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])))
+                                color = discord.Color.from_str(self.config["BOT_EMBED_COLOUR"])))
             
         if len(CardsList) > 30 and len(CardsList) <= 100 :
             for CardName in CardsList :
@@ -47,12 +47,12 @@ class DeckCatastrophe() :
 
             embed = (discord.Embed(title="Deck des catastrophes",
                                 description=List,
-                                color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])))
+                                color = discord.Color.from_str(self.config["BOT_EMBED_COLOUR"])))
             
         if len(CardsList) > 100 : 
             embed = (discord.Embed(title="Deck des catastrophes",
                                 description="Error : Too many cards",
-                                color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])))
+                                color = discord.Color.from_str(self.config["BOT_EMBED_COLOUR"])))
         return embed
 
     #Embed for the card list
@@ -73,7 +73,7 @@ class DeckCatastrophe() :
 
             embed = (discord.Embed(title="Deck des catastrophes",
                                 description=List,
-                                color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])).set_footer(text=f"Page {page}/{self.pages}"))
+                                color = discord.Color.from_str(self.config["BOT_EMBED_COLOUR"])).set_footer(text=f"Page {page}/{self.pages}"))
             return embed
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="create_embed_list", Error=e)
@@ -87,7 +87,7 @@ class DeckCatastrophe() :
     def list_decks(self) : 
         try :
             list = file_manager.list_custom(Cog_Name=self.CogName)
-            embed = discord.Embed(title="List of available decks", description=list, color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"]))
+            embed = discord.Embed(title="List of available decks", description=list, color = discord.Color.from_str(self.config["BOT_EMBED_COLOUR"]))
             return embed
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="list_decks", Error = e)
@@ -113,8 +113,8 @@ class DeckCatastrophe() :
     def add_card(self, NAME : str, Effect : str) :
         try :
             self.CARDS[NAME] = Effect
-            if self.config.DATA["Default_Deck"] != "default" : 
-                file_manager.update_custom(Cog_Name = self.CogName, File_Name = self.config.DATA["Default_Deck"], New_Data = self.CARDS)
+            if self.config["Default_Deck"] != "default" : 
+                file_manager.update_custom(Cog_Name = self.CogName, File_Name = self.config["Default_Deck"], New_Data = self.CARDS)
             else : 
                 os.system(f"mkdir ./Data/Custom/{self.CogName}")
                 os.system(f"touch ./Data/Custom/{self.CogName}/CustomDeckCatastrophe.json")
@@ -127,8 +127,8 @@ class DeckCatastrophe() :
     def rm_card(self, NAME : str) :
         try :
             del self.CARDS[NAME]
-            if self.config.DATA["Default_Deck"] != "default" : 
-                with open(f"./Data/Custom/{self.CogName}/{self.config.DATA['Default_Deck']}.json", 'w', encoding='utf-8') as outf :
+            if self.config["Default_Deck"] != "default" : 
+                with open(f"./Data/Custom/{self.CogName}/{self.config['Default_Deck']}.json", 'w', encoding='utf-8') as outf :
                     json.dump(self.CARDS, outf, indent=4, separators=(", ", ": "), sort_keys=True, skipkeys=True, ensure_ascii=False)   
             else : 
                 with open(f"./Data/Custom/{self.CogName}/CustomDeckCatastrophe.json", 'w', encoding='utf-8') as outf:

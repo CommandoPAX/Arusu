@@ -52,7 +52,7 @@ class CopyPasta(commands.Cog):
     @commands.Cog.listener(name = "on_message")
     async def PastaAnswer(self, message):
         try :
-            if self.config.DATA[f"{message.guild.id}.PastaEnabled"] != True : 
+            if self.config[f"{message.guild.id}.PastaEnabled"] != True : 
                 return
             n = random.randint(1,400)
             if n != 1 :

@@ -107,7 +107,7 @@ def parse_duration_raw(duration: int):
     return ':'.join(durations)
 
 # Function for responding to the user
-async def respond(ctx, message: str=None, color=discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]), embed: discord.Embed=None, view: discord.ui.View=None):
+async def respond(ctx, message: str=None, color=discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]), embed: discord.Embed=None, view: discord.ui.View=None):
     if embed is not None and message is not None:
         raise AttributeError("Message is not None when embed is also not None")
     if embed is None:
@@ -207,7 +207,7 @@ async def _play(ctx, search, loop, search_msg=None):
             partial = functools.partial(SongSource.ytdl_playlist.extract_info, search, download=False)
             data = await loop.run_in_executor(None, partial)
             if data is None:
-                await editMessage(searching_msg, discord.Embed(title=loc["not_found"].format(search), color = discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]),))
+                await editMessage(searching_msg, discord.Embed(title=loc["not_found"].format(search), color = discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]),))
             entries = data["entries"]
             playlist = []
             for pos, song in enumerate(entries):
@@ -224,7 +224,7 @@ async def _play(ctx, search, loop, search_msg=None):
                 except:
                     duration = 0
                 await ctx.voice_state.songs.put({"url": entry["url"], "title": entry["title"], "user": ctx.author, "duration": duration})
-            await editMessage(searching_msg, discord.Embed(title=loc["messages"]["added_multiple_song"].format(songs+1), color = discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]),))
+            await editMessage(searching_msg, discord.Embed(title=loc["messages"]["added_multiple_song"].format(songs+1), color = discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]),))
         else:
             # Just a single song
             try:
@@ -240,15 +240,15 @@ async def _play(ctx, search, loop, search_msg=None):
                         if len(data["entries"]) > 0:
                             data = data["entries"][0]
                         else:
-                            return await editMessage(searching_msg, discord.Embed(title=loc["not_found"].format(search), color = discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]),))
+                            return await editMessage(searching_msg, discord.Embed(title=loc["not_found"].format(search), color = discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]),))
                     title = data["title"]
                     if "duration" in data:
                         await ctx.voice_state.songs.put({"url": search, "title": title, "user": ctx.author, "duration": int(float(data["duration"]))})
                     else:
                         await ctx.voice_state.songs.put({"url": search, "title": title, "user": ctx.author, "duration": int(float(subprocess.check_output(f"ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 \"{search}\"", shell=True).decode("ascii").replace("\r", "").replace("\n", "")))})
                 except:
-                    return await editMessage(searching_msg, discord.Embed(title=loc["messages"]["cannot_add_invalid_file"], color = discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]),))
-                return await editMessage(searching_msg, discord.Embed(title=loc["messages"]["added_song"].format(title.replace("_", "\\_")), color = discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]),))
+                    return await editMessage(searching_msg, discord.Embed(title=loc["messages"]["cannot_add_invalid_file"], color = discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]),))
+                return await editMessage(searching_msg, discord.Embed(title=loc["messages"]["added_song"].format(title.replace("_", "\\_")), color = discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]),))
             else:
                 try:
                     partial = functools.partial(SongSource.ytdl.extract_info, search, download=False)
@@ -256,22 +256,22 @@ async def _play(ctx, search, loop, search_msg=None):
                 except Exception as e:
                     # Get the error message from dictionary, if it doesn't exist in dict, return the original error message
                     message = error_messages.get(str(e), str(e))
-                    return await editMessage(searching_msg, discord.Embed(title=loc["messages"]["error"].format(message), color = discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]),))
+                    return await editMessage(searching_msg, discord.Embed(title=loc["messages"]["error"].format(message), color = discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]),))
                 if "entries" in data:
                     if len(data["entries"]) > 0:
                         data = data["entries"][0]
                     else:
-                        return await editMessage(searching_msg, discord.Embed(title=loc["not_found"].format(search), color=discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]),))
+                        return await editMessage(searching_msg, discord.Embed(title=loc["not_found"].format(search), color=discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]),))
                 # Add the song to the pending list
                 try:
                     duration = int(data["duration"])
                 except:
                     duration = 0
                 await ctx.voice_state.songs.put({"url": data["webpage_url"], "title": data["title"], "user": ctx.author, "duration": duration})
-                await editMessage(searching_msg, discord.Embed(title=loc["messages"]["added_song"].format(data['title']), color=discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]),))
+                await editMessage(searching_msg, discord.Embed(title=loc["messages"]["added_song"].format(data['title']), color=discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]),))
         ctx.voice_state.stopped = False
     except YTDLError as e:
-        await editMessage(searching_msg, discord.Embed(title=loc["messages"]["error"].format(str(e)), color=discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]),))
+        await editMessage(searching_msg, discord.Embed(title=loc["messages"]["error"].format(str(e)), color=discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]),))
 
 # Return a discord.Embed() object, provides 5 songs from the queue/playlist depending on the page requested
 # Parameter "page" greater than the pages that the queue has will set the page to the last page
@@ -460,7 +460,7 @@ class Song:
             self.pause_time = time.time()
         embed = (discord.Embed(title=loc["song_embed"]["title"],
                                 description=loc["song_embed"]["description"].format(self.source.title),
-                                color=discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]),)
+                                color=discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]),)
                     .add_field(name=loc["song_embed"]["video_length"], value=(self.source.duration if status == "play" or self.source.duration == "Unknown" else parse_duration_raw(int(time.time() - self.starttime - self.pause_duration)) + "/" + self.source.duration_raw))
                     .add_field(name=loc["song_embed"]["video_player"], value=self.requester.mention))
         
@@ -876,7 +876,7 @@ class SearchView(discord.ui.View):
         self.add_item(SearchMenu(self.bot, data, cog, ctx))
     async def on_timeout(self):
         if not self.children[0].completed:
-            await self.message.edit(embed=discord.Embed(title=loc["search_menu"]["search_end"], color=discord.Color.from_str(Audioconfig.DATA["BOT_EMBED_COLOUR"]),), view=None)
+            await self.message.edit(embed=discord.Embed(title=loc["search_menu"]["search_end"], color=discord.Color.from_str(Audioconfig["BOT_EMBED_COLOUR"]),), view=None)
 
 class PlayerControlView(discord.ui.View):
     def __init__(self, bot, voice_state):

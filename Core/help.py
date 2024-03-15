@@ -17,7 +17,7 @@ class HelpCommand(commands.HelpCommand):
     async def send_bot_help(self, mapping):
         try :
             self.config = ArusuConfig()
-            embed = discord.Embed(title="Help", color=discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])) #Creates the embed
+            embed = discord.Embed(title="Help", color=discord.Color.from_str(self.config["BOT_EMBED_COLOUR"])) #Creates the embed
             
             for cog, commands in mapping.items(): #mapping.items() returns a list of tuple (Cog, [commands])
                 filtered = await self.filter_commands(commands, sort=True)
@@ -38,7 +38,7 @@ class HelpCommand(commands.HelpCommand):
     async def send_command_help(self, command):
         try :
             self.config = ArusuConfig()
-            embed = discord.Embed(title=self.get_command_signature(command) , color=discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"]))
+            embed = discord.Embed(title=self.get_command_signature(command) , color=discord.Color.from_str(self.config["BOT_EMBED_COLOUR"]))
             
             if command.help: #Returns the help of a command found in the docstrings
                 embed.description = command.help
@@ -56,7 +56,7 @@ class HelpCommand(commands.HelpCommand):
     async def send_help_embed(self, title, description, commands): # a helper function to add commands to an embed
         try :
             self.config = ArusuConfig()
-            embed = discord.Embed(title=title, description=description or "No help found...", color=discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"]))
+            embed = discord.Embed(title=title, description=description or "No help found...", color=discord.Color.from_str(self.config["BOT_EMBED_COLOUR"]))
 
             if filtered_commands := await self.filter_commands(commands):
                 for command in filtered_commands:

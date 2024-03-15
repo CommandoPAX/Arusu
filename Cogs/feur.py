@@ -52,7 +52,7 @@ class Feur(commands.Cog):
         try :
             if message.author.id == self.bot.user.id:  #Stopping the bot from reading its own message
                 return
-            if self.config.DATA[f"{message.guild.id}.FeurEnabled"] != True : 
+            if self.config[f"{message.guild.id}.FeurEnabled"] != True : 
                 return
             #Check if "quoi" is written
             if re.search(r"\bquoi\b\W*$",message.content, flags=re.I) :

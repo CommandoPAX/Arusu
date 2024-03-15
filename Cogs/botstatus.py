@@ -71,25 +71,25 @@ class Botstatus(commands.Cog) :
     @commands.Cog.listener(name = "on_ready")
     async def basestatus(self) :
         try :
-            if self.config.DATA["BOT_STATUS"] == "dnd" :
+            if self.config["BOT_STATUS"] == "dnd" :
                 STATUS = discord.Status.dnd
-            if self.config.DATA["BOT_STATUS"] == "online" :
+            if self.config["BOT_STATUS"] == "online" :
                 STATUS = discord.Status.online
-            if self.config.DATA["BOT_STATUS"] == "idle" :
+            if self.config["BOT_STATUS"] == "idle" :
                 STATUS = discord.Status.idle
-            if self.config.DATA["BOT_STATUS"] == "offline" :
+            if self.config["BOT_STATUS"] == "offline" :
                 STATUS = discord.Status.offline
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="bot_status_listener", Error=e)
 
         try :
-            if self.config.DATA["BOT_ACTIVITY"] == "playing" :
+            if self.config["BOT_ACTIVITY"] == "playing" :
                 ACTIVITY = discord.Game(name = self.config.DATA["BOT_ACTIVITY_TEXT"])
-            if self.config.DATA["BOT_ACTIVITY"] == "listening" :
+            if self.config["BOT_ACTIVITY"] == "listening" :
                 ACTIVITY = discord.Activity(name = self.config.DATA["BOT_ACTIVITY_TEXT"], type = discord.ActivityType.listening)
-            if self.config.DATA["BOT_ACTIVITY"] == "watching" :
+            if self.config["BOT_ACTIVITY"] == "watching" :
                 ACTIVITY = discord.Activity(name = self.config.DATA["BOT_ACTIVITY_TEXT"], type = discord.ActivityType.watching)
-            if self.config.DATA["BOT_ACTIVITY"] == "competing" :
+            if self.config["BOT_ACTIVITY"] == "competing" :
                 ACTIVITY = discord.Activity(name = self.config.DATA["BOT_ACTIVITY_TEXT"], type = discord.ActivityType.competing)
         except Exception as e: 
             LogError(CogName=self.CogName, CogFunct="bot_activity_listener", Error=e)

@@ -18,7 +18,7 @@ class Arusu(Bot):
 
     async def startBot(self):
         """Blocking function that will start the bot"""
-        if self.__config.DATA["BOT_TOKEN"]== '':
+        if self.__config["BOT_TOKEN"]== '':
             print('DEVELOPER NOTE -> Token not found')
             exit()
 
@@ -32,7 +32,7 @@ class Arusu(Bot):
 
     async def __login(self):
         """Coroutine to login the Bot in discord"""
-        await self.login(token=self.__config.DATA["BOT_TOKEN"])
+        await self.login(token=self.__config["BOT_TOKEN"])
 
     async def __connect(self):
         """Coroutine to connect the Bot in discord"""

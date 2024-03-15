@@ -29,7 +29,7 @@ class Welcome(commands.Cog) :
         """
         try :
             self.config.update(f"{ctx.guild.id}.welcome_channel", self.bot.get_channel(channelID).id)
-            await ctx.send(f"Welcome channel set to {self.config.DATA[f'{ctx.guild.id}.welcome_channel']}")
+            await ctx.send(f"Welcome channel set to {self.config[f'{ctx.guild.id}.welcome_channel']}")
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="welcomeset", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set welcome channel")
@@ -43,7 +43,7 @@ class Welcome(commands.Cog) :
             self.config.update(f"{ctx.guild.id}.welcome_message", welcomemsg)
             member = ctx.author
             await ctx.send("Welcome message set to : ")
-            await ctx.send((self.config.DATA[f"{ctx.guild.id}.welcome_message"]).format(Member = member.mention, Server = ctx.guild))
+            await ctx.send((self.config[f"{ctx.guild.id}.welcome_message"]).format(Member = member.mention, Server = ctx.guild))
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="welcomemsg", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set welcome message")
@@ -52,8 +52,8 @@ class Welcome(commands.Cog) :
     async def welcometest(self, ctx) :
         try :
             member = ctx.message.author
-            channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.welcome_channel'])
-            await channel.send((self.config.DATA[f"{member.guild.id}.welcome_message"]).format(Member = member.mention(), Server = member.guild))
+            channel = self.bot.get_channel(self.config[f'{member.guild.id}.welcome_channel'])
+            await channel.send((self.config[f"{member.guild.id}.welcome_message"]).format(Member = member.mention(), Server = member.guild))
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct= "welcome_test", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Error in sending test message")
@@ -73,7 +73,7 @@ class Welcome(commands.Cog) :
         """
         try :
             self.config.update(f"{ctx.guild.id}.leave_channel", self.bot.get_channel(channelID).id)
-            await ctx.send(f"Leave channel set to {self.config.DATA[f'{ctx.guild.id}.leave_channel']}")
+            await ctx.send(f"Leave channel set to {self.config[f'{ctx.guild.id}.leave_channel']}")
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="leaveset", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set leave channel")
@@ -87,7 +87,7 @@ class Welcome(commands.Cog) :
             self.config.update(f"{ctx.guild.id}.leave_message", leavemsg)
             member = ctx.author
             await ctx.send("Leave message set to : ")
-            await ctx.send((self.config.DATA[f"{ctx.guild.id}.leave_message"]).format(Member = member.mention, Server = ctx.guild))
+            await ctx.send((self.config[f"{ctx.guild.id}.leave_message"]).format(Member = member.mention, Server = ctx.guild))
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="leavemsg", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set leave message")
@@ -96,8 +96,8 @@ class Welcome(commands.Cog) :
     async def leavetest(self, ctx) :
         try :
             member = ctx.message.author
-            channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.leave_channel'])
-            await channel.send((self.config.DATA[f"{member.guild.id}.leave_message"]).format(Member = member.mention(), Server = member.guild))
+            channel = self.bot.get_channel(self.config[f'{member.guild.id}.leave_channel'])
+            await channel.send((self.config[f"{member.guild.id}.leave_message"]).format(Member = member.mention(), Server = member.guild))
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="leavetest", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Error in sending test message")
@@ -107,16 +107,16 @@ class Welcome(commands.Cog) :
     @commands.Cog.listener(name = "on_member_join")
     async def welcome(self, member) :
         try : 
-            channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.welcome_channel'])
-            await channel.send((self.config.DATA[f"{member.guild.id}.welcome_message"]).format(Member = member.mention, Server = member.guild))
+            channel = self.bot.get_channel(self.config[f'{member.guild.id}.welcome_channel'])
+            await channel.send((self.config[f"{member.guild.id}.welcome_message"]).format(Member = member.mention, Server = member.guild))
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="on_member_join", Error=e)
     
     @commands.Cog.listener(name = "on_member_remove")
     async def leave(self, member) :
         try : 
-            channel = self.bot.get_channel(self.config.DATA[f'{member.guild.id}.leave_channel'])
-            await channel.send((self.config.DATA[f"{member.guild.id}.leave_message"]).format(Member = member.mention, Server = member.guild))
+            channel = self.bot.get_channel(self.config[f'{member.guild.id}.leave_channel'])
+            await channel.send((self.config[f"{member.guild.id}.leave_message"]).format(Member = member.mention, Server = member.guild))
         except Exception as e:
             LogError(CogName=self.CogName, CogFunct="on_member_remove", Error=e)
 

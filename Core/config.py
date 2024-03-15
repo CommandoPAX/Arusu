@@ -25,4 +25,6 @@ class ArusuConfig() :
             print(index, "has been updated to", value)
         except Exception as e:
             LogError(CogName="ArusuConfig", CogFunct="update", Error=e)
-                
+            
+    def __getitem__(self, x) :
+        return self.DATA[x]

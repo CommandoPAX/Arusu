@@ -19,7 +19,7 @@ class ArusuInit:
 
     def __create_bot(self, willListen: bool):
         if willListen:
-            prefix = self.__config.DATA["BOT_PREFIX"]
+            prefix = self.__config["BOT_PREFIX"]
             bot = Arusu(listingSlash=False,
                             command_prefix=prefix,
                             pm_help=False,
@@ -27,7 +27,7 @@ class ArusuInit:
                             intents=self.__intents)
             bot.help_command = HelpCommand()
         else:
-            prefix = ''.join(choices(string.ascii_uppercase + string.digits, k=4))
+            prefix = self.__config["BOT_PREFIX"]
             bot = Arusu(listingSlash=False,
                             command_prefix=prefix,
                             pm_help=False,

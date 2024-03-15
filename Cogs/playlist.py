@@ -58,7 +58,7 @@ class Playlist(commands.Cog):
 
             embed = (discord.Embed(title="Deck des catastrophes",
                                 description=List,
-                                color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])).set_footer(text=f"Page {page}/{self.pages}"))
+                                color = discord.Color.from_str(self.config["BOT_EMBED_COLOUR"])).set_footer(text=f"Page {page}/{self.pages}"))
             
             embed_list = []
             for i in range(self.pages) :

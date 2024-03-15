@@ -35,7 +35,7 @@ class Utils(commands.Cog) :
         try :
             await ctx.send(embed = discord.Embed(title = "Restarting bot...", 
                                                  description="Maybe next time", 
-                                                 color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])))
+                                                 color = discord.Color.from_str(self.config["BOT_EMBED_COLOUR"])))
             print("------------------------------Restarting Bot------------------------------")
             os.execv(sys.executable, ['python3'] + sys.argv) #Restarts the shell using the same argument as before
         except Exception as e :
@@ -51,7 +51,7 @@ class Utils(commands.Cog) :
         try :
             await ctx.send(embed = discord.Embed(title = "Shutting down...", 
                                                  description="Goodbye world", 
-                                                 color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])))
+                                                 color = discord.Color.from_str(self.config["BOT_EMBED_COLOUR"])))
             print("------------------------------Shutting Down-------------------------------")
             await self.bot.close()
         except Exception as e :
@@ -72,10 +72,10 @@ class Utils(commands.Cog) :
         Tests Arusu's config
         """
         try :
-            await ctx.send(self.config.DATA[f"{ctx.guild.id}.Base"])
+            await ctx.send(self.config[f"{ctx.guild.id}.Base"])
         except :
             self.config.update(f"{ctx.guild.id}.Base", "Arusu's config working")
-            await ctx.send(self.config.DATA[f"{ctx.guild.id}.Base"])
+            await ctx.send(self.config[f"{ctx.guild.id}.Base"])
 
     @utils.command(name = "embed_colour", usage = "", description = "Changes the embed default color")
     async def embed_colour_set(self, ctx, colour = "#1900ff") :
@@ -97,14 +97,14 @@ class Utils(commands.Cog) :
             try :
                 for i in self.config.DATA.keys() :
                     if i != "BOT_TOKEN" :
-                        Settings += f"**{i}** : {self.config.DATA[i]} \n"
+                        Settings += f"**{i}** : {self.config[i]} \n"
             except Exception as e :
                 LogError(CogName=self.CogName, CogFunct="showset", Error=e)
                 await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not get settings from config file")
 
             embed = (discord.Embed(title="Settings",
                                 description=Settings,
-                                color = discord.Color.from_str(self.config.DATA["BOT_EMBED_COLOUR"])))
+                                color = discord.Color.from_str(self.config["BOT_EMBED_COLOUR"])))
             await ctx.send(embed = embed)
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="prefixset", Error=e)

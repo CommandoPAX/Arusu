@@ -36,7 +36,7 @@ class Guild_Manager(commands.Cog):
             await ctx.reply("Trying to update guild icon")
             file_path = "./Data/Custom/" + self.CogName + "/"
             try :
-                old_id = self.config.DATA[f"{ctx.guild.id}.IconName"]
+                old_id = self.config[f"{ctx.guild.id}.IconName"]
                 os.system(f"rm {file_path + old_id}")           # deletes the old file to avoid cluttering disk space
             except : 
                 pass
@@ -72,7 +72,7 @@ class Guild_Manager(commands.Cog):
         """
         try :
             file_path = "./Data/Custom/" + self.CogName + "/"
-            id = self.config.DATA[f"{ctx.guild.id}.IconName"]
+            id = self.config[f"{ctx.guild.id}.IconName"]
             path = file_path + id 
             
             with open(path, "rb") as f : 

@@ -64,7 +64,7 @@ class AI(commands.Cog):
         """
         try :
             self.config.update(f"{ctx.guild.id}.AIChannel", self.bot.get_channel(channel_id).id)
-            await ctx.send(f"AI channel set to {self.config.DATA[f'{ctx.guild.id}.AIChannel']}")
+            await ctx.send(f"AI channel set to {self.config[f'{ctx.guild.id}.AIChannel']}")
         except Exception as e :
             LogError(CogName=self.CogName, CogFunct="set_main_channel", Error=e)
             await ErrorEmbed(ctx, Error=e, CustomMSG= "Could not set main AI channel")
@@ -76,10 +76,10 @@ class AI(commands.Cog):
         Activate or deactivate the bot's AI on the guild
         """
         try :
-            if self.config.DATA[f"{ctx.guild.id}.CAIEnabled"] == False : 
+            if self.config[f"{ctx.guild.id}.CAIEnabled"] == False : 
                 self.config.update(f"{ctx.guild.id}.CAIEnabled", True)
                 await ctx.send("AI has been enabled on this server")
-            elif self.config.DATA[f"{ctx.guild.id}.CAIEnabled"] == True : 
+            elif self.config[f"{ctx.guild.id}.CAIEnabled"] == True : 
                 self.config.update(f"{ctx.guild.id}.CAIEnabled", False)
                 await ctx.send("AI has been disabled on this server")
         except Exception as e:
